@@ -1,14 +1,7 @@
 'use strict';
 
-import crypto from 'crypto';
+import moment from 'moment';
 import db from './db';
-
-export function setGreeting(greeting) {
-  return {
-    type: 'SET_GREETING',
-    greeting
-  };
-}
 
 export function togglePeopleModal() {
   return {
@@ -16,49 +9,49 @@ export function togglePeopleModal() {
   };
 }
 
-export function fetchPeople() {
+export function fetchDocs() {
   return db.allDocs({
     include_docs: true // eslint-disable-line camelcase
-  }).then(people => {
+  }).then(result => {
     return {
-      type: 'FETCH_PEOPLE',
-      people: mapDocsFromPouch(people)
+      type: 'FETCH',
+      docs: mapDocsFromPouch(result)
     };
   }).catch(err => {
     throw err;
   });
 }
 
-export function deletePerson() {
-  return {
-    type: 'DELETE_PERSON'
-  };
-}
-
-export function deletePeople() {
+export function searchDocs(args={
+  from: moment(new Date()).startOf('day').subtract(30, 'days').toISOString(),
+  to: moment(new Date()).toISOString()
+}) {
   return db.allDocs({
+    ...args,
     include_docs: true // eslint-disable-line camelcase
-  }).then(records => {
-    return Promise.all(
-      records.rows.map(row => row.doc)
-        .map(doc => db.remove(doc))
-    ).then(() => {
-      return {
-        type: 'DELETE_PEOPLE'
-      };
-    });
+  }).then(result => {
+    return {
+      type: 'FETCH',
+      docs: mapDocsFromPouch(result)
+    };
   }).catch(err => {
     throw err;
   });
 }
 
-export function upsertPerson(name) {
+export function deleteDoc() {
+  return {
+    type: 'DELETE'
+  };
+}
+
+export function insertDoc(name) {
   return db.put({
     _id: generateId(),
     name: name
   }).then(() => {
     return {
-      type: 'UPSERT_PERSON'
+      type: 'INSERT'
     };
   }).catch(err => {
     throw err;
@@ -74,5 +67,5 @@ function mapDocsFromPouch(records) {
 }
 
 function generateId() {
-  return crypto.randomBytes(16).toString('hex');
+  return new Date().toJSON();
 }

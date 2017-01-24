@@ -3,13 +3,13 @@
 import css from '../styles/app';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
-import DeletePeople from './delete-people';
 import MUI from 'material-ui';
 import NavBar from './nav-bar';
 import React from 'react';
 import ShowPeople from './show-people';
+import Doc from './doc.js';
 import { connect } from 'react-redux';
-import { fetchPeople } from '../redux/actions';
+import { fetchDocs } from '../redux/actions';
 
 const {
   Card,
@@ -23,8 +23,7 @@ injectTapEventPlugin();
 let App = React.createClass({
   propTypes: {
     children: React.PropTypes.object,
-    greeting: React.PropTypes.string,
-    people: React.PropTypes.array,
+    docs: React.PropTypes.array,
     history: React.PropTypes.object,
     location: React.PropTypes.object
   },
@@ -40,25 +39,25 @@ let App = React.createClass({
   },
 
   componentDidMount() {
-    store.dispatch(fetchPeople());
+    store.dispatch(fetchDocs());
   },
 
   render() {
-    let { greeting, people, history, location } = this.props;
+    let { docs, history, location } = this.props;
 
+    console.log(docs);
     return (
       <div>
         <NavBar history={history} pathname={location.pathname} />
-
         <Card style={css.appCard}>
-          <h1>{greeting}</h1>
-
-          <ShowPeople people={people} />
-
-          <DeletePeople />
-
+          <ShowPeople docs={docs} />
           <div>
-            {this.props.children}
+            {docs.map(doc => {
+              return (
+                <Doc key={doc._id} doc={doc} />
+              );
+            })
+          }
           </div>
         </Card>
       </div>
@@ -70,7 +69,6 @@ export default connect(mapStateToProps)(App);
 
 function mapStateToProps(state) {
   return {
-    greeting: state.greeting,
-    people: state.people
+    docs: state.docs
   };
 }

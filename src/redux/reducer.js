@@ -1,32 +1,22 @@
 'use strict';
 
-let initialState = {
-  greeting: 'Greetings!',
-  peopleModalOpen: false
-};
-
-export default (state=initialState, action) => {
+export default (state={docs: []}, action) => {
   switch (action.type) {
-  case 'SET_GREETING':
+  case 'FETCH':
     return {
       ...state,
-      greeting: action.greeting
+      docs: action.docs
     };
   case 'TOGGLE_PEOPLE_MODAL':
     return {
       ...state,
       peopleModalOpen: !state.peopleModalOpen
     };
-  case 'FETCH_PEOPLE':
-    return {
-      ...state,
-      people: action.people
-    };
-  case 'DELETE_PERSON':
+  case 'DELETE':
     return state;
-  case 'DELETE_PEOPLE':
+  case 'INSERT':
     return state;
-  case 'UPSERT_PERSON':
+  case 'UPDATE':
     return state;
   default:
     return state;

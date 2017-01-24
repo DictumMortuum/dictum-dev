@@ -13,7 +13,7 @@ const {
 
 let ShowPeople = React.createClass({
   propTypes: {
-    people: React.PropTypes.array,
+    docs: React.PropTypes.array,
     peopleModalOpen: React.PropTypes.oneOfType([
       React.PropTypes.func,
       React.PropTypes.bool
@@ -25,7 +25,7 @@ let ShowPeople = React.createClass({
   },
 
   render() {
-    let { people, peopleModalOpen } = this.props;
+    let { docs, peopleModalOpen } = this.props;
 
     return (
       <span>
@@ -35,7 +35,7 @@ let ShowPeople = React.createClass({
         <Dialog title="People in the Redux Store" ref="peopleDialog"
                 autoDetectWindowHeight={true} autoScrollBodyContent={true}
                 open={peopleModalOpen} onRequestClose={this._togglePeopleModal}>
-          <div><pre>{JSON.stringify(people, null, 2)}</pre></div>
+          <div><pre>{JSON.stringify(docs, null, 2)}</pre></div>
         </Dialog>
       </span>
     );
