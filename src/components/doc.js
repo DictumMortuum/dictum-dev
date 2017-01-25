@@ -8,51 +8,52 @@ const { Divider, FlatButton, FontIcon } = MUI;
 export default React.createClass({
 
   propTypes: {
-    doc: React.PropTypes.object,
+    date: React.PropTypes.object,
     ticket: React.PropTypes.string,
-    lang: React.PropTypes.array
+    company: React.PropTypes.string,
+    product: React.PropTypes.string,
+    type: React.PropTypes.string,
+    lang: React.PropTypes.array,
+    text: React.PropTypes.string
   },
 
   getDefaultProps() {
     return {
       ticket: null,
-      lang: []
+      company: null,
+      product: null,
+      type: null,
+      lang: [],
+      desc: ""
     };
   },
 
-  render() {
-    let { lang } = this.props;
-
-    const date = new Date(this.props.doc._id).toLocaleTimeString('el-GR', {
+  formatDate(date) {
+    return new Date(date).toLocaleTimeString('el-GR', {
       hour: '2-digit', minute: '2-digit', second: '2-digit'
-    });
+    })
+  },
 
-    const avatar = (
-      <FloatingActionButton
-        mini={true} secondary={true}
-        onTouchTap={this.handleDelete}
-        zDepth={1}
-      >
-        <FontIcon className="material-icons">clear</FontIcon>
-      </FloatingActionButton>
-    );
+  formatLang(lang) {
+    return lang.map(l => {
+      return (
+        <FlatButton key={l} label={l} />
+      );
+    })
+  },
+
+  render() {
+    let { ticket, company, product, type, lang, desc, date } = this.props;
 
     return (
       <Card>
         <CardHeader
-          title={date}
-          subtitle={this.props.doc.type}
-          avatar={avatar}
+          title={formatDate(date)}
+          subtitle={type}
         />
-        <CardText>{this.props.doc.desc}</CardText>
+        <CardText>{desc}</CardText>
         <Divider />
-        <div>
-        {lang.map(l => {
-          return (
-            <FlatButton key={l} label={l} />
-          );
-        })}
-        </div>
+        <div>{formatLang(lang)}</div>
       </Card>
     );
   }
