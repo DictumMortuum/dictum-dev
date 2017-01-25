@@ -5,6 +5,8 @@ import PouchDB from 'pouchdb';
 import { fetchDocs } from './actions';
 
 let db = new PouchDB('http://localhost:5984/test');
+// then replicate this to a pouch instance
+// then use the pouch instance to keep couchdb clean
 
 db.changes({
   live: true,

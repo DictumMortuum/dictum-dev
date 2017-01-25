@@ -38,8 +38,6 @@ export default (state=defaultState, action) => {
       ...state,
       docs: [...state.docs, action.doc]
     };
-  case 'UPDATE':
-    return state;
   case 'CONFIG':
     return {
       ...state,

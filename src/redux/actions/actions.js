@@ -51,32 +51,6 @@ export function receiveDelete(id) {
   };
 }
 
-/* TODO the configuration doc name should be hardcoded */
-export function sendConfig(doc) {
-  return db.get('dictum_config').then((doc) => {
-    return receiveConfig(doc);
-  }).catch(err => {
-    /* TODO check if that err.name === 'not_found' is still valid
-    if (err.name === 'not_found') {
-      return {
-        type: 'CONFIG_DEFAULT'
-      };
-    } else {
-      throw err;
-    }*/
-    return {
-      type: 'CONFIG_DEFAULT'
-    };
-  });
-}
-
-export function receiveConfig(doc) {
-  return {
-    type: 'CONFIG',
-    doc: doc
-  };
-}
-
 function mapDocsFromPouch(records) {
   if (!records) {
     return [];
