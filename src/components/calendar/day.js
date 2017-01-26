@@ -4,6 +4,7 @@ import React from 'react';
 import Doc from './doc';
 import { dayStyle } from '../../styles/app';
 import { Card, CardHeader } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 
 export default React.createClass({
   propTypes: {
@@ -22,7 +23,7 @@ export default React.createClass({
     let locale = 'gr-el';
 
     return (
-      <Card>
+      <Card zDepth={0}>
         <CardHeader
           style={dayStyle}
           title={date.toLocaleDateString(locale, options)}
@@ -30,16 +31,19 @@ export default React.createClass({
         <div>
           {docs.map(d => {
             return (
-              <Doc
-                key={d._id}
-                date={d._id}
-                ticket={d.ticket}
-                company={d.company}
-                product={d.product}
-                type={d.type}
-                lang={d.lang}
-                desc={d.desc}
-              />
+              <div>
+                <Doc
+                  key={d._id}
+                  date={d._id}
+                  ticket={d.ticket}
+                  company={d.company}
+                  product={d.product}
+                  type={d.type}
+                  lang={d.lang}
+                  desc={d.desc}
+                />
+                <Divider />
+              </div>
             );
           })}
         </div>

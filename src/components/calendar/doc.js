@@ -31,16 +31,17 @@ export default React.createClass({
     };
   },
 
-  handleExpandChange(expanded) {
+  handleToggle(expanded) {
     this.setState({expanded: expanded});
   },
 
   render() {
     // let { ticket, company, product, type, lang, desc, date } = this.props;
     let { type, lang, desc, date } = this.props;
+    let { expanded } = this.state;
 
     return (
-      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+      <Card zDepth={0} expanded={expanded} onExpandChange={this.handleToggle}>
         <CardHeader
           title={new Date(date).toLocaleTimeString('el-GR', {
             hour: '2-digit', minute: '2-digit', second: '2-digit'
@@ -49,7 +50,7 @@ export default React.createClass({
           actAsExpander={true}
           showExpandableButton={true}
         />
-        <CardText expandable={true}>
+        <CardText zDepth={0} expandable={true}>
           <div>{desc}</div>
           <div>{lang.map(l => {
             return (
