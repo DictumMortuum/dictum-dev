@@ -6,7 +6,7 @@ import React from 'react';
 import Calendar from './calendar/calendar';
 import { connect } from 'react-redux';
 import { fetchDocs } from '../redux/actions/docs';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -32,7 +32,7 @@ let App = React.createClass({
     let { docs } = this.props;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
         <Calendar docs={docs} />
       </MuiThemeProvider>
     );

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Doc from './doc';
+import { dayStyle } from '../../styles/app';
+import { Card, CardHeader } from 'material-ui/Card';
 
 export default React.createClass({
   propTypes: {
@@ -20,8 +22,11 @@ export default React.createClass({
     let locale = 'gr-el';
 
     return (
-      <div>
-        <h3>{date.toLocaleDateString(locale, options)}</h3>
+      <Card>
+        <CardHeader
+          style={dayStyle}
+          title={date.toLocaleDateString(locale, options)}
+        />
         <div>
           {docs.map(d => {
             return (
@@ -38,7 +43,7 @@ export default React.createClass({
             );
           })}
         </div>
-      </div>
+      </Card>
     );
   }
 });

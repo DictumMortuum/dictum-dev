@@ -3,8 +3,8 @@
 import React from 'react';
 import filter from './filter';
 import Day from './day';
-// import css from '../../styles/app';
-import {Card, CardHeader } from 'material-ui/Card';
+import { monthStyle } from '../../styles/app';
+import { Card, CardHeader } from 'material-ui/Card';
 
 export default React.createClass({
   propTypes: {
@@ -20,23 +20,13 @@ export default React.createClass({
     let options = { year: 'numeric', month: 'long' };
     // TODO this in config
     let locale = 'gr-el';
-/*
-    return (
-      <div>
-        <h3 style={css.month}>{date.toLocaleDateString(locale, options)}</h3>
-        <div>
-          {days.map(d => {
-            return (
-              <Day key={d.id} id={d.id} year={year} month={id} docs={d.docs} />
-            );
-          })}
-        </div>
-      </div>
-    );
-*/
+
     return (
       <Card>
-        <CardHeader title={date.toLocaleDateString(locale, options)} />
+        <CardHeader
+          style={monthStyle}
+          title={date.toLocaleDateString(locale, options)}
+        />
         <div>
           {days.map(d => {
             return (

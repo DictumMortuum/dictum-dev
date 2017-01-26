@@ -1,11 +1,9 @@
 'use strict';
 
-export default {
-  month: {
-    padding: '10px',
-    textAlign: 'center'
-  },
-  day: {
-    padding: '10px'
-  }
+export const monthStyle = {
+  backgroundColor: '#BBDEFB'
+};
+
+export const dayStyle = {
+  backgroundColor: '#E3F2FD'
 };
