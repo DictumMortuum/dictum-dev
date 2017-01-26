@@ -16,7 +16,7 @@ const defaultState = {
     jira: 'PMU',
     lang: ['tcl', 'informix', 'sql']
   }]
-}
+};
 
 export default (state=defaultState, action) => {
   switch (action.type) {

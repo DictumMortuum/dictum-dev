@@ -2,8 +2,10 @@
 
 import store from './store';
 import PouchDB from 'pouchdb';
-import { fetchDocs } from './actions';
+import { receiveConfig } from './actions/config';
+import { receiveDoc } from './actions/docs';
 
+let regex = /\b[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z\b/;
 let db = new PouchDB('http://localhost:5984/test');
 // then replicate this to a pouch instance
 // then use the pouch instance to keep couchdb clean
@@ -19,15 +21,12 @@ function callback(change) {
   // change.id contains the id
   // change.doc contains the doc
 
-  if (change.deleted) {
-    store.dispatch(receiveDelete(change.id));
-  } else if (/1-*/.match(change.id)) {
-    // TODO I guess I can't have a new insert with an _rev higher than 1.
-    store.dispatch(receiveInsert(change.doc));
-  } else
-    // TODO see if I can avoid refetching everything on document updates.
-    store.dispatch(sendFetch())
+  if(regex.test(change.id)) {
+    store.dispatch(receiveDoc(change));
+  } else {
+    store.dispatch(receiveConfig(change.doc));
   }
 }
 
 export default db;
+export regex;

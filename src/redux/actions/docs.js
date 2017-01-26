@@ -1,6 +1,6 @@
 'use strict';
 
-import db from './db';
+import db from '../db';
 
 export function fetchDocs() {
   return db.allDocs({
@@ -8,50 +8,78 @@ export function fetchDocs() {
   }).then(result => {
     return {
       type: 'DOCS_FETCH',
-      docs: _fetch(result)
+      docs: result
     };
   }).catch(err => {
     throw err;
   });
 }
 
+// FROM pouch
 export function fetchDoc(id) {
-  return db.get(id).then(result => {
+  if(regex.test(id)) {
     return {
-      type: 'DOC_INSERT',
-      doc: result
+      type: 'DEFAULT'
     };
-  }).catch(err => {
-    throw err;
-  });
+  } else {
+    return db.get(id).then(result => {
+      return {
+        type: 'DOC_INSERT',
+        doc: result
+      };
+    }).catch(err => {
+      throw err;
+    });
+  }
 }
 
+// TO pouch
 export function insertDoc(doc) {
-  return db.put(doc).then(() => {
+  if(regex.test(doc.id)) {
     return {
-      type 'DOC_INSERT',
-      doc: doc
-    }
-  }).catch(err => {
-    throw err;
-  });
+      type: 'DEFAULT'
+    };
+  } else {
+    return db.put(doc).then(() => {
+      return {
+        type: 'DOC_INSERT',
+        doc: doc
+      };
+    }).catch(err => {
+      throw err;
+    });
+  }
 }
 
-export function deleteDoc(id, rev) {
-  return db.remove(id, rev).then(() => {
+// FROM replication
+export function receiveDoc(change) {
+  if(change.deleted) {
     return {
       type: 'DOC_DELETE',
-      id: id
+      id: change.id
     };
-  }).catch(err => {
-    throw err;
-  });
+  } else {
+    return {
+      type: 'DOC_INSERT',
+      doc: change.doc
+    };
+  }
 }
 
-function _fetch(records) {
-  if (!records) {
-    return [];
+// TO pouch
+export function deleteDoc(id, rev) {
+  if(regex.test(id)) {
+    return {
+      type: 'DEFAULT'
+    };
+  } else {
+    return db.remove(id, rev).then(() => {
+      return {
+        type: 'DOC_DELETE',
+        id: id
+      };
+    }).catch(err => {
+      throw err;
+    });
   }
-
-  return records.rows.map(r => r.doc);
 }

@@ -1,33 +1,13 @@
 'use strict';
 
-import { fetchDoc } from './docs';
+import db from '../db';
 
-/*
-TODO maybe something like this
-function registerCastWithId(id, name) {
-  return { type: REGISTER_CAST, id, name };
-}
-
-function generateNextId() {
- // ...
-}
-
-export function registerCast(name) {
-  return dispatch => {
-    let id = generateNextId();
-    dispatch(registerCastWithId(id, name));
-    return id;
-  }
-}
-*/
-
-/* TODO the configuration doc name should be hardcoded */
+/* TODO the configuration doc name should not be hardcoded */
 export function fetchConfig() {
-  return fetchDoc('dictum_config').then((result) => {
-    console.log(result);
+  return db.get('dictum_config').then(result => {
     return {
       type: 'CONFIG',
-      doc: result.doc
+      doc: result
     };
   }).catch(err => {
     /* TODO check if that err.name === 'not_found' is still valid
@@ -42,4 +22,11 @@ export function fetchConfig() {
       type: 'CONFIG_DEFAULT'
     };
   });
+}
+
+export function receiveConfig(doc) {
+  return {
+    type: 'CONFIG',
+    doc: doc
+  };
 }
