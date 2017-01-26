@@ -1,6 +1,7 @@
 'use strict';
 
 import db from '../db';
+import { regex } from '../db';
 
 export function fetchDocs() {
   return db.allDocs({
@@ -17,7 +18,7 @@ export function fetchDocs() {
 
 // FROM pouch
 export function fetchDoc(id) {
-  if(regex.test(id)) {
+  if (regex.test(id)) {
     return {
       type: 'DEFAULT'
     };
@@ -35,7 +36,7 @@ export function fetchDoc(id) {
 
 // TO pouch
 export function insertDoc(doc) {
-  if(regex.test(doc.id)) {
+  if (regex.test(doc.id)) {
     return {
       type: 'DEFAULT'
     };
@@ -53,7 +54,7 @@ export function insertDoc(doc) {
 
 // FROM replication
 export function receiveDoc(change) {
-  if(change.deleted) {
+  if (change.deleted) {
     return {
       type: 'DOC_DELETE',
       id: change.id
@@ -68,7 +69,7 @@ export function receiveDoc(change) {
 
 // TO pouch
 export function deleteDoc(id, rev) {
-  if(regex.test(id)) {
+  if (regex.test(id)) {
     return {
       type: 'DEFAULT'
     };

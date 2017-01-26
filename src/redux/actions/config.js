@@ -18,6 +18,7 @@ export function fetchConfig() {
     } else {
       throw err;
     }*/
+    console.log(err);
     return {
       type: 'CONFIG_DEFAULT'
     };

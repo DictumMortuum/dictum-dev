@@ -1,12 +1,12 @@
 'use strict';
 
 import React from 'react';
-import filter from '../filter';
-import year from './year';
+import filter from './filter';
+import Year from './year';
 
 export default React.createClass({
   propTypes: {
-    docs: React.PropTypes.object
+    docs: React.PropTypes.array
   },
 
   render() {
@@ -17,7 +17,7 @@ export default React.createClass({
       <div>
         {years.map(y => {
           return (
-            <year key={y.id} docs={y.docs} />
+            <Year key={y.id} id={y.id} docs={y.docs} />
           );
         })}
       </div>

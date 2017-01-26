@@ -5,8 +5,8 @@ import PouchDB from 'pouchdb';
 import { receiveConfig } from './actions/config';
 import { receiveDoc } from './actions/docs';
 
-let regex = /\b[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z\b/;
-let db = new PouchDB('http://localhost:5984/test');
+export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z/;
+let db = new PouchDB('http://localhost:5984/work');
 // then replicate this to a pouch instance
 // then use the pouch instance to keep couchdb clean
 
@@ -21,7 +21,7 @@ function callback(change) {
   // change.id contains the id
   // change.doc contains the doc
 
-  if(regex.test(change.id)) {
+  if (regex.test(change.id)) {
     store.dispatch(receiveDoc(change));
   } else {
     store.dispatch(receiveConfig(change.doc));
@@ -29,4 +29,3 @@ function callback(change) {
 }
 
 export default db;
-export regex;

@@ -1,22 +1,14 @@
 'use strict';
 
-import css from '../styles/app';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
-import MUI from 'material-ui';
-import NavBar from './nav-bar';
 import React from 'react';
-import ShowPeople from './show-people';
-import Doc from './doc.js';
+import Calendar from './calendar/calendar';
 import { connect } from 'react-redux';
-import { fetchDocs } from '../redux/actions';
-
-const {
-  Card,
-  Styles
-} = MUI;
-
-const { ThemeManager } = Styles;
+import { fetchDocs } from '../redux/actions/docs';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 injectTapEventPlugin();
 
@@ -32,35 +24,17 @@ let App = React.createClass({
     muiTheme: React.PropTypes.object
   },
 
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(Styles.LightRawTheme)
-    };
-  },
-
   componentDidMount() {
     store.dispatch(fetchDocs());
   },
 
   render() {
-    let { docs, history, location } = this.props;
+    let { docs } = this.props;
 
-    console.log(docs);
     return (
-      <div>
-        <NavBar history={history} pathname={location.pathname} />
-        <Card style={css.appCard}>
-          <ShowPeople docs={docs} />
-          <div>
-            {docs.map(doc => {
-              return (
-                <Doc key={doc._id} doc={doc} />
-              );
-            })
-          }
-          </div>
-        </Card>
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <Calendar docs={docs} />
+      </MuiThemeProvider>
     );
   }
 });

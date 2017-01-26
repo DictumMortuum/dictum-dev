@@ -5,12 +5,12 @@ import App from './app';
 import Index from './index';
 import NoMatch from './no-match';
 import React from 'react';
-import { IndexRoute, Router, Route } from 'react-router';
+import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 export default React.createClass({
   render() {
     return (
-      <Router>
+      <Router history={browserHistory}>
         <Route name="root" path="/" component={App}>
           <IndexRoute name="index" component={Index} />
           <Route name="about" path="about" component={About}/>

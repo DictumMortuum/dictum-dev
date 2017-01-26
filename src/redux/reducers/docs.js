@@ -4,24 +4,30 @@ import { regex } from '../db';
 
 function _fetch(records) {
   if (!records) {
-    return {};
+    return [];
   }
 
   return records.rows
-    .filter(doc => regex.match(doc.key)); /* filter out configuration docs */
-    .map(r => r.doc)                      /* remove couch stuff */
-    .reduce((acc, cur) => {               /* make into associative array */
-      acc[cur.key] = cur;
+    // filter out configuration docs
+    .filter(doc => regex.test(doc.key))
+    // regex.test(doc.key))
+    // remove couch stuff
+    .map(r => r.doc);
+    // make into associative array
+    /*
+    .reduce((acc, cur) => {
+      acc[cur._id] = cur;
       return acc;
     }, {});
+    */
 }
 
-export default (state={}, action) => {
+export default (state=[], action) => {
   switch (action.type) {
   case 'DOCS_FETCH':
     return _fetch(action.docs);
   case 'DOC_DELETE':
-    var temp = Object.assign({}, state);
+    let temp = Object.assign({}, state);
     delete temp[action.id];
     return temp;
   case 'DOC_INSERT':
