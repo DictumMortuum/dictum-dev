@@ -6,9 +6,10 @@ import reduxLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import config from './reducers/config';
 import docs from './reducers/docs';
+import date from './reducers/date';
 
 const logger = reduxLogger();
 
 let createStoreWithMiddleware = applyMiddleware(thunk, promise, logger)(createStore);
 
-export default createStoreWithMiddleware(combineReducers({ config, docs }));
+export default createStoreWithMiddleware(combineReducers({ config, docs, date }));

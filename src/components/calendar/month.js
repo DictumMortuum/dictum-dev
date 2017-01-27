@@ -5,8 +5,9 @@ import filter from './filter';
 import Day from './day';
 import { monthStyle } from '../../styles/app';
 import { Card, CardHeader } from 'material-ui/Card';
+import { connect } from 'react-redux';
 
-export default React.createClass({
+let Month = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     year: React.PropTypes.string,
@@ -15,11 +16,11 @@ export default React.createClass({
 
   render() {
     let { id, year, docs } = this.props;
+    let { config } = this.state;
     let days = filter(docs, 'D');
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
     let options = { year: 'numeric', month: 'long' };
-    // TODO this in config
-    let locale = 'gr-el';
+    let locale = config.locale;
 
     return (
       <Card>
@@ -38,3 +39,9 @@ export default React.createClass({
     );
   }
 });
+
+export default connect(state => {
+  return {
+    config: state.config
+  };
+})(Month);

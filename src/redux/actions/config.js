@@ -3,25 +3,20 @@
 import db from '../db';
 
 /* TODO the configuration doc name should not be hardcoded */
-export function fetchConfig() {
-  return db.get('dictum_config').then(result => {
+export function fetchConfig(config) {
+  return db.get(config).then(result => {
     return {
       type: 'CONFIG',
       doc: result
     };
   }).catch(err => {
-    /* TODO check if that err.name === 'not_found' is still valid
     if (err.name === 'not_found') {
       return {
         type: 'CONFIG_DEFAULT'
       };
     } else {
       throw err;
-    }*/
-    console.log(err);
-    return {
-      type: 'CONFIG_DEFAULT'
-    };
+    }
   });
 }
 

@@ -3,13 +3,14 @@
 import db from '../db';
 import { regex } from '../db';
 
-export function fetchDocs() {
+export function fetchDocs(args={}) {
   return db.allDocs({
+    ...args,
     include_docs: true // eslint-disable-line camelcase
   }).then(result => {
     return {
       type: 'DOCS_FETCH',
-      docs: result
+      docs: result.rows || []
     };
   }).catch(err => {
     throw err;
@@ -26,7 +27,8 @@ export function fetchDoc(id) {
     return db.get(id).then(result => {
       return {
         type: 'DOC_INSERT',
-        doc: result
+        doc: result,
+        id: id
       };
     }).catch(err => {
       throw err;
@@ -44,7 +46,8 @@ export function insertDoc(doc) {
     return db.put(doc).then(() => {
       return {
         type: 'DOC_INSERT',
-        doc: doc
+        doc: doc,
+        id: doc.id
       };
     }).catch(err => {
       throw err;
@@ -62,6 +65,7 @@ export function receiveDoc(change) {
   } else {
     return {
       type: 'DOC_INSERT',
+      id: change.id,
       doc: change.doc
     };
   }
