@@ -3,6 +3,7 @@
 import React from 'react';
 import filter from './filter';
 import Year from './year';
+import Bar from './bar';
 
 export default React.createClass({
   propTypes: {
@@ -15,6 +16,7 @@ export default React.createClass({
 
     return (
       <div>
+        <Bar />
         {years.map(y => {
           return (
             <Year key={y.id} id={y.id} docs={y.docs} />
