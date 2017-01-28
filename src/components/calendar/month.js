@@ -11,12 +11,12 @@ let Month = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     year: React.PropTypes.string,
-    docs: React.PropTypes.array
+    docs: React.PropTypes.array,
+    config: React.PropTypes.object
   },
 
   render() {
-    let { id, year, docs } = this.props;
-    let { config } = this.state;
+    let { id, year, docs, config } = this.props;
     let days = filter(docs, 'D');
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
     let options = { year: 'numeric', month: 'long' };

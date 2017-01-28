@@ -22,14 +22,14 @@ export default (docs, granularity) => {
 
   for (let k in filtered) {
     if (Object.prototype.hasOwnProperty.call(filtered, k)) {
-      temp.push({
+      temp.unshift({
         id: k,
         docs: filtered[k]
       });
     }
   }
 
-  console.log(granularity, temp);
+  // console.log(granularity, temp);
 
   return temp;
 };

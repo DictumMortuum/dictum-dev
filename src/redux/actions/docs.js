@@ -4,10 +4,9 @@ import db from '../db';
 import { regex } from '../db';
 
 export function fetchDocs(args={}) {
-  return db.allDocs({
-    ...args,
+  return db.allDocs(Object.assign({}, args, {
     include_docs: true // eslint-disable-line camelcase
-  }).then(result => {
+  })).then(result => {
     return {
       type: 'DOCS_FETCH',
       docs: result.rows || []

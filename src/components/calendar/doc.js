@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 export default React.createClass({
   getInitialState() {
     return {
-      expanded: false
+      expanded: this.props.config.expandedDoc
     };
   },
 
@@ -45,15 +45,17 @@ export default React.createClass({
     return (
       <Card zDepth={0} expanded={expanded} onExpandChange={this.handleToggle}>
         <CardHeader
-          title={new Date(date).toLocaleTimeString(config.locale, {
-            hour: '2-digit', minute: '2-digit', second: '2-digit'
-          })}
-          subtitle={type}
+          title={type}
           actAsExpander={true}
           showExpandableButton={true}
         />
-        <CardText zDepth={0} expandable={true}>{desc}</CardText>
-        <CardActions zDepth={0} expandable={true}>
+        <CardText expandable={true}>
+          {new Date(date).toLocaleTimeString(config.locale, {
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          })}
+          {desc}
+        </CardText>
+        <CardActions expandable={true}>
           {lang.map(l => {
             return (
               <FlatButton key={l} label={l} />

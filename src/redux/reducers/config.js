@@ -1,7 +1,9 @@
 'use strict';
 
 const defaultState = {
-  locale: 'gr-el',
+  locale: 'el-gr',
+  expandedDay: true,
+  expandedDoc: false,
   company: ['openbet', 'unify'],
   product: [{
     company: 'openbet',
@@ -28,11 +30,11 @@ const defaultState = {
 
 export default (state=defaultState, action) => {
   switch (action.type) {
-    case 'CONFIG':
-      return action.doc;
-    case 'CONFIG_DEFAULT':
-      return defaultState;
-    default:
-      return state;
+  case 'CONFIG':
+    return action.doc;
+  case 'CONFIG_DEFAULT':
+    return defaultState;
+  default:
+    return state;
   }
 };

@@ -27,8 +27,8 @@ let App = React.createClass({
   },
 
   componentDidMount() {
-    store.dispatch(fetchDocs());
     store.dispatch(fetchConfig('dictum_config'));
+    store.dispatch(fetchDocs());
   },
 
   render() {
