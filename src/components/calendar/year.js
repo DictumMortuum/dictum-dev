@@ -12,7 +12,7 @@ export default React.createClass({
 
   render() {
     let { id, docs } = this.props;
-    let months = filter(docs, 'M');
+    let months = filter(docs, d => d.getMonth());
 
     return (
       <div>

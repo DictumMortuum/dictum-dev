@@ -12,7 +12,7 @@ export default React.createClass({
 
   render() {
     let { docs } = this.props;
-    let years = filter(docs, 'YYYY');
+    let years = filter(docs, d => d.getFullYear());
 
     return (
       <div>

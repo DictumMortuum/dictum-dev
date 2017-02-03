@@ -17,7 +17,7 @@ let Month = React.createClass({
 
   render() {
     let { id, year, docs, config } = this.props;
-    let days = filter(docs, 'D');
+    let days = filter(docs, d => d.getDate());
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
     let options = { year: 'numeric', month: 'long' };
     let locale = config.locale;
