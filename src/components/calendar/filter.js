@@ -7,7 +7,7 @@ export default (docs, granularity) => {
   let temp = [];
 
   let filtered = docs.reduce((acc, cur) => {
-    let d = granularity(new Date(cur._id));
+    let d = granularity(cur.date);
     acc[d] = acc[d] || [];
     acc[d].push(cur);
     return acc;
