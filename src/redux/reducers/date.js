@@ -9,7 +9,6 @@ const defaultState = {
   to: moment(new Date()).startOf('day').toISOString()
 };
 
-
 function format(state) {
   return {
     docs: state,

@@ -23,7 +23,7 @@ export default React.createClass({
               key={y.id}
               id={y.id}
               docs={y.docs}
-              expanded={index == 0 ? 1 : 0}
+              expanded={index === 0 ? 1 : 0}
             />
           );
         })}

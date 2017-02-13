@@ -44,7 +44,7 @@ let Day = React.createClass({
         <CardText expandable={true}>
           {docs.map(d => {
             return (
-              <div>
+              <div key={d._id}>
                 <Doc
                   key={d._id}
                   date={d._id}
