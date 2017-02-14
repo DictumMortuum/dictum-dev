@@ -12,7 +12,9 @@ export default React.createClass({
 
   render() {
     let { id, docs } = this.props;
-    let months = filter(docs, d => d.getMonth());
+    // need to adjust month by + 1 to get the correct one.
+    // it seems that they are 0-indexed.
+    let months = filter(docs, d => d.getMonth() + 1);
 
     return (
       <div>
