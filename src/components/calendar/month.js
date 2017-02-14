@@ -4,7 +4,7 @@ import React from 'react';
 import filter from './filter';
 import Day from './day';
 import { monthStyle } from '../../styles/app';
-import { Card, CardHeader } from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
 
 let Month = React.createClass({
@@ -15,26 +15,37 @@ let Month = React.createClass({
     config: React.PropTypes.object
   },
 
+  getInitialState() {
+    return {
+      expanded: false
+    };
+  },
+
+  handleToggle(expanded) {
+    this.setState({expanded: expanded});
+  },
+
   render() {
     let { id, year, docs, config } = this.props;
+    let { expanded } = this.state;
     let days = filter(docs, d => d.getDate());
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
     let options = { year: 'numeric', month: 'long' };
     let locale = config.locale;
-
     return (
-      <Card>
+      <Card expanded={expanded} onExpandChange={this.handleToggle}>
         <CardHeader
           style={monthStyle}
           title={date.toLocaleDateString(locale, options)}
+          actAsExpander={true}
         />
-        <div>
+        <CardText expandable={true}>
           {days.map(d => {
             return (
               <Day key={d.id} id={d.id} year={year} month={id} docs={d.docs} />
             );
           })}
-        </div>
+        </CardText>
       </Card>
     );
   }

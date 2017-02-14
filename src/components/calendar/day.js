@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react';
-import Doc from './doc';
+// import Doc from './doc';
 import { dayStyle } from '../../styles/app';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import { Card, CardHeader } from 'material-ui/Card';
+// import Divider from 'material-ui/Divider';
 import { connect } from 'react-redux';
 
 let Day = React.createClass({
@@ -27,7 +27,7 @@ let Day = React.createClass({
   },
 
   render() {
-    let { id, year, month, docs, config } = this.props;
+    let { id, year, month, config } = this.props;
     let { expanded } = this.state;
     // determine whether we need to sort docs or not here.
     let date = new Date(Date.UTC(year, month - 1, id, 0, 0, 0));
@@ -41,26 +41,6 @@ let Day = React.createClass({
           title={date.toLocaleDateString(locale, options)}
           actAsExpander={true}
         />
-        <CardText expandable={true}>
-          {docs.map(d => {
-            return (
-              <div key={d._id}>
-                <Doc
-                  key={d._id}
-                  date={d._id}
-                  ticket={d.ticket}
-                  company={d.company}
-                  product={d.product}
-                  type={d.type}
-                  lang={d.lang}
-                  desc={d.desc}
-                  config={config}
-                />
-                <Divider />
-              </div>
-            );
-          })}
-        </CardText>
       </Card>
     );
   }
@@ -71,3 +51,26 @@ export default connect(state => {
     config: state.config
   };
 })(Day);
+
+/*
+<CardText expandable={true}>
+  {docs.map(d => {
+    return (
+      <div key={d._id}>
+        <Doc
+          key={d._id}
+          date={d._id}
+          ticket={d.ticket}
+          company={d.company}
+          product={d.product}
+          type={d.type}
+          lang={d.lang}
+          desc={d.desc}
+          config={config}
+        />
+        <Divider />
+      </div>
+    );
+  })}
+</CardText>
+*/
