@@ -44,7 +44,8 @@ export default React.createClass({
                   'unordered-list', 'ordered-list', 'table', '|',
                   'link', 'image', 'horizontal-rule', 'quote', '|',
                   'preview'],
-                tabsize: 2,
+                indentWithTabs: false,
+                spellChecker: false,
                 status: false
               }}
             />
