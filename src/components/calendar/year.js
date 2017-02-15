@@ -3,6 +3,7 @@
 import React from 'react';
 import filter from './filter';
 import Month from './month';
+import {List, ListItem} from 'material-ui/List';
 
 export default React.createClass({
   propTypes: {
@@ -17,13 +18,21 @@ export default React.createClass({
     let months = filter(docs, d => d.getMonth() + 1);
 
     return (
-      <div>
-        {months.map(m => {
-          return (
-            <Month key={m.id} id={m.id} year={id} docs={m.docs} />
-          );
-        })}
-      </div>
+      <List>
+        <ListItem
+          primaryText={id}
+          primaryTogglesNestedList={true}
+          initiallyOpen={false}
+          style={{backgroundColor: '#82B1FF'}}
+          nestedItems={
+            months.map(m => {
+              return (
+                <Month key={m.id} id={m.id} year={id} docs={m.docs} />
+              );
+            })
+          }
+        />
+      </List>
     );
   }
 });

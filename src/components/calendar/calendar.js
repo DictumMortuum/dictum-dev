@@ -5,7 +5,8 @@ import React from 'react';
 import filter from './filter';
 import Year from './year';
 import Bar from './bar';
-import SimpleMDE from 'react-simplemde-editor';
+import Editor from './editor';
+import Viewer from './viewer';
 
 export default React.createClass({
   propTypes: {
@@ -18,14 +19,15 @@ export default React.createClass({
     const style = {
       display: 'flex',
       flexWrap: 'wrap',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      height: '100vh'
     };
 
     return (
       <div>
         <Bar />
         <div style={style}>
-          <div style={{flex: '1 1 15%', width: '15%' }}>
+          <div style={{flex: '1 1' }}>
             {years.map((y, index) => {
               return (
                 <Year
@@ -37,23 +39,14 @@ export default React.createClass({
               );
             })}
           </div>
-          <div style={{flex: '500 1 70%'}}>
-            <SimpleMDE
-              options={{
-                toolbar: ['bold', 'italic', 'heading', 'strikethrough', '|',
-                  'unordered-list', 'ordered-list', 'table', '|',
-                  'link', 'image', 'horizontal-rule', 'quote', '|',
-                  'preview'],
-                indentWithTabs: false,
-                spellChecker: false,
-                status: false
-              }}
-            />
+          <div style={{flex: '4 1' }}>
+            <Viewer />
+          </div>
+          <div style={{flex: '4 1'}}>
+            <Editor />
           </div>
         </div>
       </div>
     );
   }
 });
-
-//           <Paper style={{flex: '1 1 10%'}}>another div content</Paper>

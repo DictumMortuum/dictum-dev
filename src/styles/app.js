@@ -7,4 +7,5 @@ export const monthStyle = {
 export const dayStyle = {
   // backgroundColor: '#E3F2FD',
   // paddingLeft: 40
+  padding: 5
 };

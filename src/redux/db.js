@@ -6,8 +6,8 @@ import { receiveConfig } from './actions/config';
 import { receiveDoc } from './actions/docs';
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
-// let db = new PouchDB('http://localhost:5984/work');
-let db = new PouchDB('http://172.25.2.114:5984/work');
+let db = new PouchDB('http://localhost:5984/work');
+// let db = new PouchDB('http://172.25.2.114:5984/work');
 // then replicate this to a pouch instance
 // then use the pouch instance to keep couchdb clean
 

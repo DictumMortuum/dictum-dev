@@ -3,9 +3,8 @@
 import React from 'react';
 import filter from './filter';
 import Day from './day';
-import { monthStyle } from '../../styles/app';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
+import { ListItem } from 'material-ui/List';
 
 let Month = React.createClass({
   propTypes: {
@@ -15,38 +14,29 @@ let Month = React.createClass({
     config: React.PropTypes.object
   },
 
-  getInitialState() {
-    return {
-      expanded: false
-    };
-  },
-
-  handleToggle(expanded) {
-    this.setState({expanded: expanded});
-  },
-
   render() {
     let { id, year, docs, config } = this.props;
-    let { expanded } = this.state;
     let days = filter(docs, d => d.getDate());
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
-    let options = { year: 'numeric', month: 'long' };
+    let options = { month: 'long' };
     let locale = config.locale;
+
     return (
-      <Card expanded={expanded} onExpandChange={this.handleToggle}>
-        <CardHeader
-          style={monthStyle}
-          title={date.toLocaleDateString(locale, options)}
-          actAsExpander={true}
-        />
-        <CardText expandable={true}>
-          {days.map(d => {
+      <ListItem
+        primaryText={date.toLocaleDateString(locale, options)}
+        primaryTogglesNestedList={true}
+        initiallyOpen={false}
+        nestedListStyle={{padding: 10}}
+        style={{backgroundColor: '#CFD8DC'}}
+        nestedItems={
+          days.map((d, i) => {
             return (
-              <Day key={d.id} id={d.id} year={year} month={id} docs={d.docs} />
+              <Day key={d.id} id={d.id} year={year} month={id} docs={d.docs}
+                color={i%2 ? true : false }/>
             );
-          })}
-        </CardText>
-      </Card>
+          })
+        }
+      />
     );
   }
 });
