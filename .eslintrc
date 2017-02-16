@@ -94,7 +94,7 @@
     "no-labels": 2, // disallow use of labels for anything other then loops and switches
     "no-eq-null": 2, // disallow comparisons to null without a type-checking operator (off by default)
     "no-eval": 2, // disallow use of eval()
-    "no-extend-native": 2, // disallow adding to native types
+    "no-extend-native": 0, // disallow adding to native types
     "no-extra-bind": 2, // disallow unnecessary function binding
     "no-fallthrough": 2, // disallow fallthrough of case statements
     "no-floating-decimal": 2, // disallow the use of leading or trailing decimal points in numeric literals (off by default)
@@ -214,7 +214,7 @@
     "max-params": [2, 5], // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0, // specify the maximum number of statement allowed in a function (off by default)
     "no-bitwise": 0, // disallow use of bitwise operators (off by default)
-    "no-plusplus": 2, // disallow use of unary operators, ++ and -- (off by default)
+    "no-plusplus": 0, // disallow use of unary operators, ++ and -- (off by default)
 
     //
     // eslint-plugin-react

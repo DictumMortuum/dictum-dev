@@ -36,8 +36,8 @@ let Config = React.createClass({
 
 export default connect(state => {
   return {
-    docs: state.docs,
-    date: state.date,
+    docs: state.docs.docs,
+    date: state.docs.date,
     config: state.config
   };
 })(Config);
