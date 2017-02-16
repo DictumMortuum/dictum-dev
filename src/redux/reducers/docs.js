@@ -26,6 +26,30 @@ Array.prototype.unique = function () {
   return result;
 };
 
+Array.prototype.uniqueCount = function () {
+  let hash = {};
+  let result = [];
+
+  for (let i = 0, l = this.length; i < l; i++) {
+    if (!hash.hasOwnProperty(this[i])) {
+      hash[ this[i] ] = 1;
+    } else {
+      hash[ this[i] ]++;
+    }
+  }
+
+  for (let k in hash) {
+    if (hash.hasOwnProperty(k)) {
+      result.push({
+        tag: k,
+        count: hash[k]
+      });
+    }
+  }
+
+  return result.sort((a, b) => b.count - a.count);
+};
+
 function flatten(acc, cur) {
   cur.map(c => {
     acc.push(c);
@@ -35,7 +59,7 @@ function flatten(acc, cur) {
 }
 
 function format(doc) {
-  return Object.assign({}, doc, { date: new Date(doc.id) });
+  return Object.assign({}, doc, { date: new Date(doc._id) });
 }
 
 export default (state=defaultState, action) => {
@@ -46,7 +70,7 @@ export default (state=defaultState, action) => {
   case 'DOCS_FETCH':
     docs = action.docs
       .filter(d => regex.test(d.key))
-      .map(d => format(d))
+      .map(d => format(d.doc))
       .sort((a, b) => a.date - b.date);
     break;
   case 'DOC_DELETE':
@@ -67,6 +91,6 @@ export default (state=defaultState, action) => {
       from: docs[0]._id,
       to: docs[docs.length - 1]._id
     },
-    tags: docs.map(d => d.lang || []).reduce(flatten, []).sort().unique()
+    tags: docs.map(d => d.lang || []).reduce(flatten, []).uniqueCount()
   };
 };

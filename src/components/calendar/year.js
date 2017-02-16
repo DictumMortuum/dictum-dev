@@ -9,7 +9,7 @@ export default React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     docs: React.PropTypes.array,
-    expanded: React.propTypes.bool
+    expanded: React.PropTypes.bool
   },
 
   render() {

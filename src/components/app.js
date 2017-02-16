@@ -17,6 +17,7 @@ let App = React.createClass({
   propTypes: {
     children: React.PropTypes.object,
     docs: React.PropTypes.array,
+    tags: React.PropTypes.array,
     config: React.PropTypes.object,
     history: React.PropTypes.object,
     location: React.PropTypes.object
@@ -32,7 +33,9 @@ let App = React.createClass({
   },
 
   render() {
-    let { docs } = this.props;
+    let { docs, tags } = this.props;
+
+    console.log(tags);
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
@@ -44,7 +47,8 @@ let App = React.createClass({
 
 export default connect(state => {
   return {
-    docs: state.docs,
+    docs: state.docs.docs,
+    tags: state.docs.tags,
     config: state.config
   };
 })(App);

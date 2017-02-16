@@ -12,7 +12,7 @@ let Month = React.createClass({
     year: React.PropTypes.string,
     docs: React.PropTypes.array,
     config: React.PropTypes.object,
-    expanded: React.propTypes.bool
+    expanded: React.PropTypes.bool
   },
 
   render() {
