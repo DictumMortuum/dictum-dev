@@ -15,6 +15,7 @@ let Editor = React.createClass({
     let { doc } = this.props.editor;
     console.log(doc);
 
+    // TODO: add ids to the textfields.
     return (
       <div>
         <TextField hintText="Company" value={doc.company} />
