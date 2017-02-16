@@ -30,11 +30,8 @@ export default React.createClass({
           <div style={{flex: '1 1' }}>
             {years.map((y, index) => {
               return (
-                <Year
-                  key={y.id}
-                  id={y.id}
-                  docs={y.docs}
-                  expanded={index === 0 ? 1 : 0}
+                <Year key={y.id} id={y.id} docs={y.docs}
+                  expanded={index === 0 ? true : false}
                 />
               );
             })}

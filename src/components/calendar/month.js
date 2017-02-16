@@ -11,11 +11,12 @@ let Month = React.createClass({
     id: React.PropTypes.string,
     year: React.PropTypes.string,
     docs: React.PropTypes.array,
-    config: React.PropTypes.object
+    config: React.PropTypes.object,
+    expanded: React.propTypes.bool
   },
 
   render() {
-    let { id, year, docs, config } = this.props;
+    let { id, year, docs, config, expanded } = this.props;
     let days = filter(docs, d => d.getDate());
     let date = new Date(Date.UTC(year, id, 0, 0, 0, 0));
     let options = { month: 'long' };
@@ -25,14 +26,15 @@ let Month = React.createClass({
       <ListItem
         primaryText={date.toLocaleDateString(locale, options)}
         primaryTogglesNestedList={true}
-        initiallyOpen={false}
+        initiallyOpen={expanded}
         nestedListStyle={{padding: 10}}
+        // TODO move inline css to styles
         style={{backgroundColor: '#CFD8DC'}}
         nestedItems={
           days.map((d, i) => {
             return (
               <Day key={d.id} id={d.id} year={year} month={id} docs={d.docs}
-                color={i%2 ? true : false }/>
+                color={i%2 ? true : false } />
             );
           })
         }
