@@ -3,6 +3,7 @@
 import React from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 
 let Editor = React.createClass({
@@ -13,16 +14,28 @@ let Editor = React.createClass({
 
   render() {
     let { doc } = this.props.editor;
-    console.log(doc);
+
+    const style = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      flexDirection: 'column'
+    };
 
     // TODO: add ids to the textfields.
     return (
-      <div>
-        <TextField hintText="Company" value={doc.company} />
-        <TextField hintText="Product" value={doc.product} />
-        <TextField hintText="Type" value={doc.type} />
-        <TextField hintText="Languages" value={doc.lang} />
-        <TextField hintText="JIRA ticket" value={doc.ticket} />
+      <Paper style={{padding: 10}} zDepth={0}>
+        <div style={style}>
+          <TextField id='editorcompany' fullWidth={true}
+            hintText="Company" value={doc.company} />
+          <TextField id='editorproduct' fullWidth={true}
+            hintText="Product" value={doc.product} />
+          <TextField id='editortype' fullWidth={true}
+            hintText="Type" value={doc.type} />
+          <TextField id='editorlang' fullWidth={true}
+            hintText="Languages" value={doc.lang} />
+          <TextField id='editorticket' fullWidth={true}
+            hintText="JIRA ticket" value={doc.ticket} />
+        </div>
         <SimpleMDE
           value={doc.desc}
           options={{
@@ -34,7 +47,7 @@ let Editor = React.createClass({
             status: false
           }}
         />
-      </div>
+      </Paper>
     );
   }
 });

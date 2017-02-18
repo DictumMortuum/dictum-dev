@@ -27,9 +27,9 @@ let Month = React.createClass({
         primaryText={date.toLocaleDateString(locale, options)}
         primaryTogglesNestedList={true}
         initiallyOpen={expanded}
-        nestedListStyle={{padding: 10}}
+        nestedListStyle={{paddingLeft: 5, paddingTop: 0}}
         // TODO move inline css to styles
-        style={{backgroundColor: '#CFD8DC'}}
+        style={{backgroundColor: '#E0F2F1'}}
         nestedItems={
           days.map((d, i) => {
             return (

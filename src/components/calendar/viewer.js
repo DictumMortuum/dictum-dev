@@ -1,11 +1,10 @@
 'use strict';
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import store from '../../redux/store';
-import { toEditor } from '../../redux/actions/editor';
+import { List } from 'material-ui/List';
 import Doc from './doc';
+import Paper from 'material-ui/Paper';
+import { connect } from 'react-redux';
 
 let Viewer = React.createClass({
   propTypes: {
@@ -15,34 +14,32 @@ let Viewer = React.createClass({
 
   render() {
     let { editor, config } = this.props;
+    let date = new Date();
 
-    // TODO - fix the list.
+    if (editor.docs.length > 0) {
+      date = editor.doc.date;
+    }
+
     return (
-      <List>
-        {editor.docs.map(d => {
-          return (
-            <div key={d._id}>
-            <ListItem
-              primaryText={d.date.toLocaleTimeString(config.locale, {
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-              })}
-              onTouchTap={() => store.dispatch(toEditor(d))}
-            />
-            <Doc
-              date={d._id}
-              ticket={d.ticket}
-              company={d.company}
-              product={d.product}
-              type={d.type}
-              lang={d.lang}
-              desc={d.desc}
-              config={config}
-            />
-            </div>
-          );
-        }
-        )}
-      </List>
+      <Paper zDepth={0} style={{padding: 10}} >
+        <h3 style={{textAlign: 'center'}}>
+          {new Date(date).toLocaleDateString(config.locale, {
+            month: 'long', weekday: 'long', day: 'numeric'
+          })}
+        </h3>
+        <List>
+          {editor.docs.map(d => {
+            return (
+              <div key={d._id} style={{marginBottom: 10}}>
+                <Doc
+                  doc={d} config={config}
+                />
+              </div>
+            );
+          }
+          )}
+        </List>
+      </Paper>
     );
   }
 });

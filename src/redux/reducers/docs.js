@@ -59,11 +59,21 @@ function flatten(acc, cur) {
 }
 
 function format(doc) {
-  return Object.assign({}, doc, { date: new Date(doc._id) });
+  return Object.assign({}, {
+    date: new Date(doc._id),
+    ticket: '',
+    product: '',
+    company: '',
+    desc: '',
+    type: '',
+    lang: ''
+  }, doc);
 }
 
 export default (state=defaultState, action) => {
   let docs = [];
+  let today = [];
+  let now = new Date();
 
   // TODO: check that docs are alright
   switch (action.type) {
@@ -85,8 +95,17 @@ export default (state=defaultState, action) => {
     return state;
   }
 
+  for (let i = docs.length; i > 0; i--) {
+    if (now - docs[i-1].date < 86400000) {
+      today.push(docs[i]);
+    } else {
+      break;
+    }
+  }
+
   return {
     docs: docs,
+    today: today,
     date: {
       from: docs[0]._id,
       to: docs[docs.length - 1]._id

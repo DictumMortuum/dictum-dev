@@ -28,7 +28,7 @@ let Day = React.createClass({
       <ListItem
         innerDivStyle={
           color === true ?
-          dayStyle : Object.assign({}, dayStyle, { backgroundColor: '#ECEFF1' })
+          dayStyle : Object.assign({}, dayStyle, { backgroundColor: '#E0F7FA' })
         }
         primaryText={date.toLocaleDateString(locale, options)}
         onTouchTap={

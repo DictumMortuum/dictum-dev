@@ -24,7 +24,8 @@ export default React.createClass({
           primaryText={id}
           primaryTogglesNestedList={true}
           initiallyOpen={expanded}
-          style={{backgroundColor: '#82B1FF'}}
+          nestedListStyle={{padding: 0}}
+          style={{backgroundColor: '#80CBC4'}}
           nestedItems={
             months.map((m, index) => {
               return (
