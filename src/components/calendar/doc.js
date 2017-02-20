@@ -10,7 +10,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 export default React.createClass({
   propTypes: {
     doc: React.PropTypes.object,
-    config: React.PropTypes.object
+    config: React.PropTypes.object,
+    index: React.PropTypes.number
   },
 
   render() {
@@ -44,7 +45,9 @@ export default React.createClass({
           style={{
             backgroundColor: '#E0F2F1'
           }}
-          onTouchTap={() => store.dispatch(toEditor(doc))}
+          onTouchTap={() => {
+            store.dispatch(toEditor(doc, this.props.index));
+          }}
         />
         <CardText>
           {doc.desc}

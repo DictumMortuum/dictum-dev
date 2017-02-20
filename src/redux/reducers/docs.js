@@ -1,6 +1,6 @@
 'use strict';
 
-import { regex } from '../db';
+import { regex, format } from '../db';
 import moment from 'moment';
 
 const defaultState = {
@@ -58,22 +58,8 @@ function flatten(acc, cur) {
   return acc;
 }
 
-function format(doc) {
-  return Object.assign({}, {
-    date: new Date(doc._id),
-    ticket: '',
-    product: '',
-    company: '',
-    desc: '',
-    type: '',
-    lang: []
-  }, doc);
-}
-
 export default (state=defaultState, action) => {
   let docs = [];
-  let today = [];
-  let now = new Date();
 
   // TODO: check that docs are alright
   switch (action.type) {
@@ -81,7 +67,7 @@ export default (state=defaultState, action) => {
     docs = action.docs
       .filter(d => regex.test(d.key))
       .map(d => format(d.doc))
-      .sort((a, b) => a.date - b.date);
+      .sort((a, b) => b.date - a.date);
     break;
   case 'DOC_DELETE':
     docs = state.docs
@@ -89,23 +75,20 @@ export default (state=defaultState, action) => {
     break;
   case 'DOC_INSERT':
     docs = [...state.docs.filter(d => d._id !== action.id), format(action.doc)]
-      .sort((a, b) => a.date - b.date);
+      .sort((a, b) => b.date - a.date);
     break;
+  case 'DOC_EDIT':
+    let temp = Object.assign({}, state);
+    temp.docs[action.editor.id] = action.editor.doc;
+    return temp;
   default:
     return state;
   }
 
-  for (let i = docs.length; i > 0; i--) {
-    if (now - docs[i-1].date < 86400000) {
-      today.push(docs[i]);
-    } else {
-      break;
-    }
-  }
+  docs = docs.slice(0, 20);
 
   return {
     docs: docs,
-    today: today,
     date: {
       from: docs[0]._id,
       to: docs[docs.length - 1]._id

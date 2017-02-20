@@ -3,7 +3,6 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import { connect } from 'react-redux';
-import Calendar from './calendar';
 
 let Config = React.createClass({
   propTypes: {
@@ -16,7 +15,7 @@ let Config = React.createClass({
         open={this.props.config.drawer}
         openSecondary={true}
       >
-        <Calendar />
+        dasf
       </Drawer>
     );
   }

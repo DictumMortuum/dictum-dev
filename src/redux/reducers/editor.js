@@ -1,26 +1,24 @@
-
 'use strict';
 
+import { format } from '../db';
+
 const defaultState = {
-  docs: [],
-  doc: {
-    lang: [],
-    desc: ''
-  }
+  doc: format({
+    _id: new Date()
+  }),
+  id: 0
 };
 
 export default (state=defaultState, action) => {
   let temp;
 
   switch (action.type) {
-  case 'TO_VIEWER':
-    return Object.assign({}, state, { docs: action.docs });
   case 'TO_EDITOR':
-    return Object.assign({}, state, { doc: action.doc });
-  case 'EDITOR_CHANGE':
+    return Object.assign({}, state, { doc: action.doc, id: action.id });
+  case 'FROM_CHANGE':
     temp = state.doc;
     temp[action.component] = action.value;
-    return Object.assign({}, state, temp);
+    return Object.assign({}, state, { doc: temp });
   default:
     return state;
   }

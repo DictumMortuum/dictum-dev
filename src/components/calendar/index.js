@@ -20,10 +20,10 @@ export default React.createClass({
         <Bar />
         <Config />
         <div style={style}>
-          <div style={{flex: '4 1' }}>
+          <div style={{flex: '1 0 50%', width: '50%'}}>
             <Viewer />
           </div>
-          <div style={{flex: '4 1'}}>
+          <div style={{flex: '1 0 50%', width: '50%'}}>
             <Editor />
           </div>
         </div>

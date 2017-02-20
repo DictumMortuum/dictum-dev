@@ -3,47 +3,46 @@
 import { fetchDocs } from './docs';
 import { fetchConfig } from './config';
 
-export function toViewer(docs) {
-  return {
-    type: 'TO_VIEWER',
-    docs
-  };
-}
-
-export function toEditor(doc) {
+export function toEditor(doc, index) {
   return {
     type: 'TO_EDITOR',
-    doc
+    doc,
+    id: index
   };
 }
 
 export function editorChange(component, value) {
-  if (component === 'lang') {
-    return {
-      type: 'EDITOR_CHANGE',
+  return (dispatch, state) => {
+    let temp = value;
+
+    if (component === 'lang') {
+      temp = value.split(',');
+    }
+
+    dispatch({
+      type: 'FROM_CHANGE',
       component,
-      value: value.split(',')
-    };
-  } else {
-    return {
-      type: 'EDITOR_CHANGE',
-      component,
-      value
-    };
-  }
+      value: temp
+    });
+
+    dispatch({
+      type: 'DOC_EDIT',
+      editor: state().editor
+    });
+  };
 }
 
 export function toInit() {
-  return (dispatch, state) =>
-    fetchConfig('dictum_config').then(
-      conf => {
-        dispatch(conf);
-        return fetchDocs().then(
-          docs => {
-            dispatch(docs);
-            dispatch(toViewer(state().docs.today));
-          }
-        );
-      }
-    );
+  return (dispatch, state) => fetchConfig('dictum_config').then(
+    conf => {
+      dispatch(conf);
+      return fetchDocs().then(
+        docs => {
+          dispatch(docs);
+          dispatch({
+            type: 'TO_VIEWER',
+            docs: state().docs.docs
+          });
+        });
+    });
 }

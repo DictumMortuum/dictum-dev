@@ -5,7 +5,7 @@ const defaultState = {
   expandedDay: true,
   expandedDoc: false,
   company: ['openbet', 'unify'],
-  drawer: true,
+  drawer: false,
   product: [{
     company: 'openbet',
     name: 'siteserver',

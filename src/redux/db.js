@@ -11,6 +11,18 @@ let db = new PouchDB('http://localhost:5984/work');
 // then replicate this to a pouch instance
 // then use the pouch instance to keep couchdb clean
 
+export function format(doc) {
+  return Object.assign({}, {
+    date: new Date(doc._id),
+    ticket: '',
+    product: '',
+    company: '',
+    desc: '',
+    type: '',
+    lang: []
+  }, doc);
+}
+
 db.changes({
   live: true,
   include_doc: true, // eslint-disable-line camelcase
