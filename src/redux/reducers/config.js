@@ -5,6 +5,7 @@ const defaultState = {
   expandedDay: true,
   expandedDoc: false,
   company: ['openbet', 'unify'],
+  drawer: true,
   product: [{
     company: 'openbet',
     name: 'siteserver',
@@ -34,6 +35,8 @@ export default (state=defaultState, action) => {
     return action.doc;
   case 'CONFIG_DEFAULT':
     return defaultState;
+  case 'TOGGLE_DRAWER':
+    return Object.assign({}, state, { drawer: !state.drawer });
   default:
     return state;
   }

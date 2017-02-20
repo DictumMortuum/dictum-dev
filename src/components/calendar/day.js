@@ -6,6 +6,7 @@ import { ListItem } from 'material-ui/List';
 import { connect } from 'react-redux';
 import store from '../../redux/store';
 import { toViewer, toEditor } from '../../redux/actions/editor';
+import { toggleDrawer } from '../../redux/actions/config';
 
 let Day = React.createClass({
   propTypes: {
@@ -37,6 +38,7 @@ let Day = React.createClass({
 
             if (docs.length > 0) {
               store.dispatch(toEditor(docs[0]));
+              store.dispatch(toggleDrawer());
             }
           }
         }

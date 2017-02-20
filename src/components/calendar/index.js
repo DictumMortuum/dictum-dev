@@ -4,7 +4,7 @@ import React from 'react';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
-import Calendar from './calendar';
+import Config from './config';
 
 export default React.createClass({
   render() {
@@ -18,10 +18,8 @@ export default React.createClass({
     return (
       <div>
         <Bar />
+        <Config />
         <div style={style}>
-          <div style={{flex: '1 1' }}>
-            <Calendar />
-          </div>
           <div style={{flex: '4 1' }}>
             <Viewer />
           </div>

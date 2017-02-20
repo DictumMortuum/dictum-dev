@@ -6,8 +6,31 @@ import { fetchConfig } from './config';
 export function toViewer(docs) {
   return {
     type: 'TO_VIEWER',
-    docs: docs
+    docs
   };
+}
+
+export function toEditor(doc) {
+  return {
+    type: 'TO_EDITOR',
+    doc
+  };
+}
+
+export function editorChange(component, value) {
+  if (component === 'lang') {
+    return {
+      type: 'EDITOR_CHANGE',
+      component,
+      value: value.split(',')
+    };
+  } else {
+    return {
+      type: 'EDITOR_CHANGE',
+      component,
+      value
+    };
+  }
 }
 
 export function toInit() {
@@ -23,11 +46,4 @@ export function toInit() {
         );
       }
     );
-}
-
-export function toEditor(doc) {
-  return {
-    type: 'TO_EDITOR',
-    doc: doc
-  };
 }

@@ -66,7 +66,7 @@ function format(doc) {
     company: '',
     desc: '',
     type: '',
-    lang: ''
+    lang: []
   }, doc);
 }
 

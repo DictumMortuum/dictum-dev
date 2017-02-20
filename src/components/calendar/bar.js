@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import DatePicker from 'material-ui/DatePicker';
 import store from '../../redux/store';
 import { fetchDocs } from '../../redux/actions/docs';
+import { toggleDrawer } from '../../redux/actions/config';
 import moment from 'moment';
 
 let Bar = React.createClass({
@@ -43,6 +44,10 @@ let Bar = React.createClass({
     }));
   },
 
+  handleConfig() {
+    store.dispatch(toggleDrawer());
+  },
+
   render() {
     return (
       <AppBar
@@ -55,6 +60,7 @@ let Bar = React.createClass({
             {this.getDatePicker(this.props.date.to, this.handleTo)}
           </div>
         }
+        onLeftIconButtonTouchTap={this.handleConfig}
       />
     );
   }

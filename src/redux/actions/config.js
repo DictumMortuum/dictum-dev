@@ -26,3 +26,9 @@ export function receiveConfig(doc) {
     doc: doc
   };
 }
+
+export function toggleDrawer() {
+  return {
+    type: 'TOGGLE_DRAWER'
+  };
+}

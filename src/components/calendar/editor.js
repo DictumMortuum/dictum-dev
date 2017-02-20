@@ -5,6 +5,32 @@ import SimpleMDE from 'react-simplemde-editor';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
+import store from '../../redux/store';
+import { editorChange } from '../../redux/actions/editor';
+
+let Text = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string,
+    hint: React.PropTypes.string,
+    value: React.PropTypes.string
+  },
+
+  handleChange(event, newValue) {
+    store.dispatch(editorChange(this.props.id, newValue));
+  },
+
+  render() {
+    return (
+      <TextField
+        id={this.props.hint}
+        fullWidth={true}
+        hintText={this.props.hint}
+        value={this.props.value}
+        onChange={this.handleChange}
+      />
+    );
+  }
+});
 
 let Editor = React.createClass({
   propTypes: {
@@ -21,20 +47,14 @@ let Editor = React.createClass({
       flexDirection: 'column'
     };
 
-    // TODO: add ids to the textfields.
     return (
       <Paper style={{padding: 10}} zDepth={0}>
         <div style={style}>
-          <TextField id='editorcompany' fullWidth={true}
-            hintText="Company" value={doc.company} />
-          <TextField id='editorproduct' fullWidth={true}
-            hintText="Product" value={doc.product} />
-          <TextField id='editortype' fullWidth={true}
-            hintText="Type" value={doc.type} />
-          <TextField id='editorlang' fullWidth={true}
-            hintText="Languages" value={doc.lang} />
-          <TextField id='editorticket' fullWidth={true}
-            hintText="JIRA ticket" value={doc.ticket} />
+          <Text id="company" hint="Company" value={doc.company} />
+          <Text id="product" hint="Product" value={doc.product} />
+          <Text id="type" hint="Type" value={doc.type} />
+          <Text id="lang" hint="Languages" value={doc.lang.toString()} />
+          <Text id="ticket" hint="JIRA ticket" value={doc.ticket} />
         </div>
         <SimpleMDE
           value={doc.desc}
