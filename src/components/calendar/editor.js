@@ -48,7 +48,7 @@ let Editor = React.createClass({
     };
 
     return (
-      <Paper style={{padding: 10}} zDepth={0}>
+      <Paper style={{padding: 10, position: 'fixed', top: '10%', left: '50%'}} zDepth={0}>
         <div style={style}>
           <Text id="company" hint="Company" value={doc.company} />
           <Text id="product" hint="Product" value={doc.product} />
