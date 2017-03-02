@@ -57,7 +57,6 @@ let Bar = React.createClass({
           month: 'long', weekday: 'long', day: 'numeric'
         })}
         zDepth={1}
-        style={{backgroundColor: '#00695C'}}
         iconElementRight={
           <div style={{display: 'flex'}}>
             {this.getDatePicker(this.props.date.from, this.handleFrom)}
