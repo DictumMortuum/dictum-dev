@@ -20,7 +20,9 @@ export default React.createClass({
     const style = {
       width: '100%',
       display: 'flex',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      color: 'rgba(0, 0, 0, 0.54)',
+      fontSize: 14
     };
 
     const inline = {
@@ -30,7 +32,8 @@ export default React.createClass({
     return (
       <Card zDepth={1}>
         <CardHeader
-          subtitle={new Date(doc.date).toLocaleTimeString(config.locale, {
+          title={new Date(doc.date).toLocaleDateString(config.locale, {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
           children={(

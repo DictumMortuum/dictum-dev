@@ -17,11 +17,6 @@ let Viewer = React.createClass({
 
     return (
       <Paper zDepth={0} style={{padding: 10}} >
-        <h3 style={{textAlign: 'center'}}>
-          {new Date().toLocaleDateString(config.locale, {
-            month: 'long', weekday: 'long', day: 'numeric'
-          })}
-        </h3>
         <List>
           {docs.docs.map((d, index) => {
             return (
@@ -31,8 +26,7 @@ let Viewer = React.createClass({
                 />
               </div>
             );
-          }
-          )}
+          })}
         </List>
       </Paper>
     );

@@ -49,9 +49,13 @@ let Bar = React.createClass({
   },
 
   render() {
+    let { config } = this.props;
+
     return (
       <AppBar
-        title='Dictum'
+        title={new Date().toLocaleDateString(config.locale, {
+          month: 'long', weekday: 'long', day: 'numeric'
+        })}
         zDepth={1}
         style={{backgroundColor: '#00695C'}}
         iconElementRight={
