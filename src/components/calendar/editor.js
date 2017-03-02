@@ -47,8 +47,16 @@ let Editor = React.createClass({
       flexDirection: 'column'
     };
 
+    const paperStyle = {
+      padding: 10,
+      position: 'fixed',
+      top: '10%',
+      left: '50%',
+      width: '50%'
+    };
+
     return (
-      <Paper style={{padding: 10, position: 'fixed', top: '10%', left: '50%'}} zDepth={0}>
+      <Paper style={paperStyle} zDepth={0}>
         <div style={style}>
           <Text id="company" hint="Company" value={doc.company} />
           <Text id="product" hint="Product" value={doc.product} />
