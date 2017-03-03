@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import store from '../../redux/store';
 import { toEditor } from '../../redux/actions/editor';
 import RaisedButton from 'material-ui/RaisedButton';
+import ReactMarkdown from 'react-markdown';
 
 export default React.createClass({
   propTypes: {
@@ -53,7 +54,7 @@ export default React.createClass({
           }}
         />
         <CardText>
-          {doc.desc}
+          <ReactMarkdown source={doc.desc} />
         </CardText>
         <CardActions>
           {doc.ticket && <RaisedButton primary={true} key='ticket' label={doc.ticket} />}
