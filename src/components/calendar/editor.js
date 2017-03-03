@@ -32,6 +32,34 @@ let Text = React.createClass({
   }
 });
 
+let Writer = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string,
+    desc: React.PropTypes.string
+  },
+
+  handleChange(value) {
+    store.dispatch(editorChange(this.props.id, value));
+  },
+
+  render() {
+    return (
+      <SimpleMDE
+        value={this.props.desc}
+        options={{
+          toolbar: ['bold', 'italic', 'heading', 'strikethrough', '|',
+            'unordered-list', 'ordered-list', 'table', '|',
+            'link', 'image', 'horizontal-rule', 'quote', '|',
+            'preview'],
+          tabsize: 2,
+          status: false
+        }}
+        onChange={this.handleChange}
+      />
+    );
+  }
+});
+
 let Editor = React.createClass({
   propTypes: {
     config: React.PropTypes.object,
@@ -64,17 +92,7 @@ let Editor = React.createClass({
           <Text id="lang" hint="Languages" value={doc.lang.toString()} />
           <Text id="ticket" hint="JIRA ticket" value={doc.ticket} />
         </div>
-        <SimpleMDE
-          value={doc.desc}
-          options={{
-            toolbar: ['bold', 'italic', 'heading', 'strikethrough', '|',
-              'unordered-list', 'ordered-list', 'table', '|',
-              'link', 'image', 'horizontal-rule', 'quote', '|',
-              'preview'],
-            tabsize: 2,
-            status: false
-          }}
-        />
+        <Writer id="desc" desc={doc.desc} />
       </Paper>
     );
   }

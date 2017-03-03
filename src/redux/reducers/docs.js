@@ -50,6 +50,8 @@ Array.prototype.uniqueCount = function () {
   return result.sort((a, b) => b.count - a.count);
 };
 
+/*
+tags: docs.map(d => d.lang || []).reduce(flatten, []).uniqueCount()
 function flatten(acc, cur) {
   cur.map(c => {
     acc.push(c);
@@ -57,6 +59,7 @@ function flatten(acc, cur) {
 
   return acc;
 }
+*/
 
 export default (state=defaultState, action) => {
   let docs = [];
@@ -92,7 +95,6 @@ export default (state=defaultState, action) => {
     date: {
       from: docs[0]._id,
       to: docs[docs.length - 1]._id
-    },
-    tags: docs.map(d => d.lang || []).reduce(flatten, []).uniqueCount()
+    }
   };
 };
