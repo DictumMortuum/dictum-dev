@@ -8,12 +8,6 @@ import { connect } from 'react-redux';
 import store from '../../redux/store';
 import { editorChange } from '../../redux/actions/editor';
 
-/*
-import Promise from 'bluebird';
-let p = Promise.delay(1000);
-let document = null;
-*/
-
 let Text = React.createClass({
   propTypes: {
     id: React.PropTypes.string,

@@ -3,6 +3,13 @@
 import { fetchDocs } from './docs';
 import { fetchConfig } from './config';
 
+let timer = null;
+
+function typing(callback) {
+  clearTimeout(timer);
+  timer = setTimeout(callback, 1000);
+}
+
 export function toEditor(doc, index) {
   return {
     type: 'TO_EDITOR',
@@ -18,11 +25,11 @@ export function editorChange(id, doc) {
       doc
     });
 
-    dispatch({
+    document.onkeypress = typing(() => dispatch({
       type: 'DOC_EDIT',
       id,
       doc
-    });
+    }));
   };
 }
 
