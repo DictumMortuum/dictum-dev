@@ -11,23 +11,17 @@ export function toEditor(doc, index) {
   };
 }
 
-export function editorChange(component, value) {
-  return (dispatch, state) => {
-    let temp = value;
-
-    if (component === 'lang') {
-      temp = value.split(',');
-    }
-
+export function editorChange(id, doc) {
+  return dispatch => {
     dispatch({
       type: 'FROM_CHANGE',
-      component,
-      value: temp
+      doc
     });
 
     dispatch({
       type: 'DOC_EDIT',
-      editor: state().editor
+      id,
+      doc
     });
   };
 }

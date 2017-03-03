@@ -60,6 +60,7 @@
     "webpack-dev-server": "*2.2.0"
   },
   "dependencies": {
+    "bluebird": "^3.4.7",
     "react-simplemde-editor": "^3.6.10"
   }
 }

@@ -8,24 +8,64 @@ import { connect } from 'react-redux';
 import store from '../../redux/store';
 import { editorChange } from '../../redux/actions/editor';
 
+/*
+import Promise from 'bluebird';
+let p = Promise.delay(1000);
+let document = null;
+*/
+
 let Text = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     hint: React.PropTypes.string,
-    value: React.PropTypes.string
+    editor: React.PropTypes.object
   },
 
-  handleChange(event, newValue) {
-    store.dispatch(editorChange(this.props.id, newValue));
+  handleChange(event, value) {
+    let { editor, id } = this.props;
+    editor.doc[id] = value;
+    store.dispatch(editorChange(editor.id, editor.doc));
   },
 
   render() {
+    let { editor, id } = this.props;
+    let value = editor.doc[id];
+
     return (
       <TextField
         id={this.props.hint}
         fullWidth={true}
         hintText={this.props.hint}
-        value={this.props.value}
+        value={value}
+        onChange={this.handleChange}
+      />
+    );
+  }
+});
+
+let ArrayText = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string,
+    hint: React.PropTypes.string,
+    editor: React.PropTypes.object
+  },
+
+  handleChange(event, value) {
+    let { editor, id } = this.props;
+    editor.doc[id] = value.split(',');
+    store.dispatch(editorChange(editor.id, editor.doc));
+  },
+
+  render() {
+    let { editor, id } = this.props;
+    let value = editor.doc[id].toString();
+
+    return (
+      <TextField
+        id={this.props.hint}
+        fullWidth={true}
+        hintText={this.props.hint}
+        value={value}
         onChange={this.handleChange}
       />
     );
@@ -35,17 +75,19 @@ let Text = React.createClass({
 let Writer = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
-    desc: React.PropTypes.string
+    editor: React.PropTypes.object
   },
 
   handleChange(value) {
-    store.dispatch(editorChange(this.props.id, value));
+    let { editor, id } = this.props;
+    editor.doc[id] = value;
+    store.dispatch(editorChange(editor.id, editor.doc));
   },
 
   render() {
     return (
       <SimpleMDE
-        value={this.props.desc}
+        value={this.props.editor.doc.desc}
         options={{
           toolbar: ['bold', 'italic', 'heading', 'strikethrough', '|',
             'unordered-list', 'ordered-list', 'table', '|',
@@ -67,7 +109,7 @@ let Editor = React.createClass({
   },
 
   render() {
-    let { doc } = this.props.editor;
+    let { editor } = this.props;
 
     const style = {
       display: 'flex',
@@ -86,13 +128,13 @@ let Editor = React.createClass({
     return (
       <Paper style={paperStyle} zDepth={0}>
         <div style={style}>
-          <Text id="company" hint="Company" value={doc.company} />
-          <Text id="product" hint="Product" value={doc.product} />
-          <Text id="type" hint="Type" value={doc.type} />
-          <Text id="lang" hint="Languages" value={doc.lang.toString()} />
-          <Text id="ticket" hint="JIRA ticket" value={doc.ticket} />
+          <Text id="company" hint="Company" editor={editor} />
+          <Text id="product" hint="Product" editor={editor} />
+          <Text id="type" hint="Type" editor={editor} />
+          <ArrayText id="lang" hint="Languages" editor={editor} />
+          <Text id="ticket" hint="JIRA ticket" editor={editor} />
         </div>
-        <Writer id="desc" desc={doc.desc} />
+        <Writer id="desc" editor={editor} />
       </Paper>
     );
   }

@@ -82,7 +82,7 @@ export default (state=defaultState, action) => {
     break;
   case 'DOC_EDIT':
     let temp = Object.assign({}, state);
-    temp.docs[action.editor.id] = action.editor.doc;
+    temp.docs[action.id] = action.doc;
     return temp;
   default:
     return state;
