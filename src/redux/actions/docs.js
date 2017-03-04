@@ -37,7 +37,7 @@ export function fetchDoc(id) {
 
 // TO pouch
 export function insertDoc(doc) {
-  if (regex.test(doc.id)) {
+  if (regex.test(doc._id)) {
     return {
       type: 'DEFAULT'
     };
@@ -55,7 +55,7 @@ export function insertDoc(doc) {
     return {
       type: 'DOC_INSERT',
       doc: doc,
-      id: doc.id
+      id: doc._id
     };
   }
 }

@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import store from '../../redux/store';
 import { editorChange } from '../../redux/actions/editor';
+import { insertDoc } from '../../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 
 let Text = React.createClass({
@@ -108,6 +109,17 @@ let Editor = React.createClass({
     editor: React.PropTypes.object
   },
 
+  handleNew() {
+    let doc = { _id: new Date() };
+    console.log('new doc!', doc);
+    store.dispatch(insertDoc(doc));
+    // store.dispatch(toEditor(doc, 0));
+  },
+
+  handleSave() {
+    console.log('save doc!');
+  },
+
   render() {
     let { editor } = this.props;
 
@@ -139,8 +151,17 @@ let Editor = React.createClass({
         </Paper>
         <Writer id="desc" editor={editor} />
         <div style={{textAlign: 'center', padding: 10}}>
-          <RaisedButton style={{marginRight: 10}} primary={true} label={'new'} />
-          <RaisedButton secondary={true} label={'save'} />
+          <RaisedButton
+            style={{marginRight: 10}}
+            primary={true}
+            label={'new'}
+            onTouchTap={this.handleNew}
+          />
+          <RaisedButton
+            secondary={true}
+            label={'save'}
+            onTouchTap={this.handleSave}
+          />
         </div>
       </Paper>
     );
