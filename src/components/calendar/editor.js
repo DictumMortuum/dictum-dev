@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import store from '../../redux/store';
 import { editorChange } from '../../redux/actions/editor';
+import RaisedButton from 'material-ui/RaisedButton';
 
 let Text = React.createClass({
   propTypes: {
@@ -32,6 +33,7 @@ let Text = React.createClass({
         hintText={this.props.hint}
         value={value}
         onChange={this.handleChange}
+        style={{fontFamily: 'monospace'}}
       />
     );
   }
@@ -61,6 +63,7 @@ let ArrayText = React.createClass({
         hintText={this.props.hint}
         value={value}
         onChange={this.handleChange}
+        style={{fontFamily: 'monospace'}}
       />
     );
   }
@@ -80,18 +83,21 @@ let Writer = React.createClass({
 
   render() {
     return (
-      <SimpleMDE
-        value={this.props.editor.doc.desc}
-        options={{
-          toolbar: ['bold', 'italic', 'heading', 'strikethrough', '|',
-            'unordered-list', 'ordered-list', 'table', '|',
-            'link', 'image', 'horizontal-rule', 'quote', '|',
-            'preview'],
-          tabsize: 2,
-          status: false
-        }}
-        onChange={this.handleChange}
-      />
+      <Paper>
+        <SimpleMDE
+          value={this.props.editor.doc.desc}
+          options={{
+            toolbar: ['bold', 'italic', 'heading', '|',
+              'unordered-list', 'ordered-list', '|',
+              'link', 'image', 'horizontal-rule', 'quote', '|',
+              'preview'],
+            tabsize: 2,
+            status: false,
+            spellChecker: false
+          }}
+          onChange={this.handleChange}
+        />
+      </Paper>
     );
   }
 });
@@ -108,27 +114,34 @@ let Editor = React.createClass({
     const style = {
       display: 'flex',
       flexWrap: 'wrap',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      padding: 10,
+      marginBottom: 10
     };
 
     const paperStyle = {
       padding: 10,
       position: 'fixed',
-      top: '10%',
+      top: '0%',
       left: '50%',
-      width: '50%'
+      width: '50%',
+      transform: 'translateY(+10%)'
     };
 
     return (
       <Paper style={paperStyle} zDepth={0}>
-        <div style={style}>
+        <Paper style={style}>
           <Text id="company" hint="Company" editor={editor} />
           <Text id="product" hint="Product" editor={editor} />
           <Text id="type" hint="Type" editor={editor} />
           <ArrayText id="lang" hint="Languages" editor={editor} />
           <Text id="ticket" hint="JIRA ticket" editor={editor} />
-        </div>
+        </Paper>
         <Writer id="desc" editor={editor} />
+        <div style={{textAlign: 'center', padding: 10}}>
+          <RaisedButton style={{marginRight: 10}} primary={true} label={'new'} />
+          <RaisedButton secondary={true} label={'save'} />
+        </div>
       </Paper>
     );
   }

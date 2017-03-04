@@ -93,8 +93,8 @@ export default (state=defaultState, action) => {
   return {
     docs: docs,
     date: {
-      from: docs[0]._id,
-      to: docs[docs.length - 1]._id
+      to: docs[0]._id,
+      from: docs[docs.length - 1]._id
     }
   };
 };

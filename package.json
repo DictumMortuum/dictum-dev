@@ -60,6 +60,7 @@
     "webpack-dev-server": "*2.2.0"
   },
   "dependencies": {
+    "react-markdown": "^2.4.5",
     "react-simplemde-editor": "^3.6.10"
   }
 }

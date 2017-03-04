@@ -23,26 +23,26 @@ export default React.createClass({
       display: 'flex',
       flexDirection: 'row',
       color: 'rgba(0, 0, 0, 0.54)',
-      fontSize: 14
+      fontSize: '0.9rem'
     };
 
     const inline = {
-      flex: '1 0'
+      marginRight: 10
     };
 
     return (
       <Card zDepth={1}>
         <CardHeader
           title={new Date(doc.date).toLocaleDateString(config.locale, {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+            weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
           children={(
             <div>
               <div style={style}>
-                <div style={inline}>{doc.type}</div>
-                <div style={inline}>{doc.company}</div>
-                <div style={inline}>{doc.product}</div>
+                {doc.type !== '' && <div style={inline}>{doc.type}</div>}
+                {doc.company !== '' && <div style={inline}>{doc.company}</div>}
+                {doc.product !== '' && <div style={inline}>{doc.product}</div>}
               </div>
             </div>
           )}
