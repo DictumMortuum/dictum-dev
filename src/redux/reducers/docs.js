@@ -9,7 +9,8 @@ const defaultState = {
     from: moment(new Date()).startOf('day').subtract(30, 'days').toISOString(),
     to: moment(new Date()).startOf('day').toISOString()
   },
-  tags: []
+  tags: [],
+  length: 20
 };
 
 Array.prototype.unique = function () {
@@ -50,19 +51,9 @@ Array.prototype.uniqueCount = function () {
   return result.sort((a, b) => b.count - a.count);
 };
 
-/*
-tags: docs.map(d => d.lang || []).reduce(flatten, []).uniqueCount()
-function flatten(acc, cur) {
-  cur.map(c => {
-    acc.push(c);
-  });
-
-  return acc;
-}
-*/
-
 export default (state=defaultState, action) => {
   let docs = [];
+  let temp;
 
   // TODO: check that docs are alright
   switch (action.type) {
@@ -81,20 +72,23 @@ export default (state=defaultState, action) => {
       .sort((a, b) => b.date - a.date);
     break;
   case 'DOC_EDIT':
-    let temp = Object.assign({}, state);
+    temp = Object.assign({}, state);
     temp.docs[action.id] = action.doc;
+    return temp;
+  case 'DOC_LENGTH':
+    temp = Object.assign({}, state);
+    temp.length = temp.length + 20;
     return temp;
   default:
     return state;
   }
-
-  docs = docs.slice(0, 20);
 
   return {
     docs: docs,
     date: {
       to: docs[0]._id,
       from: docs[docs.length - 1]._id
-    }
+    },
+    length: state.length
   };
 };

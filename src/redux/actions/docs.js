@@ -42,6 +42,7 @@ export function insertDoc(doc) {
       type: 'DEFAULT'
     };
   } else {
+    /*
     return db.put(doc).then(() => {
       return {
         type: 'DOC_INSERT',
@@ -50,7 +51,12 @@ export function insertDoc(doc) {
       };
     }).catch(err => {
       throw err;
-    });
+    });*/
+    return {
+      type: 'DOC_INSERT',
+      doc: doc,
+      id: doc.id
+    };
   }
 }
 
@@ -86,4 +92,10 @@ export function deleteDoc(id, rev) {
       throw err;
     });
   }
+}
+
+export function scrollDocs() {
+  return {
+    type: 'DOC_LENGTH'
+  };
 }

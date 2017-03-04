@@ -5,6 +5,7 @@ import store from '../redux/store';
 import React from 'react';
 import Calendar from './calendar/index';
 import { toInit } from '../redux/actions/editor';
+import { scrollDocs } from '../redux/actions/docs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal500, teal800} from 'material-ui/styles/colors';
@@ -36,6 +37,12 @@ pickerHeaderColor: cyan500,
 clockCircleColor: fade(darkBlack, 0.07),
 shadowColor: fullBlack,
 */
+
+window.onscroll = function () {
+  if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
+    store.dispatch(scrollDocs());
+  }
+};
 
 export default React.createClass({
   propTypes: {

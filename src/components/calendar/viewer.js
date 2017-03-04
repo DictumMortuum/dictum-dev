@@ -14,11 +14,13 @@ let Viewer = React.createClass({
 
   render() {
     let { docs, config } = this.props;
+    let documents = docs.docs;
+    let l = docs.length;
 
     return (
       <Paper zDepth={0} style={{padding: 10}} >
         <List>
-          {docs.docs.map((d, index) => {
+          {documents.slice(0, l).map((d, index) => {
             return (
               <div key={d._id} style={{marginBottom: 10}}>
                 <Doc
