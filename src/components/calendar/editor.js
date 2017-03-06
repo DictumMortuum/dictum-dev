@@ -124,10 +124,7 @@ let Editor = React.createClass({
     let { editor } = this.props;
 
     const style = {
-      display: 'flex',
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-      padding: 10,
+      padding: '0 10px 2px 10px',
       marginBottom: 10
     };
 
