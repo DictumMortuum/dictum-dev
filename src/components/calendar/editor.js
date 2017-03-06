@@ -34,7 +34,7 @@ let Text = React.createClass({
         hintText={this.props.hint}
         value={value}
         onChange={this.handleChange}
-        style={{fontFamily: 'monospace'}}
+        style={{fontFamily: 'monospace', fontSize: 14}}
       />
     );
   }
@@ -64,7 +64,7 @@ let ArrayText = React.createClass({
         hintText={this.props.hint}
         value={value}
         onChange={this.handleChange}
-        style={{fontFamily: 'monospace'}}
+        style={{fontFamily: 'monospace', fontSize: 14}}
       />
     );
   }
