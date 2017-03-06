@@ -24,7 +24,7 @@ export function format(doc) {
 
 db.changes({
   live: true,
-  include_doc: true, // eslint-disable-line camelcase
+  include_docs: true, // eslint-disable-line camelcase
   since: 'now'
 }).on('change', callback)
   .on('error', console.log.bind(console));
