@@ -31,7 +31,7 @@ db.changes({
 
 function callback(change) {
   // change.id contains the id
-  // change.doc contains the doc
+  // TODO change.changes[].doc contains the doc(s)
 
   console.log(change);
 
