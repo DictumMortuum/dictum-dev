@@ -22,12 +22,12 @@ export default React.createClass({
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
-      color: 'rgba(0, 0, 0, 0.54)',
-      fontSize: '0.9rem'
+      color: 'rgba(0, 0, 0, 0.54)'
     };
 
     const inline = {
-      marginRight: 10
+      marginRight: 10,
+      fontFamily: 'monospace'
     };
 
     return (
@@ -62,10 +62,11 @@ export default React.createClass({
             key='ticket'
             label={doc.ticket}
             href={config.jiraPrefix + doc.ticket}
+            labelStyle={{fontFamily: 'monospace'}}
           />}
           {doc.lang.map(l => {
             return (
-              <FlatButton key={l} label={l} />
+              <FlatButton key={l} label={l} style={{fontFamily: 'monospace'}} />
             );
           })}
         </CardActions>
