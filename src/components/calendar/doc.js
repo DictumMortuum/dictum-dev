@@ -57,7 +57,12 @@ export default React.createClass({
           <ReactMarkdown source={doc.desc} />
         </CardText>
         <CardActions>
-          {doc.ticket && <RaisedButton primary={true} key='ticket' label={doc.ticket} />}
+          {doc.ticket && <RaisedButton
+            primary={true}
+            key='ticket'
+            label={doc.ticket}
+            href={config.jiraPrefix + doc.ticket}
+          />}
           {doc.lang.map(l => {
             return (
               <FlatButton key={l} label={l} />

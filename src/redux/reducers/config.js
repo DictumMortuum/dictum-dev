@@ -6,6 +6,7 @@ const defaultState = {
   expandedDoc: false,
   company: ['openbet', 'unify'],
   drawer: false,
+  jiraPrefix: 'https://jira.dev.global-intra.net:8443/browse/',
   product: [{
     company: 'openbet',
     name: 'siteserver',

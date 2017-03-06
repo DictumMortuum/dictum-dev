@@ -33,6 +33,8 @@ function callback(change) {
   // change.id contains the id
   // change.doc contains the doc
 
+  console.log(change);
+
   if (regex.test(change.id)) {
     store.dispatch(receiveDoc(change));
   } else {
