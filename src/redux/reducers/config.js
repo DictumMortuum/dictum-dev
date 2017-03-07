@@ -37,7 +37,7 @@ export default (state=defaultState, action) => {
   case 'CONFIG_DEFAULT':
     return defaultState;
   case 'TOGGLE_DRAWER':
-    return Object.assign({}, state, { drawer: !state.drawer });
+    return {...state, drawer: !state.drawer };
   default:
     return state;
   }
