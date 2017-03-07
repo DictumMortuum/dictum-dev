@@ -1,6 +1,7 @@
 'use strict';
 
 import db from '../db';
+import { fetchDocs } from './docs';
 
 /* TODO the configuration doc name should not be hardcoded */
 export function fetchConfig(config) {
@@ -31,4 +32,12 @@ export function toggleDrawer() {
   return {
     type: 'TOGGLE_DRAWER'
   };
+}
+
+export function toInit() {
+  return dispatch => fetchConfig('dictum_config').then(
+    conf => {
+      dispatch(conf);
+      dispatch(fetchDocs());
+    });
 }

@@ -1,7 +1,6 @@
 'use strict';
 
-import { fetchDocs, insertDoc } from './docs';
-import { fetchConfig } from './config';
+import { insertDoc } from './docs';
 import timeout from '../timeout';
 
 export function toEditor(doc) {
@@ -17,12 +16,4 @@ export function editorChange(attr, value) {
     dispatch(toEditor(doc));
     document.onkeypress = timeout(() => dispatch(insertDoc(doc)));
   };
-}
-
-export function toInit() {
-  return dispatch => fetchConfig('dictum_config').then(
-    conf => {
-      dispatch(conf);
-      dispatch(fetchDocs());
-    });
 }
