@@ -1,15 +1,19 @@
 'use strict';
 
 import db from '../db';
-import { regex } from '../db';
+import { regex, format } from '../db';
 
 export function fetchDocs(args={}) {
   return db.allDocs(Object.assign({}, args, {
     include_docs: true // eslint-disable-line camelcase
   })).then(result => {
+    let docs = result.rows || [];
+
     return {
       type: 'DOCS_FETCH',
-      docs: result.rows || []
+      docs: docs.filter(d => regex.test(d.key))
+        .map(d => format(d.doc))
+        .sort((a, b) => b.date - a.date)
     };
   }).catch(err => {
     throw err;
@@ -26,7 +30,7 @@ export function fetchDoc(id) {
     return db.get(id).then(result => {
       return {
         type: 'DOC_INSERT',
-        doc: result,
+        doc: format(result),
         id: id
       };
     }).catch(err => {
@@ -54,7 +58,7 @@ export function insertDoc(doc) {
     });*/
     return {
       type: 'DOC_INSERT',
-      doc: doc,
+      doc: format(doc),
       id: doc._id
     };
   }
@@ -71,7 +75,7 @@ export function receiveDoc(change) {
     return {
       type: 'DOC_INSERT',
       id: change.id,
-      doc: change.doc
+      doc: format(change.doc)
     };
   }
 }

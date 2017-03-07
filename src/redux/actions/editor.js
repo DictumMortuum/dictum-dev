@@ -6,7 +6,7 @@ import typing from '../timeout';
 
 export function toEditor(doc, index) {
   return {
-    type: 'TO_EDITOR',
+    type: 'EDIT',
     doc,
     id: index
   };
@@ -15,7 +15,8 @@ export function toEditor(doc, index) {
 export function editorChange(id, doc) {
   return dispatch => {
     dispatch({
-      type: 'FROM_CHANGE',
+      type: 'EDIT',
+      id,
       doc
     });
 

@@ -8,17 +8,18 @@ import { connect } from 'react-redux';
 
 let Viewer = React.createClass({
   propTypes: {
-    docs: React.PropTypes.object,
-    config: React.PropTypes.object
+    docs: React.PropTypes.array,
+    config: React.PropTypes.object,
+    length: React.PropTypes.number
   },
 
   render() {
-    let { docs, config } = this.props;
+    let { docs, config, length } = this.props;
 
     return (
       <Paper zDepth={0} style={{padding: 10}} >
         <List>
-          {docs.docs.slice(0, docs.length).map((d, index) => {
+          {docs.slice(0, length).map((d, index) => {
             return (
               <div key={d._id} style={{marginBottom: 10}}>
                 <Doc
@@ -36,6 +37,7 @@ let Viewer = React.createClass({
 export default connect(state => {
   return {
     docs: state.docs,
-    config: state.config
+    config: state.config,
+    length: state.length
   };
 })(Viewer);

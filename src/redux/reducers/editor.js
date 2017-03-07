@@ -11,10 +11,8 @@ const defaultState = {
 
 export default (state=defaultState, action) => {
   switch (action.type) {
-  case 'TO_EDITOR':
+  case 'EDIT':
     return Object.assign({}, state, { doc: action.doc, id: action.id });
-  case 'FROM_CHANGE':
-    return Object.assign({}, state, { doc: action.doc });
   default:
     return state;
   }

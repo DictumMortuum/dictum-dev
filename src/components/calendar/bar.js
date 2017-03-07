@@ -71,8 +71,7 @@ let Bar = React.createClass({
 
 export default connect(state => {
   return {
-    docs: state.docs.docs,
-    date: state.docs.date,
+    date: state.date,
     config: state.config
   };
 })(Bar);
