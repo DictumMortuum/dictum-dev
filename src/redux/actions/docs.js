@@ -22,7 +22,7 @@ export function fetchDocs(args={}) {
 
 // FROM pouch
 export function fetchDoc(id) {
-  if (regex.test(id)) {
+  if (!regex.test(id)) {
     return {
       type: 'DEFAULT'
     };
@@ -41,7 +41,7 @@ export function fetchDoc(id) {
 
 // TO pouch
 export function insertDoc(doc) {
-  if (regex.test(doc._id)) {
+  if (!regex.test(doc._id)) {
     return {
       type: 'DEFAULT'
     };
@@ -50,16 +50,14 @@ export function insertDoc(doc) {
     return db.put(doc).then(() => {
       return {
         type: 'DOC_INSERT',
-        doc: doc,
-        id: doc.id
+        doc: doc
       };
     }).catch(err => {
       throw err;
     });*/
     return {
       type: 'DOC_INSERT',
-      doc: format(doc),
-      id: doc._id
+      doc: doc
     };
   }
 }
@@ -82,7 +80,7 @@ export function receiveDoc(change) {
 
 // TO pouch
 export function deleteDoc(id, rev) {
-  if (regex.test(id)) {
+  if (!regex.test(id)) {
     return {
       type: 'DEFAULT'
     };

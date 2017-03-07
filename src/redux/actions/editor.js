@@ -1,6 +1,6 @@
 'use strict';
 
-import { fetchDocs } from './docs';
+import { fetchDocs, insertDoc } from './docs';
 import { fetchConfig } from './config';
 import timeout from '../timeout';
 
@@ -15,10 +15,7 @@ export function editorChange(attr, value) {
   return (dispatch, state) => {
     let doc = { ...state().editor, [attr]: value };
     dispatch(toEditor(doc));
-    document.onkeypress = timeout(() => dispatch({
-      type: 'DOC_EDIT',
-      doc
-    }));
+    document.onkeypress = timeout(() => dispatch(insertDoc(doc)));
   };
 }
 
