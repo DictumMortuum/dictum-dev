@@ -100,8 +100,7 @@ let Editor = React.createClass({
   },
 
   handleNew() {
-    let doc = { _id: new Date() };
-    console.log('new doc!', doc);
+    let doc = { _id: new Date().toISOString() };
     store.dispatch(insertDoc(doc));
   },
 

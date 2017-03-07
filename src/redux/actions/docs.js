@@ -57,7 +57,7 @@ export function insertDoc(doc) {
     });*/
     return {
       type: 'DOC_INSERT',
-      doc: doc
+      doc: format(doc)
     };
   }
 }
