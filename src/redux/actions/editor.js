@@ -2,13 +2,7 @@
 
 import { fetchDocs } from './docs';
 import { fetchConfig } from './config';
-
-let timer = null;
-
-function typing(callback) {
-  clearTimeout(timer);
-  timer = setTimeout(callback, 1000);
-}
+import typing from '../timeout';
 
 export function toEditor(doc, index) {
   return {

@@ -33,8 +33,6 @@ function callback(change) {
   // change.id contains the id
   // TODO change.changes[].doc contains the doc(s)
 
-  console.log(change);
-
   if (regex.test(change.id)) {
     store.dispatch(receiveDoc(change));
   } else {
