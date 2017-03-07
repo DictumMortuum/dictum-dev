@@ -50,7 +50,7 @@ export default React.createClass({
             backgroundColor: '#E0F2F1'
           }}
           onTouchTap={() => {
-            store.dispatch(toEditor(doc, this.props.index));
+            store.dispatch(toEditor(doc));
           }}
         />
         <CardText>

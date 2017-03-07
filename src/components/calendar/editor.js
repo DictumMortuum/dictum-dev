@@ -14,25 +14,20 @@ let Text = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     hint: React.PropTypes.string,
-    editor: React.PropTypes.object
+    value: React.PropTypes.string
   },
 
   handleChange(event, value) {
-    let { editor, id } = this.props;
-    editor.doc[id] = value;
-    store.dispatch(editorChange(editor.id, editor.doc));
+    store.dispatch(editorChange(this.props.id, value));
   },
 
   render() {
-    let { editor, id } = this.props;
-    let value = editor.doc[id];
-
     return (
       <TextField
         id={this.props.hint}
         fullWidth={true}
         hintText={this.props.hint}
-        value={value}
+        value={this.props.value}
         onChange={this.handleChange}
         style={{fontFamily: 'monospace', fontSize: 14}}
       />
@@ -44,25 +39,22 @@ let ArrayText = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     hint: React.PropTypes.string,
-    editor: React.PropTypes.object
+    value: React.PropTypes.array
   },
 
   handleChange(event, value) {
-    let { editor, id } = this.props;
-    editor.doc[id] = value.split(',');
-    store.dispatch(editorChange(editor.id, editor.doc));
+    store.dispatch(editorChange(this.props.id, value.split(',')));
   },
 
   render() {
-    let { editor, id } = this.props;
-    let value = editor.doc[id].toString();
+    let { value } = this.props;
 
     return (
       <TextField
         id={this.props.hint}
         fullWidth={true}
         hintText={this.props.hint}
-        value={value}
+        value={value.toString()}
         onChange={this.handleChange}
         style={{fontFamily: 'monospace', fontSize: 14}}
       />
@@ -73,20 +65,18 @@ let ArrayText = React.createClass({
 let Writer = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
-    editor: React.PropTypes.object
+    value: React.PropTypes.string
   },
 
   handleChange(value) {
-    let { editor, id } = this.props;
-    editor.doc[id] = value;
-    store.dispatch(editorChange(editor.id, editor.doc));
+    store.dispatch(editorChange(this.props.id, value));
   },
 
   render() {
     return (
       <Paper>
         <SimpleMDE
-          value={this.props.editor.doc.desc}
+          value={this.props.value}
           options={{
             toolbar: ['bold', 'italic', 'heading', '|',
               'unordered-list', 'ordered-list', '|',
@@ -113,7 +103,6 @@ let Editor = React.createClass({
     let doc = { _id: new Date() };
     console.log('new doc!', doc);
     store.dispatch(insertDoc(doc));
-    // store.dispatch(toEditor(doc, 0));
   },
 
   handleSave() {
@@ -124,7 +113,10 @@ let Editor = React.createClass({
     let { editor } = this.props;
 
     const style = {
-      padding: '0 10px 2px 10px',
+      display: 'flex',
+      flexWrap: 'wrap',
+      flexDirection: 'column',
+      padding: '10px 0 10px 10px',
       marginBottom: 10
     };
 
@@ -140,13 +132,13 @@ let Editor = React.createClass({
     return (
       <Paper style={paperStyle} zDepth={0}>
         <Paper style={style}>
-          <Text id="company" hint="Company" editor={editor} />
-          <Text id="product" hint="Product" editor={editor} />
-          <Text id="type" hint="Type" editor={editor} />
-          <ArrayText id="lang" hint="Languages" editor={editor} />
-          <Text id="ticket" hint="JIRA ticket" editor={editor} />
+          <Text id="company" hint="Company" value={editor.company} />
+          <Text id="product" hint="Product" value={editor.product} />
+          <Text id="type" hint="Type" value={editor.type} />
+          <ArrayText id="lang" hint="Languages" value={editor.lang} />
+          <Text id="ticket" hint="JIRA ticket" value={editor.ticket} />
         </Paper>
-        <Writer id="desc" editor={editor} />
+        <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
           <RaisedButton
             style={{marginRight: 10}}

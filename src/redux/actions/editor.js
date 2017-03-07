@@ -2,43 +2,30 @@
 
 import { fetchDocs } from './docs';
 import { fetchConfig } from './config';
-import typing from '../timeout';
+import timeout from '../timeout';
 
-export function toEditor(doc, index) {
+export function toEditor(doc) {
   return {
     type: 'EDIT',
-    doc,
-    id: index
+    doc
   };
 }
 
-export function editorChange(id, doc) {
-  return dispatch => {
-    dispatch({
-      type: 'EDIT',
-      id,
-      doc
-    });
-
-    document.onkeypress = typing(() => dispatch({
+export function editorChange(attr, value) {
+  return (dispatch, state) => {
+    let doc = { ...state().editor, [attr]: value };
+    dispatch(toEditor(doc));
+    document.onkeypress = timeout(() => dispatch({
       type: 'DOC_EDIT',
-      id,
       doc
     }));
   };
 }
 
 export function toInit() {
-  return (dispatch, state) => fetchConfig('dictum_config').then(
+  return dispatch => fetchConfig('dictum_config').then(
     conf => {
       dispatch(conf);
-      return fetchDocs().then(
-        docs => {
-          dispatch(docs);
-          dispatch({
-            type: 'TO_VIEWER',
-            docs: state().docs.docs
-          });
-        });
+      dispatch(fetchDocs());
     });
 }

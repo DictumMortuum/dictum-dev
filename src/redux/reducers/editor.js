@@ -2,17 +2,12 @@
 
 import { format } from '../db';
 
-const defaultState = {
-  doc: format({
-    _id: new Date()
-  }),
-  id: 0
-};
+const defaultState = format({ _id: new Date() });
 
 export default (state=defaultState, action) => {
   switch (action.type) {
   case 'EDIT':
-    return Object.assign({}, state, { doc: action.doc, id: action.id });
+    return action.doc;
   default:
     return state;
   }
