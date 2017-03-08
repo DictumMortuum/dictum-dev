@@ -10,7 +10,7 @@ import { editorChange } from '../../redux/actions/editor';
 import { insertDoc } from '../../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const textStyle= {fontFamily: 'monospace', fontSize: 14, flex: '1 0 33%'};
+const textStyle= {fontFamily: 'monospace', fontSize: 14, flex: '1 0 50%'};
 
 let Text = React.createClass({
   propTypes: {
@@ -107,7 +107,7 @@ let Editor = React.createClass({
   },
 
   render() {
-    let { editor } = this.props;
+    let { editor, config } = this.props;
 
     const style = {
       display: 'flex',
@@ -133,7 +133,9 @@ let Editor = React.createClass({
           <Text key="type" id="type" hint="Type" value={editor.type} />
           <ArrayText key="lang" id="lang" hint="Langs" value={editor.lang} />
           <Text key="ticket" id="ticket" hint="JIRA" value={editor.ticket} />
-          <Text key="date" id="placeholder" />
+          <Text key="date" id="date" hint="Date"
+            value={new Date(editor._id).toLocaleDateString(config.locale)}
+          />
         </Paper>
         <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
