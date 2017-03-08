@@ -118,8 +118,8 @@ let Editor = React.createClass({
     };
 
     const paperStyle = {
-      padding: '8px 10px 10px 10px',
       position: 'fixed',
+      paddingRight: 10,
       top: 74,
       left: '50%',
       width: '50%'

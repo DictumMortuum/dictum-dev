@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import { List } from 'material-ui/List';
 import Doc from './doc';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
@@ -18,17 +17,15 @@ let Viewer = React.createClass({
 
     return (
       <Paper zDepth={0} style={{padding: 10}} >
-        <List>
-          {docs.slice(0, length).map((d, index) => {
-            return (
-              <div key={d._id} style={{marginBottom: 10}}>
-                <Doc
-                  doc={d} config={config} index={index}
-                />
-              </div>
-            );
-          })}
-        </List>
+        {docs.slice(0, length).map((d, index) => {
+          return (
+            <div key={d._id} style={{marginBottom: 10}}>
+              <Doc
+                doc={d} config={config} index={index}
+              />
+            </div>
+          );
+        })}
       </Paper>
     );
   }
