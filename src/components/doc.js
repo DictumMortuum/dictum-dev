@@ -7,6 +7,7 @@ import store from '../redux/store';
 import { toEditor } from '../redux/actions/editor';
 import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
+import { docStyle, docInlineStyle } from '../styles/app';
 
 export default React.createClass({
   propTypes: {
@@ -18,18 +19,6 @@ export default React.createClass({
   render() {
     let { config, doc } = this.props;
 
-    const style = {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      color: 'rgba(0, 0, 0, 0.54)'
-    };
-
-    const inline = {
-      marginRight: 10,
-      fontFamily: 'monospace'
-    };
-
     return (
       <Card zDepth={1}>
         <CardHeader
@@ -39,10 +28,10 @@ export default React.createClass({
           })}
           children={(
             <div>
-              <div style={style}>
-                {doc.type !== '' && <div style={inline}>{doc.type}</div>}
-                {doc.company !== '' && <div style={inline}>{doc.company}</div>}
-                {doc.product !== '' && <div style={inline}>{doc.product}</div>}
+              <div style={docStyle}>
+                {doc.type !== '' && <div style={docInlineStyle}>{doc.type}</div>}
+                {doc.company !== '' && <div style={docInlineStyle}>{doc.company}</div>}
+                {doc.product !== '' && <div style={docInlineStyle}>{doc.product}</div>}
               </div>
             </div>
           )}

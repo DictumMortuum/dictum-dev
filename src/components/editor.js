@@ -9,8 +9,7 @@ import store from '../redux/store';
 import { editorChange } from '../redux/actions/editor';
 import { insertDoc } from '../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
-
-const textStyle= {fontFamily: 'monospace', fontSize: 14, flex: '1 0 50%'};
+import { editorStyle, textStyle, inputStyle } from '../styles/app';
 
 let Text = React.createClass({
   propTypes: {
@@ -109,25 +108,9 @@ let Editor = React.createClass({
   render() {
     let { editor, config } = this.props;
 
-    const style = {
-      display: 'flex',
-      padding: '0 10px 0 10px',
-      marginBottom: 10,
-      flexWrap: 'wrap',
-      flexDirection: 'row'
-    };
-
-    const paperStyle = {
-      position: 'fixed',
-      paddingRight: 10,
-      top: 74,
-      left: '50%',
-      width: '50%'
-    };
-
     return (
-      <Paper style={paperStyle} zDepth={0}>
-        <Paper style={style}>
+      <Paper style={editorStyle} zDepth={0}>
+        <Paper style={inputStyle}>
           <Text key="company" id="company" hint="Company" value={editor.company} />
           <Text key="product" id="product" hint="Product" value={editor.product} />
           <Text key="type" id="type" hint="Type" value={editor.type} />
