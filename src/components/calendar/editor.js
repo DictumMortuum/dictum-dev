@@ -26,7 +26,6 @@ let Text = React.createClass({
   render() {
     return (
       <TextField
-        disabled={true}
         id={this.props.hint}
         hintText={this.props.hint}
         value={this.props.value}
