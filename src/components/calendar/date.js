@@ -2,8 +2,9 @@
 
 import React from 'react';
 import DatePicker from 'material-ui/DatePicker';
+import { connect } from 'react-redux';
 
-export default React.createClass({
+let Datepicker = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
     date: React.PropTypes.string,
@@ -18,6 +19,7 @@ export default React.createClass({
       <DatePicker
         key={id}
         style={{paddingRight: 10}}
+        textFieldStyle={{width: 120}}
         inputStyle={{color: 'white'}}
         locale={config.locale}
         DateTimeFormat={global.Intl.DateTimeFormat}
@@ -29,3 +31,9 @@ export default React.createClass({
     );
   }
 });
+
+export default connect(state => {
+  return {
+    config: state.config
+  };
+})(Datepicker);

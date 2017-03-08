@@ -44,8 +44,8 @@ let Bar = React.createClass({
         zDepth={1}
         iconElementRight={
           <div style={{display: 'flex'}}>
-            <Datepicker id='from' config={config} date={date.from} callback={this.handleFrom} />
-            <Datepicker id='to' config={config} date={date.to} callback={this.handleTo} />
+            <Datepicker id='from' date={date.from} callback={this.handleFrom} />
+            <Datepicker id='to' date={date.to} callback={this.handleTo} />
           </div>
         }
         onLeftIconButtonTouchTap={this.handleConfig}
