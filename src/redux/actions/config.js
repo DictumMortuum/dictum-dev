@@ -3,7 +3,6 @@
 import db from '../db';
 import { fetchDocs } from './docs';
 
-/* TODO the configuration doc name should not be hardcoded */
 export function fetchConfig(config) {
   return db.get(config).then(result => {
     return {
