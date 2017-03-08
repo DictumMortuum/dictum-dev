@@ -3,31 +3,16 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
-import DatePicker from 'material-ui/DatePicker';
 import store from '../../redux/store';
 import { fetchDocs } from '../../redux/actions/docs';
 import { toggleDrawer } from '../../redux/actions/config';
+import Datepicker from './date';
 import moment from 'moment';
 
 let Bar = React.createClass({
   propTypes: {
     date: React.PropTypes.object,
     config: React.PropTypes.object
-  },
-
-  getDatePicker(date, callback) {
-    return (
-      <DatePicker
-        style={{paddingRight: 10}}
-        inputStyle={{color: 'white'}}
-        locale={this.props.config.locale}
-        DateTimeFormat={global.Intl.DateTimeFormat}
-        autoOk={true}
-        container="inline"
-        value={new Date(date)}
-        onChange={callback}
-      />
-    );
   },
 
   handleFrom(_, date) {
@@ -49,7 +34,7 @@ let Bar = React.createClass({
   },
 
   render() {
-    let { config } = this.props;
+    let { config, date } = this.props;
 
     return (
       <AppBar
@@ -59,8 +44,8 @@ let Bar = React.createClass({
         zDepth={1}
         iconElementRight={
           <div style={{display: 'flex'}}>
-            {this.getDatePicker(this.props.date.from, this.handleFrom)}
-            {this.getDatePicker(this.props.date.to, this.handleTo)}
+            <Datepicker id='from' config={config} date={date.from} callback={this.handleFrom} />
+            <Datepicker id='to' config={config} date={date.to} callback={this.handleTo} />
           </div>
         }
         onLeftIconButtonTouchTap={this.handleConfig}

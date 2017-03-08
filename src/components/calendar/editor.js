@@ -128,12 +128,12 @@ let Editor = React.createClass({
     return (
       <Paper style={paperStyle} zDepth={0}>
         <Paper style={style}>
-          <Text id="company" hint="Company" value={editor.company} />
-          <Text id="product" hint="Product" value={editor.product} />
-          <Text id="type" hint="Type" value={editor.type} />
-          <ArrayText id="lang" hint="Languages" value={editor.lang} />
-          <Text id="ticket" hint="JIRA ticket" value={editor.ticket} />
-          <Text id="placeholder" />
+          <Text key="company" id="company" hint="Company" value={editor.company} />
+          <Text key="product" id="product" hint="Product" value={editor.product} />
+          <Text key="type" id="type" hint="Type" value={editor.type} />
+          <ArrayText key="lang" id="lang" hint="Langs" value={editor.lang} />
+          <Text key="ticket" id="ticket" hint="JIRA" value={editor.ticket} />
+          <Text key="date" id="placeholder" />
         </Paper>
         <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
