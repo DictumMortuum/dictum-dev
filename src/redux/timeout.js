@@ -1,3 +1,5 @@
+'use strict';
+
 let timer = null;
 
 export default function (callback) {
