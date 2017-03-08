@@ -139,17 +139,10 @@ let Editor = React.createClass({
         </Paper>
         <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
-          <RaisedButton
+          <RaisedButton primary={true} label={'new'} onTouchTap={this.handleNew}
             style={{marginRight: 10}}
-            primary={true}
-            label={'new'}
-            onTouchTap={this.handleNew}
           />
-          <RaisedButton
-            secondary={true}
-            label={'save'}
-            onTouchTap={this.handleSave}
-          />
+          <RaisedButton secondary={true} label={'save'} onTouchTap={this.handleSave} />
         </div>
       </Paper>
     );
