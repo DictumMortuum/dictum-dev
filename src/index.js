@@ -39,14 +39,14 @@ Array.prototype.uniqueCount = function () {
 };
 
 import { Provider } from 'react-redux';
-import Router from './components/router';
 import React from 'react';
 import { render } from 'react-dom';
 import store from './redux/store';
+import App from './components/app';
 
 render(
   <Provider store={store}>
-    <Router />
+    <App />
   </Provider>
   , document.getElementById('app')
 );

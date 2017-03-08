@@ -3,7 +3,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
 import React from 'react';
-import Calendar from './calendar/index';
+import Calendar from './calendar';
 import { toInit } from '../redux/actions/config';
 import { scrollDocs } from '../redux/actions/docs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

@@ -3,9 +3,9 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
-import store from '../../redux/store';
-import { fetchDocs } from '../../redux/actions/docs';
-import { toggleDrawer } from '../../redux/actions/config';
+import store from '../redux/store';
+import { fetchDocs } from '../redux/actions/docs';
+import { toggleDrawer } from '../redux/actions/config';
 import Datepicker from './date';
 import moment from 'moment';
 

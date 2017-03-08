@@ -48,7 +48,6 @@
     "react-dom": "*",
     "react-hot-loader": "*",
     "react-redux": "*",
-    "react-router": "*",
     "react-tap-event-plugin": "*",
     "redux": "*",
     "redux-devtools": "*",
@@ -57,9 +56,7 @@
     "redux-thunk": "*",
     "style-loader": "*",
     "webpack": "*2.2.0",
-    "webpack-dev-server": "*2.2.0"
-  },
-  "dependencies": {
+    "webpack-dev-server": "*2.2.0",
     "react-markdown": "^2.4.5",
     "react-simplemde-editor": "^3.6.10"
   }

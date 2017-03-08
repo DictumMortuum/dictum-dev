@@ -5,9 +5,9 @@ import SimpleMDE from 'react-simplemde-editor';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
-import store from '../../redux/store';
-import { editorChange } from '../../redux/actions/editor';
-import { insertDoc } from '../../redux/actions/docs';
+import store from '../redux/store';
+import { editorChange } from '../redux/actions/editor';
+import { insertDoc } from '../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const textStyle= {fontFamily: 'monospace', fontSize: 14, flex: '1 0 50%'};

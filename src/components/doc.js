@@ -3,8 +3,8 @@
 import React from 'react';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import store from '../../redux/store';
-import { toEditor } from '../../redux/actions/editor';
+import store from '../redux/store';
+import { toEditor } from '../redux/actions/editor';
 import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
 
