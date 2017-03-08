@@ -10,6 +10,8 @@ import { editorChange } from '../../redux/actions/editor';
 import { insertDoc } from '../../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const textStyle= {fontFamily: 'monospace', fontSize: 14, flex: '1 0 33%'};
+
 let Text = React.createClass({
   propTypes: {
     id: React.PropTypes.string,
@@ -25,11 +27,10 @@ let Text = React.createClass({
     return (
       <TextField
         id={this.props.hint}
-        fullWidth={true}
         hintText={this.props.hint}
         value={this.props.value}
         onChange={this.handleChange}
-        style={{fontFamily: 'monospace', fontSize: 14}}
+        style={textStyle}
       />
     );
   }
@@ -52,11 +53,10 @@ let ArrayText = React.createClass({
     return (
       <TextField
         id={this.props.hint}
-        fullWidth={true}
         hintText={this.props.hint}
         value={value.toString()}
         onChange={this.handleChange}
-        style={{fontFamily: 'monospace', fontSize: 14}}
+        style={textStyle}
       />
     );
   }
@@ -78,10 +78,8 @@ let Writer = React.createClass({
         <SimpleMDE
           value={this.props.value}
           options={{
-            toolbar: ['bold', 'italic', 'heading', '|',
-              'unordered-list', 'ordered-list', '|',
-              'link', 'image', 'horizontal-rule', 'quote', '|',
-              'preview'],
+            toolbar: ['bold', 'italic', 'heading', 'unordered-list', 'ordered-list',
+              'link', 'image', 'horizontal-rule', 'quote', 'preview'],
             tabsize: 2,
             status: false,
             spellChecker: false
@@ -113,19 +111,18 @@ let Editor = React.createClass({
 
     const style = {
       display: 'flex',
+      padding: '0 10px 0 10px',
+      marginBottom: 10,
       flexWrap: 'wrap',
-      flexDirection: 'column',
-      padding: '10px 0 10px 10px',
-      marginBottom: 10
+      flexDirection: 'row'
     };
 
     const paperStyle = {
-      padding: 10,
+      padding: '8px 10px 10px 10px',
       position: 'fixed',
-      top: '0%',
+      top: 74,
       left: '50%',
-      width: '50%',
-      transform: 'translateY(+10%)'
+      width: '50%'
     };
 
     return (
@@ -136,6 +133,7 @@ let Editor = React.createClass({
           <Text id="type" hint="Type" value={editor.type} />
           <ArrayText id="lang" hint="Languages" value={editor.lang} />
           <Text id="ticket" hint="JIRA ticket" value={editor.ticket} />
+          <Text id="placeholder" />
         </Paper>
         <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
