@@ -2,6 +2,7 @@
 
 import db from '../db';
 import { regex, format } from '../db';
+import { toEditor } from './editor';
 
 export function fetchDocs(args={}) {
   return db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
@@ -39,13 +40,13 @@ export function fetchDoc(id) {
 }
 
 // TO pouch
+/*
 export function insertDoc(doc) {
   if (!regex.test(doc._id)) {
     return {
       type: 'DEFAULT'
     };
   } else {
-    /*
     return db.put(doc).then(() => {
       return {
         type: 'DOC_INSERT',
@@ -53,11 +54,17 @@ export function insertDoc(doc) {
       };
     }).catch(err => {
       throw err;
-    });*/
-    return {
+    });
+  }
+}*/
+export function insertDoc(doc) {
+  if (!regex.test(doc._id)) {
+    return Promise.resolve({ type: 'DEFAULT' });
+  } else {
+    return Promise.resolve({
       type: 'DOC_INSERT',
       doc: format(doc)
-    };
+    });
   }
 }
 
@@ -99,4 +106,12 @@ export function scrollDocs() {
   return {
     type: 'DOC_LENGTH'
   };
+}
+
+export function newDoc() {
+  let doc = { _id: new Date().toISOString() };
+
+  return dispatch => dispatch(insertDoc(doc)).then(
+    action => dispatch(toEditor(action.doc))
+  );
 }

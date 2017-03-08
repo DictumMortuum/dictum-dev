@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import store from '../redux/store';
 import { editorChange } from '../redux/actions/editor';
-import { insertDoc } from '../redux/actions/docs';
+import { newDoc } from '../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 import { editorStyle, textStyle, inputStyle } from '../styles/app';
 
@@ -97,8 +97,7 @@ let Editor = React.createClass({
   },
 
   handleNew() {
-    let doc = { _id: new Date().toISOString() };
-    store.dispatch(insertDoc(doc));
+    store.dispatch(newDoc());
   },
 
   handleSave() {
