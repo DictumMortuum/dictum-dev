@@ -26,6 +26,7 @@ let Text = React.createClass({
   render() {
     return (
       <TextField
+        disabled={true}
         id={this.props.hint}
         hintText={this.props.hint}
         value={this.props.value}
@@ -134,7 +135,7 @@ let Editor = React.createClass({
           <ArrayText key="lang" id="lang" hint="Langs" value={editor.lang} />
           <Text key="ticket" id="ticket" hint="JIRA" value={editor.ticket} />
           <Text key="date" id="date" hint="Date"
-            value={new Date(editor._id).toLocaleDateString(config.locale)}
+            value={editor.date.toLocaleDateString(config.locale)}
           />
         </Paper>
         <Writer id="desc" value={editor.desc} />
