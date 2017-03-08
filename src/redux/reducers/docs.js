@@ -3,7 +3,6 @@
 const defaultState = [];
 
 export default (state=defaultState, action) => {
-  // TODO: check that docs are alright
   switch (action.type) {
   case 'DOCS_FETCH':
     return action.docs;

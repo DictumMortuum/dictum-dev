@@ -31,7 +31,7 @@ db.changes({
 
 function callback(change) {
   // change.id contains the id
-  // TODO change.changes[].doc contains the doc(s)
+  // change.doc contains the doc (assuming include_docs: true)
 
   if (regex.test(change.id)) {
     store.dispatch(receiveDoc(change));
