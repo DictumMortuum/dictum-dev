@@ -23,9 +23,7 @@ export function fetchDocs(args={}) {
 // FROM pouch
 export function fetchDoc(id) {
   if (!regex.test(id)) {
-    return {
-      type: 'DEFAULT'
-    };
+    return Promise.resolve({ type: 'DEFAULT' });
   } else {
     return db.get(id).then(result => {
       return {
@@ -87,9 +85,7 @@ export function receiveDoc(change) {
 // TO pouch
 export function deleteDoc(id, rev) {
   if (!regex.test(id)) {
-    return {
-      type: 'DEFAULT'
-    };
+    return Promise.resolve({ type: 'DEFAULT' });
   } else {
     return db.remove(id, rev).then(() => {
       return {
@@ -111,7 +107,9 @@ export function scrollDocs() {
 export function newDoc() {
   let doc = { _id: new Date().toISOString() };
 
-  return dispatch => dispatch(insertDoc(doc)).then(
+  return dispatch => dispatch(
+    insertDoc(doc)
+  ).then(
     action => dispatch(toEditor(action.doc))
   );
 }
