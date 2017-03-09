@@ -35,11 +35,11 @@ export function toggleDrawer() {
 }
 
 export function toInit() {
-  return (dispatch, state) => dispatch(
+  return dispatch => dispatch(
     fetchConfig('dictum_config')
   ).then(
     () => dispatch(fetchDocs())
   ).then(
-    () => dispatch(toEditor(state().docs[0]))
+    f => dispatch(toEditor(f.docs[0]))
   );
 }
