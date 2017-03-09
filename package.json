@@ -1,7 +1,7 @@
 {
-  "name": "react-pouch-redux-starter-kit",
-  "version": "0.0.1",
-  "description": "Quickly get started with React + PouchDB + Redux",
+  "name": "dictum-dev",
+  "version": "0.0.2",
+  "description": "The development repository of dictum, my daily task visualization tool.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/osxi/react-pouch-redux-starter-kit.git"
+    "url": "git+https://github.com/DictumMortuum/dictum-dev"
   },
   "keywords": [
     "react",
@@ -18,12 +18,12 @@
     "redux",
     "webpack"
   ],
-  "author": "osxi",
+  "author": "Dimitris Raviolos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/osxi/react-pouch-redux-starter-kit/issues"
+    "url": "https://github.com/DictumMortuum/dictum-dev/issues"
   },
-  "homepage": "https://github.com/osxi/react-pouch-redux-starter-kit#readme",
+  "homepage": "https://github.com/DictumMortuum/dictum-dev#readme",
   "devDependencies": {
     "babel-core": "*",
     "babel-loader": "*",
