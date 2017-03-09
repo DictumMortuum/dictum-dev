@@ -18,6 +18,7 @@ let Datepicker = React.createClass({
     return (
       <DatePicker
         key={id}
+        name={id}
         style={{paddingRight: 10}}
         textFieldStyle={{width: 120}}
         inputStyle={{color: 'white'}}
