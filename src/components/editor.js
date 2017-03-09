@@ -1,94 +1,15 @@
 'use strict';
 
 import React from 'react';
-import SimpleMDE from 'react-simplemde-editor';
-import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import store from '../redux/store';
-import { editorChange } from '../redux/actions/editor';
 import { newDoc } from '../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
-import { editorStyle, textStyle, inputStyle } from '../styles/app';
-
-let Text = React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    hint: React.PropTypes.string,
-    value: React.PropTypes.string
-  },
-
-  handleChange(event, value) {
-    store.dispatch(editorChange(this.props.id, value));
-  },
-
-  render() {
-    return (
-      <TextField
-        id={this.props.hint}
-        hintText={this.props.hint}
-        value={this.props.value}
-        onChange={this.handleChange}
-        style={textStyle}
-      />
-    );
-  }
-});
-
-let ArrayText = React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    hint: React.PropTypes.string,
-    value: React.PropTypes.array
-  },
-
-  handleChange(event, value) {
-    store.dispatch(editorChange(this.props.id, value.split(',')));
-  },
-
-  render() {
-    let { value } = this.props;
-
-    return (
-      <TextField
-        id={this.props.hint}
-        hintText={this.props.hint}
-        value={value.toString()}
-        onChange={this.handleChange}
-        style={textStyle}
-      />
-    );
-  }
-});
-
-let Writer = React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    value: React.PropTypes.string
-  },
-
-  handleChange(value) {
-    store.dispatch(editorChange(this.props.id, value));
-  },
-
-  render() {
-    return (
-      <Paper>
-        <SimpleMDE
-          value={this.props.value}
-          options={{
-            toolbar: ['bold', 'italic', 'heading', 'unordered-list', 'ordered-list',
-              'link', 'image', 'horizontal-rule', 'quote', 'preview'],
-            tabsize: 2,
-            status: false,
-            spellChecker: false
-          }}
-          onChange={this.handleChange}
-        />
-      </Paper>
-    );
-  }
-});
+import { editorStyle, inputStyle } from '../styles/app';
+import Text from './text';
+import ArrayText from './arraytext';
+import Writer from './writer';
 
 let Editor = React.createClass({
   propTypes: {

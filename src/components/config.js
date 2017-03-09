@@ -11,12 +11,7 @@ let Config = React.createClass({
 
   render() {
     return (
-      <Drawer
-        open={this.props.config.drawer}
-        openSecondary={true}
-      >
-        dasf
-      </Drawer>
+      <Drawer open={this.props.config.drawer} openSecondary={true} />
     );
   }
 });
