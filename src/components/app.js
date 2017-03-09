@@ -26,15 +26,6 @@ window.onscroll = function () {
 };
 
 export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.object,
-    docs: React.PropTypes.array,
-    tags: React.PropTypes.array,
-    config: React.PropTypes.object,
-    history: React.PropTypes.object,
-    location: React.PropTypes.object
-  },
-
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
