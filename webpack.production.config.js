@@ -13,7 +13,7 @@ module.exports = {
     loaders: [{
       test: path.join(__dirname, 'src'),
       exclude: [node_modules_dir],
-      loader: 'babel'
+      loader: 'babel-loader'
     }]
   }
 };
