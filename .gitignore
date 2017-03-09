@@ -2,9 +2,6 @@
 node_modules
 npm-debug.log
 
-# app
-bundle.js
-
 # osx
 .DS_Store
 
