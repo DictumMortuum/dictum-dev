@@ -2,10 +2,9 @@
 
 const defaultState = {
   locale: 'el-gr',
-  expandedDay: true,
-  expandedDoc: false,
   company: ['openbet', 'unify'],
-  drawer: true,
+  drawer: false,
+  jiraPrefix: 'https://jira.dev.global-intra.net:8443/browse/',
   product: [{
     company: 'openbet',
     name: 'siteserver',
@@ -36,7 +35,7 @@ export default (state=defaultState, action) => {
   case 'CONFIG_DEFAULT':
     return defaultState;
   case 'TOGGLE_DRAWER':
-    return Object.assign({}, state, { drawer: !state.drawer });
+    return {...state, drawer: !state.drawer };
   default:
     return state;
   }

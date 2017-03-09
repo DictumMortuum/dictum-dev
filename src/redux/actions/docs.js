@@ -1,15 +1,19 @@
 'use strict';
 
 import db from '../db';
-import { regex } from '../db';
+import { regex, format } from '../db';
+import { toEditor } from './editor';
 
 export function fetchDocs(args={}) {
-  return db.allDocs(Object.assign({}, args, {
-    include_docs: true // eslint-disable-line camelcase
-  })).then(result => {
+  return db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
+  .then(result => {
+    let docs = result.rows || [];
+
     return {
       type: 'DOCS_FETCH',
-      docs: result.rows || []
+      docs: docs.filter(d => regex.test(d.key))
+        .map(d => format(d.doc))
+        .sort((a, b) => b.date - a.date)
     };
   }).catch(err => {
     throw err;
@@ -18,7 +22,7 @@ export function fetchDocs(args={}) {
 
 // FROM pouch
 export function fetchDoc(id) {
-  if (regex.test(id)) {
+  if (!regex.test(id)) {
     return {
       type: 'DEFAULT'
     };
@@ -26,7 +30,7 @@ export function fetchDoc(id) {
     return db.get(id).then(result => {
       return {
         type: 'DOC_INSERT',
-        doc: result,
+        doc: format(result),
         id: id
       };
     }).catch(err => {
@@ -36,8 +40,9 @@ export function fetchDoc(id) {
 }
 
 // TO pouch
+/*
 export function insertDoc(doc) {
-  if (regex.test(doc.id)) {
+  if (!regex.test(doc._id)) {
     return {
       type: 'DEFAULT'
     };
@@ -45,11 +50,20 @@ export function insertDoc(doc) {
     return db.put(doc).then(() => {
       return {
         type: 'DOC_INSERT',
-        doc: doc,
-        id: doc.id
+        doc: doc
       };
     }).catch(err => {
       throw err;
+    });
+  }
+}*/
+export function insertDoc(doc) {
+  if (!regex.test(doc._id)) {
+    return Promise.resolve({ type: 'DEFAULT' });
+  } else {
+    return Promise.resolve({
+      type: 'DOC_INSERT',
+      doc: format(doc)
     });
   }
 }
@@ -65,14 +79,14 @@ export function receiveDoc(change) {
     return {
       type: 'DOC_INSERT',
       id: change.id,
-      doc: change.doc
+      doc: format(change.doc)
     };
   }
 }
 
 // TO pouch
 export function deleteDoc(id, rev) {
-  if (regex.test(id)) {
+  if (!regex.test(id)) {
     return {
       type: 'DEFAULT'
     };
@@ -86,4 +100,18 @@ export function deleteDoc(id, rev) {
       throw err;
     });
   }
+}
+
+export function scrollDocs() {
+  return {
+    type: 'DOC_LENGTH'
+  };
+}
+
+export function newDoc() {
+  let doc = { _id: new Date().toISOString() };
+
+  return dispatch => dispatch(insertDoc(doc)).then(
+    action => dispatch(toEditor(action.doc))
+  );
 }
