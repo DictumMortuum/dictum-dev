@@ -9,6 +9,7 @@ export default (state=defaultState, action) => {
   case 'DOC_DELETE':
     return state.filter(d => d._id !== action.id);
   case 'DOC_INSERT':
+    console.log(action.doc);
     return [...state.filter(d => d._id !== action.doc._id), action.doc]
     .sort((a, b) => b.date - a.date);
   default:

@@ -37,24 +37,26 @@ export function fetchDoc(id) {
   }
 }
 
-// TO pouch
-/*
-export function insertDoc(doc) {
-  if (!regex.test(doc._id)) {
-    return {
-      type: 'DEFAULT'
-    };
-  } else {
-    return db.put(doc).then(() => {
-      return {
-        type: 'DOC_INSERT',
-        doc: doc
-      };
-    }).catch(err => {
-      throw err;
-    });
-  }
-}*/
+export function commitDoc() {
+  return (dispatch, state) => {
+    let doc = state().editor;
+
+    console.log('Putting...', doc);
+
+    return dispatch(
+      db.put(doc).then(r => {
+        console.log('Put!...', r);
+        return {
+          type: 'DOC_INSERT',
+          doc: format(Object.assign({}, doc, { _rev: r.rev }))
+        };
+      })
+    ).then(
+      action => dispatch(toEditor(action.doc))
+    );
+  };
+}
+
 export function insertDoc(doc) {
   if (!regex.test(doc._id)) {
     return Promise.resolve({ type: 'DEFAULT' });

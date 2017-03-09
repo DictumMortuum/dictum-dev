@@ -4,7 +4,7 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import store from '../redux/store';
-import { newDoc } from '../redux/actions/docs';
+import { newDoc, commitDoc } from '../redux/actions/docs';
 import RaisedButton from 'material-ui/RaisedButton';
 import { editorStyle, inputStyle } from '../styles/app';
 import Text from './text';
@@ -22,7 +22,7 @@ let Editor = React.createClass({
   },
 
   handleSave() {
-    console.log('save doc!');
+    store.dispatch(commitDoc());
   },
 
   render() {
