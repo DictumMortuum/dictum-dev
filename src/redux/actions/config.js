@@ -2,6 +2,7 @@
 
 import db from '../db';
 import { fetchDocs } from './docs';
+import { toEditor } from './editor';
 
 export function fetchConfig(config) {
   return db.get(config).then(result => {
@@ -34,9 +35,11 @@ export function toggleDrawer() {
 }
 
 export function toInit() {
-  return dispatch => fetchConfig('dictum_config').then(
-    conf => {
-      dispatch(conf);
-      dispatch(fetchDocs());
-    });
+  return (dispatch, state) => dispatch(
+    fetchConfig('dictum_config')
+  ).then(
+    () => dispatch(fetchDocs())
+  ).then(
+    () => dispatch(toEditor(state().docs[0]))
+  );
 }
