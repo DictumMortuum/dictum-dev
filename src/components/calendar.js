@@ -5,7 +5,7 @@ import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
-import { calendarStyle } from '../styles/app';
+import { flexParent, flexChild } from '../styles/app';
 
 export default React.createClass({
   render() {
@@ -13,11 +13,11 @@ export default React.createClass({
       <div>
         <Bar />
         <Config />
-        <div style={calendarStyle}>
-          <div style={{flex: '1 0 50%', width: '50%'}}>
+        <div style={flexParent}>
+          <div style={flexChild}>
             <Viewer />
           </div>
-          <div style={{flex: '1 0 50%', width: '50%'}}>
+          <div style={flexChild}>
             <Editor />
           </div>
         </div>

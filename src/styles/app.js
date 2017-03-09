@@ -1,24 +1,29 @@
 'use strict';
 
-// CALENDAR
-export const calendarStyle = {
+export const flexParent = {
   display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'row',
-  height: '100vh'
+  width: '100%',
+  flexWrap: 'wrap'
+};
+
+export const flexChild = {
+  flex: '1 0 50%'
+};
+
+export const font = {
+  fontFamily: 'monospace',
+  fontSize: 14
 };
 
 // DOC
 export const docStyle = {
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'row',
-  color: 'rgba(0, 0, 0, 0.54)'
+  backgroundColor: '#E0F2F1'
 };
 
-export const docInlineStyle = {
+export const docInfoStyle = {
+  ...font,
   marginRight: 10,
-  fontFamily: 'monospace'
+  color: 'rgba(0, 0, 0, 0.54)'
 };
 
 // EDITOR
@@ -31,15 +36,12 @@ export const editorStyle = {
 };
 
 export const inputStyle = {
-  display: 'flex',
+  ...flexParent,
   padding: '0 10px 0 10px',
-  marginBottom: 10,
-  flexWrap: 'wrap',
-  flexDirection: 'row'
+  marginBottom: 10
 };
 
 export const textStyle= {
-  fontFamily: 'monospace',
-  fontSize: 14,
-  flex: '1 0 50%'
+  ...flexChild,
+  ...font
 };

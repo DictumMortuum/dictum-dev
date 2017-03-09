@@ -8,6 +8,7 @@ import { fetchDocs } from '../redux/actions/docs';
 import { toggleDrawer } from '../redux/actions/config';
 import Datepicker from './date';
 import moment from 'moment';
+import { flexParent } from '../styles/app';
 
 let Bar = React.createClass({
   propTypes: {
@@ -43,7 +44,7 @@ let Bar = React.createClass({
         })}
         zDepth={1}
         iconElementRight={
-          <div style={{display: 'flex'}}>
+          <div style={flexParent}>
             <Datepicker id='from' date={date.from} callback={this.handleFrom} />
             <Datepicker id='to' date={date.to} callback={this.handleTo} />
           </div>
