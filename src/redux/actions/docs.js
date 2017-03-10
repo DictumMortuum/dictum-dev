@@ -1,7 +1,7 @@
 'use strict';
 
 import db from '../db';
-import { regex } from '../db';
+import { regex, create } from '../db';
 import { toEditor } from './editor';
 
 export function fetchDocs(args={}) {
@@ -78,7 +78,7 @@ export function scrollDocs() {
 }
 
 export function newDoc() {
-  let doc = { _id: new Date().toISOString() };
+  let doc = create();
 
   return dispatch => dispatch(
     insertDoc(doc)
