@@ -14,37 +14,17 @@ export function fetchDocs(args={}) {
   });
 }
 
-// FROM pouch
-export function fetchDoc(id) {
-  if (!regex.test(id)) {
-    return Promise.resolve({ type: 'DEFAULT' });
-  } else {
-    return db.get(id).then(result => {
+export function commitDoc() {
+  return (dispatch, state) => dispatch(
+    db.put(state().editor).then(doc => {
       return {
         type: 'DOC_INSERT',
-        doc: result
+        doc
       };
-    }).catch(err => {
-      throw err;
-    });
-  }
-}
-
-export function commitDoc() {
-  return (dispatch, state) => {
-    let doc = state().editor;
-
-    return dispatch(
-      db.put(doc).then(r => {
-        return {
-          type: 'DOC_INSERT',
-          doc: r
-        };
-      })
-    ).then(
-      action => dispatch(toEditor(action.doc))
-    );
-  };
+    })
+  ).then(
+    action => dispatch(toEditor(action.doc))
+  );
 }
 
 export function insertDoc(doc) {
@@ -53,12 +33,13 @@ export function insertDoc(doc) {
   } else {
     return Promise.resolve({
       type: 'DOC_INSERT',
-      doc: doc
+      doc
     });
   }
 }
 
 // FROM replication
+// TODO move this to db
 export function receiveDoc(change) {
   if (change.deleted) {
     return {
