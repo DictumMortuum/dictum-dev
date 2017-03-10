@@ -31,16 +31,16 @@ let Editor = React.createClass({
     return (
       <Paper style={editorStyle} zDepth={0}>
         <Paper style={inputStyle}>
-          <Text key="company" id="company" hint="Company" value={editor.company} />
-          <Text key="product" id="product" hint="Product" value={editor.product} />
-          <Text key="type" id="type" hint="Type" value={editor.type} />
-          <ArrayText key="lang" id="lang" hint="Langs" value={editor.lang} />
-          <Text key="ticket" id="ticket" hint="JIRA" value={editor.ticket} />
+          <Text key="company" id="company" hint="Company" value={editor.company || ''} />
+          <Text key="product" id="product" hint="Product" value={editor.product || ''} />
+          <Text key="type" id="type" hint="Type" value={editor.type || ''} />
+          <ArrayText key="lang" id="lang" hint="Langs" value={editor.lang || []} />
+          <Text key="ticket" id="ticket" hint="JIRA" value={editor.ticket || ''} />
           <Text key="date" id="date" hint="Date"
-            value={editor.date.toLocaleDateString(config.locale)}
+            value={new Date(editor._id).toLocaleDateString(config.locale)}
           />
         </Paper>
-        <Writer id="desc" value={editor.desc} />
+        <Writer id="desc" value={editor.desc || ''} />
         <div style={{textAlign: 'center', padding: 10}}>
           <RaisedButton primary={true} label={'new'} onTouchTap={this.handleNew}
             style={{marginRight: 10}}

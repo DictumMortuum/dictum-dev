@@ -1,22 +1,16 @@
 'use strict';
 
 import db from '../db';
-import { regex, format } from '../db';
+import { regex } from '../db';
 import { toEditor } from './editor';
 
 export function fetchDocs(args={}) {
-  return db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
-  .then(result => {
-    let docs = result.rows || [];
-
+  return db.allDocs(args)
+  .then(docs => {
     return {
       type: 'DOCS_FETCH',
-      docs: docs.filter(d => regex.test(d.key))
-        .map(d => format(d.doc))
-        .sort((a, b) => b.date - a.date)
+      docs: docs
     };
-  }).catch(err => {
-    throw err;
   });
 }
 
@@ -28,8 +22,7 @@ export function fetchDoc(id) {
     return db.get(id).then(result => {
       return {
         type: 'DOC_INSERT',
-        doc: format(result),
-        id: id
+        doc: result
       };
     }).catch(err => {
       throw err;
@@ -41,14 +34,11 @@ export function commitDoc() {
   return (dispatch, state) => {
     let doc = state().editor;
 
-    console.log('Putting...', doc);
-
     return dispatch(
       db.put(doc).then(r => {
-        console.log('Put!...', r);
         return {
           type: 'DOC_INSERT',
-          doc: format(Object.assign({}, doc, { _rev: r.rev }))
+          doc: r
         };
       })
     ).then(
@@ -63,7 +53,7 @@ export function insertDoc(doc) {
   } else {
     return Promise.resolve({
       type: 'DOC_INSERT',
-      doc: format(doc)
+      doc: doc
     });
   }
 }
@@ -79,7 +69,7 @@ export function receiveDoc(change) {
     return {
       type: 'DOC_INSERT',
       id: change.id,
-      doc: format(change.doc)
+      doc: change.doc
     };
   }
 }

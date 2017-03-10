@@ -39,15 +39,26 @@ function callback(change) {
   }
 }
 
+const _new = () => {
+  return { _id: new Date().toISOString() };
+};
+const _err = err => {
+  throw err;
+};
+const _test = d => regex.test(d._id);
+const _sort = (a, b) => b.date - a.date;
+
 export default {
-  get: (id) => db.get(id).catch(err => {
-    throw err;
-  }),
+  get: (id) => db.get(id).catch(_err),
   put: (doc) => db.put(doc).then(r => {
     return {
       ...doc, _rev: r.rev
     };
   }),
   allDocs: (args) => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
-    .then(result => result.rows || [])
+    .catch(_err)
+    .then(r => {
+      return [...r.rows.map(d => d.doc), _new() ];
+    })
+    .then(r => r.filter(_test).sort(_sort))
 };

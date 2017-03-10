@@ -22,22 +22,22 @@ export default React.createClass({
     return (
       <Card style={{marginBottom: 10}} zDepth={1}>
         <CardHeader
-          title={new Date(doc.date).toLocaleDateString(config.locale, {
+          title={new Date(doc._id).toLocaleDateString(config.locale, {
             weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
           children={(
             <div style={flexParent}>
-              {doc.type !== '' && <div style={docInfoStyle}>{doc.type}</div>}
-              {doc.company !== '' && <div style={docInfoStyle}>{doc.company}</div>}
-              {doc.product !== '' && <div style={docInfoStyle}>{doc.product}</div>}
+              {<div style={docInfoStyle}>{doc.type || ''}</div>}
+              {<div style={docInfoStyle}>{doc.company || ''}</div>}
+              {<div style={docInfoStyle}>{doc.product || ''}</div>}
             </div>
           )}
           style={docStyle}
           onTouchTap={() => store.dispatch(toEditor(doc))}
         />
         <CardText>
-          <ReactMarkdown source={doc.desc} />
+          <ReactMarkdown source={doc.desc || ''} />
         </CardText>
         <CardActions>
           {doc.ticket && <RaisedButton
@@ -47,7 +47,7 @@ export default React.createClass({
             href={config.jiraPrefix + doc.ticket}
             labelStyle={font}
           />}
-          {doc.lang.map(l => (<FlatButton key={l} label={l} style={font} />))}
+          {doc.lang && doc.lang.map(l => (<FlatButton key={l} label={l} style={font} />))}
         </CardActions>
       </Card>
     );
