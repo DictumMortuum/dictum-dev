@@ -7,11 +7,7 @@ import { receiveDoc } from './actions/docs';
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
 
-// then replicate this to a pouch instance
-// then use the pouch instance to keep couchdb clean
-let remote = new PouchDB('http://localhost:5984/work');
-let db = new PouchDB('work_test');
-remote.replicate.to(db);
+let db = new PouchDB('http://localhost:5984/work_test');
 
 export function format(doc) {
   return Object.assign({}, {
@@ -25,7 +21,7 @@ export function format(doc) {
   }, doc);
 }
 
-remote.changes({
+db.changes({
   live: true,
   include_docs: true, // eslint-disable-line camelcase
   since: 'now'
@@ -43,4 +39,15 @@ function callback(change) {
   }
 }
 
-export default db;
+export default {
+  get: (id) => db.get(id).catch(err => {
+    throw err;
+  }),
+  put: (doc) => db.put(doc).then(r => {
+    return {
+      ...doc, _rev: r.rev
+    };
+  }),
+  allDocs: (args) => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
+    .then(result => result.rows || [])
+};
