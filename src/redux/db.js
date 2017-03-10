@@ -6,20 +6,9 @@ import { receiveConfig } from './actions/config';
 import { receiveDoc } from './actions/docs';
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
+export const sort = (a, b) => b._id > a._id;
 
 let db = new PouchDB('http://localhost:5984/work_test');
-
-export function format(doc) {
-  return Object.assign({}, {
-    date: new Date(doc._id),
-    ticket: '',
-    product: '',
-    company: '',
-    desc: '',
-    type: '',
-    lang: []
-  }, doc);
-}
 
 db.changes({
   live: true,
@@ -46,11 +35,10 @@ const _err = err => {
   throw err;
 };
 const _test = d => regex.test(d._id);
-const _sort = (a, b) => b.date - a.date;
 
 export default {
   get: (id) => db.get(id).catch(_err),
-  put: (doc) => db.put(doc).then(r => {
+  put: (doc) => db.put(doc).catch(_err).then(r => {
     return {
       ...doc, _rev: r.rev
     };
@@ -58,7 +46,6 @@ export default {
   allDocs: (args) => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
     .catch(_err)
     .then(r => {
-      return [...r.rows.map(d => d.doc), _new() ];
+      return [...r.rows.map(d => d.doc), _new() ].filter(_test).sort(sort);
     })
-    .then(r => r.filter(_test).sort(_sort))
 };
