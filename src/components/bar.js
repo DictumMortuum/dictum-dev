@@ -30,7 +30,7 @@ let Bar = React.createClass({
   },
 
   handleConfig() {
-    store.dispatch(Config.toggle());
+    store.dispatch(Config.drawer());
   },
 
   render() {
