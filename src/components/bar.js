@@ -15,14 +15,14 @@ let Bar = React.createClass({
     config: React.PropTypes.object
   },
 
-  handleFrom(_, date) {
+  handleFrom(event, date) {
     store.dispatch(Doc.bulk({
       startkey: moment(date).startOf('day').toISOString(),
       endkey: this.props.date.to
     }));
   },
 
-  handleTo(_, date) {
+  handleTo(event, date) {
     store.dispatch(Doc.bulk({
       startkey: this.props.date.from,
       endkey: moment(date).endOf('day').toISOString()
