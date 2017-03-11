@@ -3,7 +3,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
 import React from 'react';
-import { toInit, scrollDocs } from '../redux/actions';
+import { init, Doc } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal500, teal800} from 'material-ui/styles/colors';
@@ -24,7 +24,7 @@ const muiTheme = getMuiTheme({
 
 window.onscroll = function () {
   if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
-    store.dispatch(scrollDocs());
+    store.dispatch(Doc.scroll());
   }
 };
 
@@ -34,7 +34,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    store.dispatch(toInit());
+    store.dispatch(init());
   },
 
   render() {

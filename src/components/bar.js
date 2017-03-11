@@ -4,7 +4,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import store from '../redux/store';
-import { fetchDocs, toggleDrawer } from '../redux/actions';
+import { Doc, Config } from '../redux/actions';
 import Datepicker from './date';
 import moment from 'moment';
 import { flexParent } from '../styles/app';
@@ -16,21 +16,21 @@ let Bar = React.createClass({
   },
 
   handleFrom(_, date) {
-    store.dispatch(fetchDocs({
+    store.dispatch(Doc.fetch({
       startkey: moment(date).startOf('day').toISOString(),
       endkey: this.props.date.to
     }));
   },
 
   handleTo(_, date) {
-    store.dispatch(fetchDocs({
+    store.dispatch(Doc.fetch({
       startkey: this.props.date.from,
       endkey: moment(date).endOf('day').toISOString()
     }));
   },
 
   handleConfig() {
-    store.dispatch(toggleDrawer());
+    store.dispatch(Config.toggle());
   },
 
   render() {

@@ -3,7 +3,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import store from '../redux/store';
-import { editorChange } from '../redux/actions';
+import { Editor } from '../redux/actions';
 import { textStyle } from '../styles/app';
 
 export default React.createClass({
@@ -14,7 +14,7 @@ export default React.createClass({
   },
 
   handleChange(event, value) {
-    store.dispatch(editorChange(this.props.id, value));
+    store.dispatch(Editor.change(this.props.id, value));
   },
 
   render() {

@@ -4,7 +4,7 @@ import React from 'react';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
-import { toEditor } from '../redux/actions';
+import { Doc } from '../redux/actions';
 import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
 import { flexParent, docStyle, docInfoStyle, font } from '../styles/app';
@@ -34,7 +34,7 @@ export default React.createClass({
             </div>
           )}
           style={docStyle}
-          onTouchTap={() => store.dispatch(toEditor(doc))}
+          onTouchTap={() => store.dispatch(Doc.edit(doc))}
         />
         <CardText>
           <ReactMarkdown source={doc.desc || ''} />

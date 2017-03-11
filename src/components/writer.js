@@ -4,7 +4,7 @@ import React from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import Paper from 'material-ui/Paper';
 import store from '../redux/store';
-import { editorChange } from '../redux/actions';
+import { Editor } from '../redux/actions';
 
 export default React.createClass({
   propTypes: {
@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
   handleChange(value) {
-    store.dispatch(editorChange(this.props.id, value));
+    store.dispatch(Editor.change(this.props.id, value));
   },
 
   render() {

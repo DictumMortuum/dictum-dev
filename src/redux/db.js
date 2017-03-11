@@ -2,7 +2,7 @@
 
 import store from './store';
 import PouchDB from 'pouchdb';
-import { receiveConfig, receiveDoc } from './actions';
+import { Doc } from './actions';
 
 let db = new PouchDB('http://localhost:5984/work_test');
 
@@ -22,9 +22,11 @@ db.changes({
   // change.id contains the id
   // change.doc contains the doc (assuming include_docs: true)
   if (regex.test(change.id)) {
-    store.dispatch(receiveDoc(change));
-  } else {
-    store.dispatch(receiveConfig(change.doc));
+    if (change.deleted) {
+      store.dispatch(Doc.delete(change.doc));
+    } else {
+      store.dispatch(Doc.insert(change.doc));
+    }
   }
 });
 
@@ -40,6 +42,7 @@ export default {
       ...doc, _rev: r.rev
     };
   }),
+  remove: doc => db.remove(doc._id, doc._rev).catch(_err),
   allDocs: args => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
     .catch(_err)
     .then(r => {
