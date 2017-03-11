@@ -2,8 +2,7 @@
 
 import store from './store';
 import PouchDB from 'pouchdb';
-import { receiveConfig } from './actions/config';
-import { receiveDoc } from './actions/docs';
+import { receiveConfig, receiveDoc } from './actions';
 
 let db = new PouchDB('http://localhost:5984/work_test');
 

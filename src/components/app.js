@@ -3,8 +3,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
 import React from 'react';
-import { toInit } from '../redux/actions/config';
-import { scrollDocs } from '../redux/actions/docs';
+import { toInit, scrollDocs } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal500, teal800} from 'material-ui/styles/colors';

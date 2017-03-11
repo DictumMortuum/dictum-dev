@@ -1,8 +1,63 @@
 'use strict';
 
-import db from '../db';
-import { regex, create } from '../db';
-import { toEditor } from './editor';
+import db from './db';
+import { regex, create } from './db';
+import timeout from './timeout';
+
+export function toEditor(doc) {
+  return {
+    type: 'EDIT',
+    doc
+  };
+}
+
+export function editorChange(attr, value) {
+  return (dispatch, state) => {
+    let doc = { ...state().editor, [attr]: value };
+    dispatch(toEditor(doc));
+    document.onkeypress = timeout(() => dispatch(insertDoc(doc)));
+  };
+}
+
+export function fetchConfig(config) {
+  return db.get(config).then(result => {
+    return {
+      type: 'CONFIG',
+      doc: result
+    };
+  }).catch(err => {
+    if (err.name === 'not_found') {
+      return {
+        type: 'CONFIG_DEFAULT'
+      };
+    } else {
+      throw err;
+    }
+  });
+}
+
+export function receiveConfig(doc) {
+  return {
+    type: 'CONFIG',
+    doc: doc
+  };
+}
+
+export function toggleDrawer() {
+  return {
+    type: 'TOGGLE_DRAWER'
+  };
+}
+
+export function toInit() {
+  return dispatch => dispatch(
+    fetchConfig('dictum_config')
+  ).then(
+    () => dispatch(fetchDocs())
+  ).then(
+    f => dispatch(toEditor(f.docs[0]))
+  );
+}
 
 export function fetchDocs(args={}) {
   return db.allDocs(args)

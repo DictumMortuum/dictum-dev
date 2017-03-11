@@ -4,7 +4,7 @@ import React from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import Paper from 'material-ui/Paper';
 import store from '../redux/store';
-import { editorChange } from '../redux/actions/editor';
+import { editorChange } from '../redux/actions';
 
 export default React.createClass({
   propTypes: {
