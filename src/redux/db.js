@@ -16,10 +16,9 @@ db.changes({
   live: true,
   include_docs: true, // eslint-disable-line camelcase
   since: 'now'
-}).on('change', callback)
-  .on('error', console.log.bind(console));
-
-function callback(change) {
+})
+.on('error', console.log.bind(console))
+.on('change', change => {
   // change.id contains the id
   // change.doc contains the doc (assuming include_docs: true)
   if (regex.test(change.id)) {
@@ -27,7 +26,7 @@ function callback(change) {
   } else {
     store.dispatch(receiveConfig(change.doc));
   }
-}
+});
 
 const _err = err => {
   throw err;
@@ -35,13 +34,13 @@ const _err = err => {
 const _test = d => regex.test(d._id);
 
 export default {
-  get: (id) => db.get(id).catch(_err),
-  put: (doc) => db.put(doc).catch(_err).then(r => {
+  get: id => db.get(id).catch(_err),
+  put: doc => db.put(doc).catch(_err).then(r => {
     return {
       ...doc, _rev: r.rev
     };
   }),
-  allDocs: (args) => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
+  allDocs: args => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
     .catch(_err)
     .then(r => {
       return [...r.rows.map(d => d.doc), create() ].filter(_test).sort(sort);
