@@ -4,10 +4,10 @@ import store from './store';
 import PouchDB from 'pouchdb';
 import { Doc } from './actions';
 
-let db = new PouchDB('http://localhost:5984/work_test');
+let db = new PouchDB('http://localhost:5984/work');
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
-export const sort = (a, b) => b._id > a._id;
+export const sort = (a, b) => new Date(b._id) - new Date(a._id);
 export const create = () => {
   return { _id: new Date().toISOString() };
 };
@@ -45,7 +45,5 @@ export default {
   remove: doc => db.remove(doc._id, doc._rev).catch(_err),
   allDocs: args => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
     .catch(_err)
-    .then(r => {
-      return [...r.rows.map(d => d.doc), create() ].filter(_test).sort(sort);
-    })
+    .then(r => [...r.rows.map(d => d.doc)].filter(_test).sort(sort))
 };
