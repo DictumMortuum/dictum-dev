@@ -7,7 +7,7 @@ import timeout from './timeout';
 export const Doc = {
   edit: doc => {
     return {
-      type: 'EDIT',
+      type: 'DOC_EDIT',
       doc
     };
   },
