@@ -44,7 +44,7 @@ export default React.createClass({
           <Bar />
           <Config />
           <div style={flexParent}>
-            <div style={flexChild}>
+            <div style={{...flexChild, width: '50%'}}>
               <Viewer />
             </div>
             <div style={flexChild}>
