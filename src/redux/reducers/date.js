@@ -1,6 +1,7 @@
 'use strict';
 
 import moment from 'moment';
+import { sort, cast } from '../db';
 
 const defaultState = {
   from: moment(new Date()).startOf('day').subtract(30, 'days').toISOString(),
@@ -18,7 +19,15 @@ export default (state=defaultState, action) => {
     } else {
       return state;
     }
-  // TODO maybe add DOC_INSERT and DOC_DELETE cases.
+  case 'DOC_INSERT':
+    if (sort(action.doc, cast(state.to))) {
+      return {...state, to: action.doc._id};
+    }
+    if (sort(cast(state.from), action.doc)) {
+      return {...state, from: action.doc._id};
+    }
+    return state;
+  // TODO maybe add DOC_DELETE case.
   default:
     return state;
   }

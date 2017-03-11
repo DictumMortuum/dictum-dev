@@ -11,6 +11,9 @@ export const sort = (a, b) => new Date(b._id) - new Date(a._id);
 export const create = () => {
   return { _id: new Date().toISOString() };
 };
+export const cast = doc => {
+  return { _id: new Date(doc).toISOString() };
+};
 
 db.changes({
   live: true,
