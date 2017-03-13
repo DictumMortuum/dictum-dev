@@ -55,9 +55,7 @@ let Bar = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    date: state.date,
-    config: state.config
-  };
-})(Bar);
+export default connect(state => ({
+  date: state.date,
+  config: state.config
+}))(Bar);

@@ -52,9 +52,7 @@ let Editor = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    config: state.config,
-    editor: state.editor
-  };
-})(Editor);
+export default connect(state => ({
+  config: state.config,
+  editor: state.editor
+}))(Editor);

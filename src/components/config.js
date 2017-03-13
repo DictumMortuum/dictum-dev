@@ -16,8 +16,4 @@ let Config = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    config: state.config
-  };
-})(Config);
+export default connect(state => ({ config: state.config }))(Config);

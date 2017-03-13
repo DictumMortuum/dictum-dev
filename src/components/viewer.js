@@ -25,10 +25,8 @@ let Viewer = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    docs: state.docs,
-    config: state.config,
-    length: state.length
-  };
-})(Viewer);
+export default connect(state => ({
+  docs: state.docs,
+  config: state.config,
+  length: state.length
+}))(Viewer);

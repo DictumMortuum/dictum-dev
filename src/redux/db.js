@@ -8,12 +8,8 @@ let db = new PouchDB('https://localhost:6984/work');
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
 export const sort = (a, b) => new Date(b._id) - new Date(a._id);
-export const create = () => {
-  return { _id: new Date().toISOString() };
-};
-export const cast = doc => {
-  return { _id: new Date(doc).toISOString() };
-};
+export const create = () => ({ _id: new Date().toISOString() });
+export const cast = doc => ({ _id: new Date(doc).toISOString() });
 
 db.changes({
   live: true,

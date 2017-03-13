@@ -33,8 +33,4 @@ let Datepicker = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    config: state.config
-  };
-})(Datepicker);
+export default connect(state => ({ config: state.config }))(Datepicker);

@@ -5,35 +5,11 @@ import { create } from './db';
 import timeout from './timeout';
 
 export const Doc = {
-  edit: doc => {
-    return {
-      type: 'DOC_EDIT',
-      doc
-    };
-  },
-  delete: doc => {
-    return {
-      type: 'DOC_DELETE',
-      doc
-    };
-  },
-  insert: doc => {
-    return {
-      type: 'DOC_INSERT',
-      doc
-    };
-  },
-  bulk: (args={}) => db.allDocs(args).then(docs => {
-    return {
-      type: 'DOCS_FETCH',
-      docs: docs
-    };
-  }),
-  scroll: () => {
-    return {
-      type: 'DOC_LENGTH'
-    };
-  },
+  edit: doc => ({ type: 'DOC_EDIT', doc }),
+  delete: doc => ({ type: 'DOC_DELETE', doc }),
+  insert: doc => ({ type: 'DOC_INSERT', doc }),
+  bulk: (args={}) => db.allDocs(args).then(docs => ({ type: 'DOCS_FETCH', docs })),
+  scroll: () => ({ type: 'DOC_LENGTH' }),
   new: _newDoc,
   commit: _commitDoc,
   remove: _removeDoc
@@ -60,12 +36,8 @@ function _removeDoc(doc) {
 }
 
 export const Config = {
-  get: c => db.get(c).then(d => {
-    return {
-      type: 'CONFIG',
-      doc: d
-    };
-  }).catch(err => {
+  get: c => db.get(c).then(doc => ({ type: 'CONFIG', doc }))
+  .catch(err => {
     if (err.name === 'not_found') {
       return {
         type: 'CONFIG_DEFAULT'
@@ -74,11 +46,7 @@ export const Config = {
       throw err;
     }
   }),
-  drawer: () => {
-    return {
-      type: 'TOGGLE_DRAWER'
-    };
-  }
+  drawer: () => ({ type: 'TOGGLE_DRAWER' })
 };
 
 export const Editor = {
