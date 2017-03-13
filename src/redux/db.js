@@ -4,7 +4,7 @@ import store from './store';
 import PouchDB from 'pouchdb';
 import { Doc } from './actions';
 
-let db = new PouchDB('http://localhost:5984/work');
+let db = new PouchDB('https://localhost:6984/work');
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
 export const sort = (a, b) => new Date(b._id) - new Date(a._id);
