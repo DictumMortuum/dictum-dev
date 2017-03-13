@@ -11,18 +11,9 @@ let Config = React.createClass({
 
   render() {
     return (
-      <Drawer
-        open={this.props.config.drawer}
-        openSecondary={true}
-      >
-        dasf
-      </Drawer>
+      <Drawer open={this.props.config.drawer} openSecondary={true} />
     );
   }
 });
 
-export default connect(state => {
-  return {
-    config: state.config
-  };
-})(Config);
+export default connect(state => ({ config: state.config }))(Config);

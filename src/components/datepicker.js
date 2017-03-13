@@ -18,6 +18,7 @@ let Datepicker = React.createClass({
     return (
       <DatePicker
         key={id}
+        name={id}
         style={{paddingRight: 10}}
         textFieldStyle={{width: 120}}
         inputStyle={{color: 'white'}}
@@ -32,8 +33,4 @@ let Datepicker = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    config: state.config
-  };
-})(Datepicker);
+export default connect(state => ({ config: state.config }))(Datepicker);

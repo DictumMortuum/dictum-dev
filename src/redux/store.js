@@ -10,6 +10,7 @@ import editor from './reducers/editor';
 import date from './reducers/date';
 import length from './reducers/length';
 import tags from './reducers/tags';
+import info from './reducers/info';
 
 const logger = reduxLogger();
 
@@ -21,5 +22,6 @@ export default createStoreWithMiddleware(combineReducers({
   editor,
   date,
   length,
-  tags
+  tags,
+  info
 }));

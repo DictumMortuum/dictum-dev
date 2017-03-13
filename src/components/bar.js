@@ -4,10 +4,10 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import store from '../redux/store';
-import { fetchDocs } from '../redux/actions/docs';
-import { toggleDrawer } from '../redux/actions/config';
-import Datepicker from './date';
+import { Doc, Config } from '../redux/actions';
+import Datepicker from './datepicker';
 import moment from 'moment';
+import { flexParent } from '../styles';
 
 let Bar = React.createClass({
   propTypes: {
@@ -15,22 +15,22 @@ let Bar = React.createClass({
     config: React.PropTypes.object
   },
 
-  handleFrom(_, date) {
-    store.dispatch(fetchDocs({
+  handleFrom(event, date) {
+    store.dispatch(Doc.bulk({
       startkey: moment(date).startOf('day').toISOString(),
       endkey: this.props.date.to
     }));
   },
 
-  handleTo(_, date) {
-    store.dispatch(fetchDocs({
+  handleTo(event, date) {
+    store.dispatch(Doc.bulk({
       startkey: this.props.date.from,
       endkey: moment(date).endOf('day').toISOString()
     }));
   },
 
   handleConfig() {
-    store.dispatch(toggleDrawer());
+    store.dispatch(Config.drawer());
   },
 
   render() {
@@ -38,12 +38,13 @@ let Bar = React.createClass({
 
     return (
       <AppBar
+        style={{position: 'fixed'}}
         title={new Date().toLocaleDateString(config.locale, {
           month: 'long', weekday: 'long', day: 'numeric'
         })}
         zDepth={1}
         iconElementRight={
-          <div style={{display: 'flex'}}>
+          <div style={flexParent}>
             <Datepicker id='from' date={date.from} callback={this.handleFrom} />
             <Datepicker id='to' date={date.to} callback={this.handleTo} />
           </div>
@@ -54,9 +55,7 @@ let Bar = React.createClass({
   }
 });
 
-export default connect(state => {
-  return {
-    date: state.date,
-    config: state.config
-  };
-})(Bar);
+export default connect(state => ({
+  date: state.date,
+  config: state.config
+}))(Bar);

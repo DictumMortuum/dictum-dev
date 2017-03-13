@@ -3,12 +3,16 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
 import React from 'react';
-import Calendar from './calendar';
-import { toInit } from '../redux/actions/config';
-import { scrollDocs } from '../redux/actions/docs';
+import { init, Doc } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal500, teal800} from 'material-ui/styles/colors';
+import Bar from './bar';
+import Editor from './editor';
+import Viewer from './viewer';
+import Config from './config';
+import Info from './info';
+import { flexParent, flexChild } from '../styles';
 
 injectTapEventPlugin();
 
@@ -21,32 +25,35 @@ const muiTheme = getMuiTheme({
 
 window.onscroll = function () {
   if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
-    store.dispatch(scrollDocs());
+    store.dispatch(Doc.scroll());
   }
 };
 
 export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.object,
-    docs: React.PropTypes.array,
-    tags: React.PropTypes.array,
-    config: React.PropTypes.object,
-    history: React.PropTypes.object,
-    location: React.PropTypes.object
-  },
-
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
 
   componentDidMount() {
-    store.dispatch(toInit());
+    store.dispatch(init());
   },
 
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Calendar />
+        <div>
+          <Bar />
+          <Config />
+          <div style={flexParent}>
+            <div style={{...flexChild, width: '50%'}}>
+              <Viewer />
+            </div>
+            <div style={flexChild}>
+              <Editor />
+            </div>
+          </div>
+          <Info />
+        </div>
       </MuiThemeProvider>
     );
   }

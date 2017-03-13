@@ -16,25 +16,17 @@ let Viewer = React.createClass({
     let { docs, config, length } = this.props;
 
     return (
-      <Paper zDepth={0} style={{padding: 10}} >
+      <Paper zDepth={0} style={{padding: 10, marginTop: 64}} >
         {docs.slice(0, length).map((d, index) => {
-          return (
-            <div key={d._id} style={{marginBottom: 10}}>
-              <Doc
-                doc={d} config={config} index={index}
-              />
-            </div>
-          );
+          return (<Doc key={d._id} doc={d} config={config} index={index} />);
         })}
       </Paper>
     );
   }
 });
 
-export default connect(state => {
-  return {
-    docs: state.docs,
-    config: state.config,
-    length: state.length
-  };
-})(Viewer);
+export default connect(state => ({
+  docs: state.docs,
+  config: state.config,
+  length: state.length
+}))(Viewer);

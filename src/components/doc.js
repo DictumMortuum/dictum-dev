@@ -4,10 +4,10 @@ import React from 'react';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
-import { toEditor } from '../redux/actions/editor';
+import { Doc } from '../redux/actions';
 import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
-import { docStyle, docInlineStyle } from '../styles/app';
+import { flexParent, docStyle, docInfoStyle, font } from '../styles';
 
 export default React.createClass({
   propTypes: {
@@ -20,30 +20,24 @@ export default React.createClass({
     let { config, doc } = this.props;
 
     return (
-      <Card zDepth={1}>
+      <Card style={{marginBottom: 10}} zDepth={1}>
         <CardHeader
-          title={new Date(doc.date).toLocaleDateString(config.locale, {
+          title={new Date(doc._id).toLocaleDateString(config.locale, {
             weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
           children={(
-            <div>
-              <div style={docStyle}>
-                {doc.type !== '' && <div style={docInlineStyle}>{doc.type}</div>}
-                {doc.company !== '' && <div style={docInlineStyle}>{doc.company}</div>}
-                {doc.product !== '' && <div style={docInlineStyle}>{doc.product}</div>}
-              </div>
+            <div style={flexParent}>
+              {<div style={docInfoStyle}>{doc.type || ''}</div>}
+              {<div style={docInfoStyle}>{doc.company || ''}</div>}
+              {<div style={docInfoStyle}>{doc.product || ''}</div>}
             </div>
           )}
-          style={{
-            backgroundColor: '#E0F2F1'
-          }}
-          onTouchTap={() => {
-            store.dispatch(toEditor(doc));
-          }}
+          style={docStyle}
+          onTouchTap={() => store.dispatch(Doc.edit(doc))}
         />
         <CardText>
-          <ReactMarkdown source={doc.desc} />
+          <ReactMarkdown source={doc.desc || ''} />
         </CardText>
         <CardActions>
           {doc.ticket && <RaisedButton
@@ -51,13 +45,9 @@ export default React.createClass({
             key='ticket'
             label={doc.ticket}
             href={config.jiraPrefix + doc.ticket}
-            labelStyle={{fontFamily: 'monospace'}}
+            labelStyle={font}
           />}
-          {doc.lang.map(l => {
-            return (
-              <FlatButton key={l} label={l} style={{fontFamily: 'monospace'}} />
-            );
-          })}
+          {doc.lang && doc.lang.map(l => (<FlatButton key={l} label={l} style={font} />))}
         </CardActions>
       </Card>
     );

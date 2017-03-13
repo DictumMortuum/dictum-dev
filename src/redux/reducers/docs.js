@@ -1,5 +1,7 @@
 'use strict';
 
+import { sort } from '../db';
+
 const defaultState = [];
 
 export default (state=defaultState, action) => {
@@ -7,10 +9,9 @@ export default (state=defaultState, action) => {
   case 'DOCS_FETCH':
     return action.docs;
   case 'DOC_DELETE':
-    return state.filter(d => d._id !== action.id);
+    return state.filter(d => d._id !== action.doc._id);
   case 'DOC_INSERT':
-    return [...state.filter(d => d._id !== action.doc._id), action.doc]
-    .sort((a, b) => b.date - a.date);
+    return [...state.filter(d => d._id !== action.doc._id), action.doc].sort(sort);
   default:
     return state;
   }

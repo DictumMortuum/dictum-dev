@@ -1,12 +1,10 @@
 'use strict';
 
-import { format } from '../db';
-
-const defaultState = format({ _id: new Date().toISOString() });
+const defaultState = {};
 
 export default (state=defaultState, action) => {
   switch (action.type) {
-  case 'EDIT':
+  case 'DOC_EDIT':
     return action.doc;
   default:
     return state;
