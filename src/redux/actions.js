@@ -37,15 +37,7 @@ function _removeDoc(doc) {
 
 export const Config = {
   get: c => db.get(c).then(doc => ({ type: 'CONFIG', doc }))
-  .catch(err => {
-    if (err.name === 'not_found') {
-      return {
-        type: 'CONFIG_DEFAULT'
-      };
-    } else {
-      throw err;
-    }
-  }),
+  .catch(() => ({ type: 'CONFIG_DEFAULT' })),
   drawer: () => ({ type: 'TOGGLE_DRAWER' })
 };
 
