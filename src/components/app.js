@@ -11,6 +11,7 @@ import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
+import Info from './info';
 import { flexParent, flexChild } from '../styles';
 
 injectTapEventPlugin();
@@ -51,6 +52,7 @@ export default React.createClass({
               <Editor />
             </div>
           </div>
+          <Info />
         </div>
       </MuiThemeProvider>
     );

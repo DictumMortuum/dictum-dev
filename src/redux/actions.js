@@ -4,6 +4,10 @@ import db from './db';
 import { create } from './db';
 import timeout from './timeout';
 
+export const Info = {
+  message: desc => ({ type: 'INFO', desc })
+};
+
 export const Doc = {
   edit: doc => ({ type: 'DOC_EDIT', doc }),
   delete: doc => ({ type: 'DOC_DELETE', doc }),
@@ -20,6 +24,8 @@ function _newDoc() {
     Promise.resolve(Doc.insert(create()))
   ).then(
     action => dispatch(Doc.edit(action.doc))
+  ).then(
+    () => dispatch(Info.message('A new doc was created.'))
   );
 }
 
@@ -28,11 +34,14 @@ function _commitDoc() {
     db.put(state().editor).then(d => Doc.insert(d))
   ).then(
     action => dispatch(Doc.edit(action.doc))
+  ).then(
+    () => dispatch(Info.message('The doc has been committed.'))
   );
 }
 
 function _removeDoc(doc) {
   return db.remove(doc).then(() => Doc.delete(doc));
+  // TODO add info message here, but first must return dispatch
 }
 
 export const Config = {
