@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import store from '../redux/store';
 import { Doc, Config } from '../redux/actions';
-import Datepicker from './date';
+import Datepicker from './datepicker';
 import moment from 'moment';
 import { flexParent } from '../styles';
 
