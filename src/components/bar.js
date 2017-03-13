@@ -7,7 +7,7 @@ import store from '../redux/store';
 import { Doc, Config } from '../redux/actions';
 import Datepicker from './date';
 import moment from 'moment';
-import { flexParent } from '../styles/app';
+import { flexParent } from '../styles';
 
 let Bar = React.createClass({
   propTypes: {

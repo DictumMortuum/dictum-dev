@@ -11,7 +11,7 @@ import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
-import { flexParent, flexChild } from '../styles/app';
+import { flexParent, flexChild } from '../styles';
 
 injectTapEventPlugin();
 

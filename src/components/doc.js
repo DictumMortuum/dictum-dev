@@ -7,7 +7,7 @@ import store from '../redux/store';
 import { Doc } from '../redux/actions';
 import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
-import { flexParent, docStyle, docInfoStyle, font } from '../styles/app';
+import { flexParent, docStyle, docInfoStyle, font } from '../styles';
 
 export default React.createClass({
   propTypes: {

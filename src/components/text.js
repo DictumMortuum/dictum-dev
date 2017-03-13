@@ -4,7 +4,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import store from '../redux/store';
 import { Editor } from '../redux/actions';
-import { textStyle } from '../styles/app';
+import { textStyle } from '../styles';
 
 export default React.createClass({
   propTypes: {
