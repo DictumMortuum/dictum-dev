@@ -38,6 +38,7 @@ let Bar = React.createClass({
 
     return (
       <AppBar
+        style={{position: 'fixed'}}
         title={new Date().toLocaleDateString(config.locale, {
           month: 'long', weekday: 'long', day: 'numeric'
         })}

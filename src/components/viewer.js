@@ -16,7 +16,7 @@ let Viewer = React.createClass({
     let { docs, config, length } = this.props;
 
     return (
-      <Paper zDepth={0} style={{padding: 10}} >
+      <Paper zDepth={0} style={{padding: 10, marginTop: 64}} >
         {docs.slice(0, length).map((d, index) => {
           return (<Doc key={d._id} doc={d} config={config} index={index} />);
         })}
