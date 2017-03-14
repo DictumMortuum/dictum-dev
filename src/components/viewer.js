@@ -17,9 +17,7 @@ let Viewer = React.createClass({
 
     return (
       <Paper zDepth={0} style={{padding: 10, marginTop: 64}} >
-        {docs.map((d, index) => {
-          return (<Doc key={d._id} doc={d} config={config} index={index} />);
-        })}
+        {docs.map(d => (<Doc key={d._id} doc={d} config={config} />))}
       </Paper>
     );
   }

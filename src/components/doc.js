@@ -12,8 +12,7 @@ import { flexParent, docStyle, docInfoStyle, font } from '../styles';
 export default React.createClass({
   propTypes: {
     doc: React.PropTypes.object,
-    config: React.PropTypes.object,
-    index: React.PropTypes.number
+    config: React.PropTypes.object
   },
 
   render() {
