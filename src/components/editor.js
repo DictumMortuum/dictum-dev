@@ -43,15 +43,6 @@ let Editor = React.createClass({
   }
 });
 
-const format = d => ({
-  company: d.company || '',
-  product: d.product || '',
-  type: d.type || '',
-  lang: d.lang || [],
-  ticket: d.ticket || '',
-  desc: d.desc || ''
-});
-
 const mapStateToProps = state => ({
   config: state.config,
   editor: state.editor
@@ -67,9 +58,14 @@ const mergeProps = createSelector(
   state => state.config,
   (state, actions) => actions.handleNew,
   (state, actions) => actions.handleSave,
-  (config, editor, handleNew, handleSave) => ({
+  (editor, config, handleNew, handleSave) => ({
     editor: {
-      ...format(editor),
+      company: editor.company || '',
+      product: editor.product || '',
+      type: editor.type || '',
+      lang: editor.lang || [],
+      ticket: editor.ticket || '',
+      desc: editor.desc || '',
       date: new Date(editor._id).toLocaleDateString(config.locale)
     },
     handleNew,
