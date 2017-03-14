@@ -20,7 +20,8 @@ export default React.createClass({
   render() {
     return (
       <TextField
-        id={this.props.hint}
+        id={this.props.id}
+        key={this.props.id}
         hintText={this.props.hint}
         value={this.props.value}
         onChange={this.handleChange}
