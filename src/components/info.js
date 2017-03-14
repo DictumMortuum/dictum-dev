@@ -10,8 +10,7 @@ let Info = React.createClass({
   },
 
   render() {
-    let { info } = this.props;
-    return (<Snackbar open={info.open} message={info.desc} autoHideDuration={4000} />);
+    return (<Snackbar {...this.props.info} autoHideDuration={4000} />);
   }
 });
 
