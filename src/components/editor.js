@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 import { Doc } from '../redux/actions';
 import RaisedButton from 'material-ui/RaisedButton';
 import { editorStyle, inputStyle } from '../styles';
-import Text from './text';
-import ArrayText from './arraytext';
+import { Text, ArrayText } from './text';
 import Writer from './writer';
 import { createSelector } from 'reselect';
 
