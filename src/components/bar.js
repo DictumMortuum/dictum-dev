@@ -3,59 +3,71 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
-import store from '../redux/store';
 import { Doc, Config } from '../redux/actions';
 import Datepicker from './datepicker';
 import moment from 'moment';
 import { flexParent } from '../styles';
+import { createSelector } from 'reselect';
 
 let Bar = React.createClass({
   propTypes: {
     date: React.PropTypes.object,
-    config: React.PropTypes.object
-  },
-
-  handleFrom(event, date) {
-    store.dispatch(Doc.bulk({
-      startkey: moment(date).startOf('day').toISOString(),
-      endkey: this.props.date.to
-    }));
-  },
-
-  handleTo(event, date) {
-    store.dispatch(Doc.bulk({
-      startkey: this.props.date.from,
-      endkey: moment(date).endOf('day').toISOString()
-    }));
-  },
-
-  handleConfig() {
-    store.dispatch(Config.drawer());
+    handleFrom: React.PropTypes.func,
+    handleTo: React.PropTypes.func,
+    toggleDrawer: React.PropTypes.func,
+    title: React.PropTypes.string
   },
 
   render() {
-    let { config, date } = this.props;
+    let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
 
     return (
       <AppBar
         style={{position: 'fixed'}}
-        title={new Date().toLocaleDateString(config.locale, {
-          month: 'long', weekday: 'long', day: 'numeric'
-        })}
+        title={title}
         zDepth={1}
         iconElementRight={
           <div style={flexParent}>
-            <Datepicker id='from' date={date.from} callback={this.handleFrom} />
-            <Datepicker id='to' date={date.to} callback={this.handleTo} />
+            <Datepicker id='from' date={date.from} callback={handleFrom} />
+            <Datepicker id='to' date={date.to} callback={handleTo} />
           </div>
         }
-        onLeftIconButtonTouchTap={this.handleConfig}
+        onLeftIconButtonTouchTap={toggleDrawer}
       />
     );
   }
 });
 
-export default connect(state => ({
+const mapStateToProps = state => ({
   date: state.date,
   config: state.config
-}))(Bar);
+});
+
+const mapDispatchToProps = {
+  bulk: Doc.bulk,
+  toggle: Config.drawer
+};
+
+const mergeProps = createSelector(
+  state => state.date,
+  state => state.config,
+  (state, actions) => actions.bulk,
+  (state, actions) => actions.toggle,
+  (date, config, bulk, toggle) => ({
+    date,
+    title: new Date().toLocaleDateString(config.locale, {
+      month: 'long', weekday: 'long', day: 'numeric'
+    }),
+    handleFrom: (event, from) => bulk({
+      startkey: moment(from).startOf('day').toISOString(),
+      endkey: date.to
+    }),
+    handleTo: (event, to) => bulk({
+      startkey: date.from,
+      endkey: moment(to).endOf('day').toISOString()
+    }),
+    toggleDrawer: toggle
+  })
+);
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Bar);
