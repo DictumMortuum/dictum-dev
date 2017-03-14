@@ -13,38 +13,32 @@ let template = React.createClass({
   }
 });
 
-const arrayText = (props, change) => ({
-  id: props.id,
-  key: props.id,
-  hintText: props.hint,
-  value: props.value.toString(),
-  onChange: (event, value) => change(props.id, value.split(','))
-});
-
-const text = (props, change) => ({
-  id: props.id,
-  key: props.id,
-  hintText: props.hint,
-  value: props.value,
-  onChange: (event, value) => change(props.id, value)
-});
-
 export const ArrayText = connect(
-  (state, props) => props,
-  { change: Editor.change },
+  (state, props) => props, { change: Editor.change },
   createSelector(
     props => props,
     (state, actions) => actions.change,
-    arrayText
+    (props, change) => ({
+      id: props.id,
+      key: props.id,
+      hintText: props.hint,
+      value: props.value.toString(),
+      onChange: (event, value) => change(props.id, value.split(','))
+    })
   )
 )(template);
 
 export const Text = connect(
-  (state, props) => props,
-  { change: Editor.change },
+  (state, props) => props, { change: Editor.change },
   createSelector(
     props => props,
     (state, actions) => actions.change,
-    text
+    (props, change) => ({
+      id: props.id,
+      key: props.id,
+      hintText: props.hint,
+      value: props.value,
+      onChange: (event, value) => change(props.id, value)
+    })
   )
 )(template);
