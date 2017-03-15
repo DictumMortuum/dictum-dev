@@ -45,27 +45,25 @@ let App = React.createClass({
 
   render() {
     let { config } = this.props;
+    let viewerStyle = {...flexChild, width: '50%'};
+
+    if (config.editor === false) {
+      viewerStyle = {...flexChild, width: '100%'};
+    }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Bar />
           <Config />
-            {config.editor === true ?
-              <div style={flexParent}>
-                <div style={{...flexChild, width: '50%'}}>
-                  <Viewer />
-                </div>
-                <div style={flexChild}>
-                  <Editor />
-                </div>
-              </div>
-            :
             <div style={flexParent}>
-              <div style={{...flexChild, width: '100%'}}>
+              <div style={viewerStyle}>
                 <Viewer />
               </div>
-            </div>}
+              {config.editor && <div style={flexChild}>
+                <Editor />
+              </div>}
+            </div>
           <Info />
         </div>
       </MuiThemeProvider>
