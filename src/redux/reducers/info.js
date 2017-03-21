@@ -2,7 +2,7 @@
 
 const defaultState = {
   open: false,
-  desc: ''
+  message: ''
 };
 
 export default (state=defaultState, action) => {
@@ -10,7 +10,7 @@ export default (state=defaultState, action) => {
   case 'INFO':
     return {
       open: true,
-      desc: action.desc
+      message: action.message
     };
   default:
     return state;

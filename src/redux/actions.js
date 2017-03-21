@@ -2,10 +2,10 @@
 
 import db from './db';
 import { create } from './db';
-import timeout from './timeout';
+import timeout from 'reset-timeout';
 
 export const Info = {
-  message: desc => ({ type: 'INFO', desc })
+  send: message => ({ type: 'INFO', message })
 };
 
 export const Doc = {
@@ -25,7 +25,7 @@ function _newDoc() {
   ).then(
     action => dispatch(Doc.edit(action.doc))
   ).then(
-    () => dispatch(Info.message('A new doc was created.'))
+    () => dispatch(Info.send('A new doc was created.'))
   );
 }
 
@@ -35,7 +35,7 @@ function _commitDoc() {
   ).then(
     action => dispatch(Doc.edit(action.doc))
   ).then(
-    () => dispatch(Info.message('The doc has been committed.'))
+    () => dispatch(Info.send('The doc has been committed.'))
   );
 }
 
@@ -47,7 +47,8 @@ function _removeDoc(doc) {
 export const Config = {
   get: c => db.get(c).then(doc => ({ type: 'CONFIG', doc }))
   .catch(() => ({ type: 'CONFIG_DEFAULT' })),
-  drawer: () => ({ type: 'TOGGLE_DRAWER' })
+  drawer: () => ({ type: 'TOGGLE_DRAWER' }),
+  editor: () => ({ type: 'TOGGLE_EDITOR' })
 };
 
 export const Editor = {

@@ -47,17 +47,19 @@
     "react-addons-update": "*",
     "react-dom": "*",
     "react-hot-loader": "*",
+    "react-markdown": "^2.4.5",
     "react-redux": "*",
+    "react-simplemde-editor": "^3.6.10",
     "react-tap-event-plugin": "*",
     "redux": "*",
     "redux-devtools": "*",
     "redux-logger": "*",
     "redux-promise": "*",
     "redux-thunk": "*",
+    "reselect": "^2.5.4",
+    "reset-timeout": "git+https://github.com/DictumMortuum/reset-timeout.git#develop",
     "style-loader": "*",
     "webpack": "*2.2.0",
-    "webpack-dev-server": "*2.2.0",
-    "react-markdown": "^2.4.5",
-    "react-simplemde-editor": "^3.6.10"
+    "webpack-dev-server": "*2.2.0"
   }
 }

@@ -3,34 +3,39 @@
 import React from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 let Datepicker = React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    date: React.PropTypes.string,
-    config: React.PropTypes.object,
-    callback: React.PropTypes.func
-  },
-
   render() {
-    let { id, date, config, callback } = this.props;
-
     return (
       <DatePicker
-        key={id}
-        name={id}
+        {...this.props}
         style={{paddingRight: 10}}
         textFieldStyle={{width: 120}}
         inputStyle={{color: 'white'}}
-        locale={config.locale}
         DateTimeFormat={global.Intl.DateTimeFormat}
         autoOk={true}
         container="inline"
-        value={new Date(date)}
-        onChange={callback}
       />
     );
   }
 });
 
-export default connect(state => ({ config: state.config }))(Datepicker);
+export default connect(
+  (state, props) => ({
+    props,
+    config: state.config
+  }),
+  {},
+  createSelector(
+    state => state.props,
+    state => state.config,
+    (props, config) => ({
+      key: props.id,
+      name: props.id,
+      locale: config.locale,
+      value: new Date(props.date),
+      onChange: props.callback
+    })
+  )
+)(Datepicker);

@@ -13,6 +13,7 @@ import Viewer from './viewer';
 import Config from './config';
 import Info from './info';
 import { flexParent, flexChild } from '../styles';
+import { connect } from 'react-redux';
 
 injectTapEventPlugin();
 
@@ -29,7 +30,11 @@ window.onscroll = function () {
   }
 };
 
-export default React.createClass({
+let App = React.createClass({
+  propTypes: {
+    config: React.PropTypes.object
+  },
+
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -39,22 +44,35 @@ export default React.createClass({
   },
 
   render() {
+    let { config } = this.props;
+    let viewerStyle = {...flexChild, width: '50%'};
+
+    if (config.editor === false) {
+      viewerStyle = {...flexChild, width: '100%'};
+    }
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Bar />
           <Config />
-          <div style={flexParent}>
-            <div style={{...flexChild, width: '50%'}}>
-              <Viewer />
+            <div style={flexParent}>
+              <div style={viewerStyle}>
+                <Viewer />
+              </div>
+              {config.editor && <div style={flexChild}>
+                <Editor />
+              </div>}
             </div>
-            <div style={flexChild}>
-              <Editor />
-            </div>
-          </div>
           <Info />
         </div>
       </MuiThemeProvider>
     );
   }
 });
+
+const mapStateToProps = state => ({
+  config: state.config
+});
+
+export default connect(mapStateToProps)(App);
