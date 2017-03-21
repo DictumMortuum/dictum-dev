@@ -38,7 +38,7 @@ export default {
   get: id => db.get(id).catch(_err),
   put: doc => {
     let d = { ...doc, updated: new Date().toISOString() };
-    return db.put(d).catch(_err).then(r => ({ ...doc, _rev: r.rev }));
+    return db.put(d).catch(_err).then(r => ({ ...d, _rev: r.rev }));
   },
   remove: doc => db.remove(doc._id, doc._rev).catch(_err),
   allDocs: args => db.allDocs({ ...args, include_docs: true }) // eslint-disable-line camelcase
