@@ -28,7 +28,7 @@ let Editor = React.createClass({
           <Text id="type" hint="Type" value={editor.type} />
           <ArrayText id="lang" hint="Langs" value={editor.lang} />
           <Text id="ticket" hint="JIRA" value={editor.ticket} />
-          <Text id="date" hint="Date" value={editor.date} />
+          <Text id="date" hint="Created on" value={editor.date} />
         </Paper>
         <Writer id="desc" value={editor.desc} />
         <div style={{textAlign: 'center', padding: 10}}>
@@ -65,7 +65,10 @@ const mergeProps = createSelector(
       lang: editor.lang || [],
       ticket: editor.ticket || '',
       desc: editor.desc || '',
-      date: new Date(editor._id).toLocaleDateString(config.locale)
+      date: new Date(editor._id).toLocaleDateString(config.locale, {
+        weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      })
     },
     handleNew,
     handleSave
