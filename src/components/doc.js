@@ -21,7 +21,7 @@ export default React.createClass({
     return (
       <Card style={{marginBottom: 10}} zDepth={1}>
         <CardHeader
-          title={new Date(doc._id).toLocaleDateString(config.locale, {
+          title={new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
             weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
