@@ -36,9 +36,10 @@ const _test = d => regex.test(d._id);
 
 export default {
   get: id => db.get(id).catch(_err),
-  put: doc => db.put(doc).catch(_err).then(r => ({ ...doc, _rev: r.rev })),
+  put: doc => db.put({ ...doc, updated: new Date().toISOString() })
+    .catch(_err).then(r => ({ ...doc, _rev: r.rev })),
   remove: doc => db.remove(doc._id, doc._rev).catch(_err),
-  allDocs: args => db.allDocs({...args, include_docs: true}) // eslint-disable-line camelcase
+  allDocs: args => db.allDocs({ ...args, include_docs: true }) // eslint-disable-line camelcase
     .catch(_err)
     .then(r => [...r.rows.map(d => d.doc)].filter(_test).sort(sort))
 };
