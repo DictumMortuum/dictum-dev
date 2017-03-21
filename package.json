@@ -57,6 +57,7 @@
     "redux-promise": "*",
     "redux-thunk": "*",
     "reselect": "^2.5.4",
+    "reset-timeout": "git+https://github.com/DictumMortuum/reset-timeout.git#develop",
     "style-loader": "*",
     "webpack": "*2.2.0",
     "webpack-dev-server": "*2.2.0"

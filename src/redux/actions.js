@@ -2,7 +2,7 @@
 
 import db from './db';
 import { create } from './db';
-import timeout from './timeout';
+import timeout from 'reset-timeout';
 
 export const Info = {
   send: message => ({ type: 'INFO', message })
