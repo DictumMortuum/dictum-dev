@@ -8,7 +8,7 @@ import { font } from '../styles';
 
 let Jira = React.createClass({
   render() {
-    return (<RaisedButton key='ticket' {...this.props} />);
+    return (<RaisedButton style={{marginRight: 10}} key='ticket' {...this.props} />);
   }
 });
 
