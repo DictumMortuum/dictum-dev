@@ -7,7 +7,8 @@ import store from '../redux/store';
 import { Doc } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import Chip from 'material-ui/Chip';
-import { flexParent, docStyle, docInfoStyle, font } from '../styles';
+import { flexParent, docInfoStyle, font } from '../styles';
+import { teal500, teal100, teal50 } from 'material-ui/styles/colors';
 import Jira from './jira';
 import Avatar from 'material-ui/Avatar';
 import WorkIcon from 'material-ui/svg-icons/action/work';
@@ -16,7 +17,9 @@ import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import ProductIcon from 'material-ui/svg-icons/action/settings';
 
 const Header = (d, img) => d && (
-  <Chip key={d} style={docInfoStyle}><Avatar color="#fff" size={24} icon={img} />{d}</Chip>
+  <Chip key={d} style={{...docInfoStyle, backgroundColor: teal50}}>
+    <Avatar color="#fff" backgroundColor={teal500} size={24} icon={img} />{d}
+  </Chip>
 );
 
 export default React.createClass({
@@ -40,7 +43,7 @@ export default React.createClass({
             {Header(doc.company, <WorkIcon />)}
             {Header(doc.product, <ProductIcon />)}
           </div>}
-          style={docStyle}
+          style={{backgroundColor: teal100}}
           onTouchTap={() => store.dispatch(Doc.edit(doc))}
         />
         <CardText>

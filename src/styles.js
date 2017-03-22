@@ -16,15 +16,9 @@ export const font = {
 };
 
 // DOC
-export const docStyle = {
-  backgroundColor: '#E0F2F1',
-  padding: 10
-};
-
 export const docInfoStyle = {
   ...font,
-  marginRight: 10,
-  color: 'rgba(0, 0, 0, 0.54)'
+  margin: 5
 };
 
 // EDITOR
