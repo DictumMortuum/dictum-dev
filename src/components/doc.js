@@ -4,7 +4,7 @@ import React from 'react';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import store from '../redux/store';
-import { Doc } from '../redux/actions';
+import { Doc, Filter } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import Chip from 'material-ui/Chip';
 import { flexParent, docInfoStyle, font } from '../styles';
@@ -50,7 +50,12 @@ export default React.createClass({
         </CardText>
         <CardActions style={{backgroundColor: teal50}}>
           {doc.ticket && <Jira ticket={doc.ticket} />}
-          {doc.lang && doc.lang.map(l => (<RaisedButton key={l} label={l} style={font} />))}
+          {doc.lang && doc.lang.map(l => (<RaisedButton
+            key={l}
+            label={l}
+            style={font}
+            onTouchTap={() => store.dispatch(Filter.toggle(l))}
+          />))}
         </CardActions>
       </Card>
     );

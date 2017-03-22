@@ -4,6 +4,21 @@ import db from './db';
 import { create } from './db';
 import timeout from 'reset-timeout';
 
+export const Filter = {
+  add: f => ({ type: 'FILTER_ADD', filter: f }),
+  remove: f => ({ type: 'FILTER_REMOVE', filter: f}),
+  toggle: _toggleFilter
+};
+
+function _toggleFilter(f) {
+  return (dispatch, state) => {
+    console.log(state().filter.indexOf(f));
+    return dispatch(
+      state().filter.indexOf(f) === -1 ? Filter.add(f) : Filter.remove(f)
+    );
+  };
+}
+
 export const Info = {
   send: message => ({ type: 'INFO', message })
 };
