@@ -17,7 +17,8 @@ export const font = {
 
 // DOC
 export const docStyle = {
-  backgroundColor: '#E0F2F1'
+  backgroundColor: '#E0F2F1',
+  padding: 10
 };
 
 export const docInfoStyle = {
