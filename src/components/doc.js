@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import store from '../redux/store';
 import { Doc } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import Chip from 'material-ui/Chip';
 import { flexParent, docInfoStyle, font } from '../styles';
-import { teal500, teal100, teal50 } from 'material-ui/styles/colors';
+import { teal500, teal50, grey50 } from 'material-ui/styles/colors';
 import Jira from './jira';
 import Avatar from 'material-ui/Avatar';
 import WorkIcon from 'material-ui/svg-icons/action/work';
@@ -16,11 +16,13 @@ import DateIcon from 'material-ui/svg-icons/action/date-range';
 import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import ProductIcon from 'material-ui/svg-icons/action/settings';
 
-const Header = (d, img) => d && (
-  <Chip key={d} style={{...docInfoStyle, backgroundColor: teal50}}>
-    <Avatar color="#fff" backgroundColor={teal500} size={24} icon={img} />{d}
+const HeaderChip = (d, img) => d && (
+  <Chip key={d} style={{...docInfoStyle, backgroundColor: grey50}}>
+    <Avatar color={grey50} backgroundColor={teal500} size={24} icon={img} />{d}
   </Chip>
 );
+
+// const LangChip = d => (<Chip key={d} style={{backgroundColor: teal50}}>{d}</Chip>);
 
 export default React.createClass({
   propTypes: {
@@ -33,25 +35,22 @@ export default React.createClass({
 
     return (
       <Card style={{marginBottom: 10}} zDepth={1}>
-        <div
-          children={<div style={flexParent}>
-            {Header(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
-              year: 'numeric', month: 'numeric', day: 'numeric',
-              hour: '2-digit', minute: '2-digit', second: '2-digit'
-            }), <DateIcon />)}
-            {Header(doc.type, <AssignmentIcon />)}
-            {Header(doc.company, <WorkIcon />)}
-            {Header(doc.product, <ProductIcon />)}
-          </div>}
-          style={{backgroundColor: teal100}}
-          onTouchTap={() => store.dispatch(Doc.edit(doc))}
-        />
+        <div style={{...flexParent, backgroundColor: teal50}}
+          onTouchTap={() => store.dispatch(Doc.edit(doc))}>
+          {HeaderChip(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          }), <DateIcon />)}
+          {HeaderChip(doc.type, <AssignmentIcon />)}
+          {HeaderChip(doc.company, <WorkIcon />)}
+          {HeaderChip(doc.product, <ProductIcon />)}
+        </div>
         <CardText>
           <ReactMarkdown source={doc.desc || ''} />
         </CardText>
-        <CardActions>
+        <CardActions style={{backgroundColor: teal50}}>
           {doc.ticket && <Jira ticket={doc.ticket} />}
-          {doc.lang && doc.lang.map(l => (<FlatButton key={l} label={l} style={font} />))}
+          {doc.lang && doc.lang.map(l => (<RaisedButton key={l} label={l} style={font} />))}
         </CardActions>
       </Card>
     );
