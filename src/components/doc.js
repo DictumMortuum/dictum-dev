@@ -5,9 +5,9 @@ import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
 import { Doc } from '../redux/actions';
-import RaisedButton from 'material-ui/RaisedButton';
 import ReactMarkdown from 'react-markdown';
 import { flexParent, docStyle, docInfoStyle, font } from '../styles';
+import Jira from './jira';
 
 export default React.createClass({
   propTypes: {
@@ -39,13 +39,7 @@ export default React.createClass({
           <ReactMarkdown source={doc.desc || ''} />
         </CardText>
         <CardActions>
-          {doc.ticket && <RaisedButton
-            primary={true}
-            key='ticket'
-            label={doc.ticket}
-            href={config.jiraPrefix + doc.ticket}
-            labelStyle={font}
-          />}
+          {doc.ticket && <Jira ticket={doc.ticket} />}
           {doc.lang && doc.lang.map(l => (<FlatButton key={l} label={l} style={font} />))}
         </CardActions>
       </Card>
