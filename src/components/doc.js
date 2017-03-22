@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
 import { Doc } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
+import Chip from 'material-ui/Chip';
 import { flexParent, docStyle, docInfoStyle, font } from '../styles';
 import Jira from './jira';
 
@@ -27,9 +28,9 @@ export default React.createClass({
           })}
           children={(
             <div style={flexParent}>
-              {[doc.type, doc.company, doc.product].map(d => (
-                <div key={d} style={docInfoStyle}>{d || ''}</div>
-              ))}
+              {[doc.type, doc.company, doc.product].map(d =>
+                (<Chip key={d} style={docInfoStyle}>{d || 'N/A'}</Chip>)
+              )}
             </div>
           )}
           style={docStyle}
