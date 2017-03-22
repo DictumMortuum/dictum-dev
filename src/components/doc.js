@@ -27,9 +27,9 @@ export default React.createClass({
           })}
           children={(
             <div style={flexParent}>
-              {<div style={docInfoStyle}>{doc.type || ''}</div>}
-              {<div style={docInfoStyle}>{doc.company || ''}</div>}
-              {<div style={docInfoStyle}>{doc.product || ''}</div>}
+              {[doc.type, doc.company, doc.product].map(d => (
+                <div key={d} style={docInfoStyle}>{d || ''}</div>
+              ))}
             </div>
           )}
           style={docStyle}
