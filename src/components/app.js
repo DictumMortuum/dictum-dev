@@ -6,7 +6,7 @@ import React from 'react';
 import { init, Doc } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {teal500, teal800, pinkA200, grey100, grey500} from 'material-ui/styles/colors';
+import { teal500, teal800, pinkA200, grey100, grey500 } from 'material-ui/styles/colors';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
