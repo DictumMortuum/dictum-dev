@@ -7,22 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { font } from '../styles';
 
 let Jira = React.createClass({
-  propTypes: {
-    ticket: React.PropTypes.string,
-    prefix: React.PropTypes.string,
-    status: React.PropTypes.object
-  },
-
   render() {
-    let { ticket, prefix } = this.props;
-
-    return (<RaisedButton
-      primary={true}
-      key='ticket'
-      label={ticket}
-      href={prefix}
-      labelStyle={font}
-    />);
+    return (<RaisedButton key='ticket' {...this.props} />);
   }
 });
 
@@ -35,8 +21,10 @@ const mergeProps = createSelector(
   state => state.props,
   state => state.config,
   (props, config) => ({
-    ticket: props.ticket,
-    prefix: config.jiraPrefix + 'browse/' + props.ticket
+    label: props.ticket,
+    href: config.jiraPrefix + 'browse/' + props.ticket,
+    labelStyle: font,
+    primary: true
   })
 );
 
