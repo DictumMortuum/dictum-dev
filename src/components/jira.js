@@ -9,7 +9,8 @@ import { font } from '../styles';
 let Jira = React.createClass({
   propTypes: {
     ticket: React.PropTypes.string,
-    prefix: React.PropTypes.string
+    prefix: React.PropTypes.string,
+    status: React.PropTypes.object
   },
 
   render() {
@@ -30,15 +31,13 @@ const mapStateToProps = (state, props) => ({
   config: state.config
 });
 
-const mapDispatchToProps = {};
-
 const mergeProps = createSelector(
   state => state.props,
   state => state.config,
   (props, config) => ({
     ticket: props.ticket,
-    prefix: config.jiraPrefix + props.ticket
+    prefix: config.jiraPrefix + 'browse/' + props.ticket
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Jira);
+export default connect(mapStateToProps, {}, mergeProps)(Jira);
