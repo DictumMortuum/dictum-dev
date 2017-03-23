@@ -66,7 +66,7 @@ const mergeProps = createSelector(
       ticket: editor.ticket || '',
       desc: editor.desc || '',
       date: new Date(editor._id).toLocaleDateString(config.locale, {
-        weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric',
+        year: 'numeric', month: 'numeric', day: 'numeric',
         hour: '2-digit', minute: '2-digit', second: '2-digit'
       })
     },
