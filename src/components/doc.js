@@ -48,7 +48,7 @@ export default React.createClass({
         <CardText>
           <ReactMarkdown source={doc.desc || ''} />
         </CardText>
-        <CardActions style={{backgroundColor: teal50}}>
+        <CardActions>
           {doc.ticket && <Jira ticket={doc.ticket} />}
           {doc.lang && doc.lang.map(l => (<RaisedButton
             key={l}
