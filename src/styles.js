@@ -1,14 +1,13 @@
 'use strict';
 
-import { teal500, teal800, pinkA200, grey100, grey500, grey50 } from 'material-ui/styles/colors';
-let background = grey50;
+import { teal500, teal800, pinkA200, grey500, grey50 } from 'material-ui/styles/colors';
 
 export const palette = {
   primary1Color: teal500,
   primary2Color: teal800,
   primary3Color: pinkA200,
   accent1Color: pinkA200,
-  accent2Color: grey100,
+  accent2Color: grey50,
   accent3Color: grey500
 };
 
@@ -29,7 +28,7 @@ export const font = {
 
 // APP
 export const appStyle = {
-  backgroundColor: background
+  backgroundColor: palette.accent2Color
 };
 
 // DOC
@@ -42,7 +41,7 @@ export const docInfoStyle = {
 export const viewerStyle = {
   padding: 10,
   marginTop: 64,
-  backgroundColor: background
+  backgroundColor: palette.accent2Color
 };
 
 // EDITOR
@@ -52,7 +51,7 @@ export const editorStyle = {
   top: 74,
   left: '50%',
   width: '50%',
-  backgroundColor: background
+  backgroundColor: palette.accent2Color
 };
 
 export const inputStyle = {
