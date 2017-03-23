@@ -7,8 +7,8 @@ import store from '../redux/store';
 import { Doc, Filter } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import Chip from 'material-ui/Chip';
-import { flexParent, docInfoStyle, font } from '../styles';
-import { teal500, teal50, grey50 } from 'material-ui/styles/colors';
+import { chipStyle, docInfoStyle, font } from '../styles';
+import { teal500, grey50 } from 'material-ui/styles/colors';
 import Jira from './jira';
 import Avatar from 'material-ui/Avatar';
 import WorkIcon from 'material-ui/svg-icons/action/work';
@@ -17,7 +17,7 @@ import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import ProductIcon from 'material-ui/svg-icons/action/settings';
 
 const HeaderChip = (d, img) => d && (
-  <Chip key={d} style={{...docInfoStyle, backgroundColor: grey50}}>
+  <Chip key={d} style={docInfoStyle}>
     <Avatar color={grey50} backgroundColor={teal500} size={24} icon={img} />{d}
   </Chip>
 );
@@ -35,7 +35,7 @@ export default React.createClass({
 
     return (
       <Card style={{marginBottom: 10}} zDepth={1}>
-        <div style={{...flexParent, backgroundColor: teal50}}
+        <div style={chipStyle}
           onTouchTap={() => store.dispatch(Doc.edit(doc))}>
           {HeaderChip(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
             year: 'numeric', month: 'numeric', day: 'numeric',
