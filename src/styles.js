@@ -1,12 +1,13 @@
 'use strict';
 
-import { teal50, teal500, teal800, pinkA200, grey500, grey50 } from 'material-ui/styles/colors';
+import { blueGrey50, blueGrey300, blueGrey500, blue300, grey500,
+  grey50 } from 'material-ui/styles/colors';
 
 export const palette = {
-  primary1Color: teal500,
-  primary2Color: teal800,
-  primary3Color: teal50,
-  accent1Color: pinkA200,
+  primary1Color: blueGrey300,
+  primary2Color: blueGrey500,
+  primary3Color: blueGrey50,
+  accent1Color: blue300,
   accent2Color: grey50,
   accent3Color: grey500
 };
@@ -45,7 +46,7 @@ export const chipStyle = {
 
 export const avatarStyle = {
   color: palette.accent2Color,
-  backgroundColor: palette.primary1Color
+  backgroundColor: palette.primary2Color
 };
 
 // VIEWER
