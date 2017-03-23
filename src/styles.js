@@ -1,6 +1,7 @@
 'use strict';
 
-import { grey100 } from 'material-ui/styles/colors';
+import { grey50 } from 'material-ui/styles/colors';
+let background = grey50;
 
 export const flexParent = {
   display: 'flex',
@@ -27,7 +28,7 @@ export const docInfoStyle = {
 export const viewerStyle = {
   padding: 10,
   marginTop: 64,
-  backgroundColor: grey100
+  backgroundColor: background
 };
 
 // EDITOR
@@ -37,7 +38,7 @@ export const editorStyle = {
   top: 74,
   left: '50%',
   width: '50%',
-  backgroundColor: grey100
+  backgroundColor: background
 };
 
 export const inputStyle = {
