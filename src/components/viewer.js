@@ -5,6 +5,7 @@ import Doc from './doc';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { viewerStyle } from '../styles';
 
 let Viewer = React.createClass({
   propTypes: {
@@ -16,7 +17,7 @@ let Viewer = React.createClass({
     let { docs, config } = this.props;
 
     return (
-      <Paper zDepth={0} style={{padding: 10, marginTop: 64}} >
+      <Paper zDepth={0} style={viewerStyle} >
         {docs.map(d => (<Doc key={d._id} doc={d} config={config} />))}
       </Paper>
     );
