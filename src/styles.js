@@ -18,6 +18,11 @@ export const font = {
   fontSize: 14
 };
 
+// APP
+export const mainStyle = {
+  backgroundColor: background
+};
+
 // DOC
 export const docInfoStyle = {
   ...font,

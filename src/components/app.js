@@ -6,13 +6,13 @@ import React from 'react';
 import { init, Doc } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { teal500, teal800, pinkA200, grey50, grey100, grey500 } from 'material-ui/styles/colors';
+import { teal500, teal800, pinkA200, grey100, grey500 } from 'material-ui/styles/colors';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
 import Info from './info';
-import { flexParent, flexChild } from '../styles';
+import { mainStyle, flexParent, flexChild } from '../styles';
 import { connect } from 'react-redux';
 
 injectTapEventPlugin();
@@ -57,7 +57,7 @@ let App = React.createClass({
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={{backgroundColor: grey50}}>
+        <div style={mainStyle}>
           <Bar />
           <Config />
             <div style={flexParent}>
