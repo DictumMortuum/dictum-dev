@@ -10,6 +10,24 @@ import { Text, ArrayText } from './text';
 import Writer from './writer';
 import { createSelector } from 'reselect';
 
+const Input = editor => (
+  <Paper style={inputStyle}>
+    <Text id="company" hint="Company" value={editor.company} />
+    <Text id="product" hint="Product" value={editor.product} />
+    <Text id="type" hint="Type" value={editor.type} />
+    <ArrayText id="lang" hint="Langs" value={editor.lang} />
+    <Text id="ticket" hint="JIRA" value={editor.ticket} />
+    <Text id="date" hint="Created on" value={editor.date} />
+  </Paper>
+);
+
+const Buttons = (handleNew, handleSave) => (
+  <div style={{textAlign: 'center', padding: 10}}>
+    <RaisedButton primary={true} label={'new'} onTouchTap={handleNew} style={{marginRight: 10}} />
+    <RaisedButton secondary={true} label={'save'} onTouchTap={handleSave} />
+  </div>
+);
+
 let Editor = React.createClass({
   propTypes: {
     editor: React.PropTypes.object,
@@ -22,21 +40,9 @@ let Editor = React.createClass({
 
     return (
       <Paper style={editorStyle} zDepth={0}>
-        <Paper style={inputStyle}>
-          <Text id="company" hint="Company" value={editor.company} />
-          <Text id="product" hint="Product" value={editor.product} />
-          <Text id="type" hint="Type" value={editor.type} />
-          <ArrayText id="lang" hint="Langs" value={editor.lang} />
-          <Text id="ticket" hint="JIRA" value={editor.ticket} />
-          <Text id="date" hint="Date" value={editor.date} />
-        </Paper>
+        {Input(editor)}
         <Writer id="desc" value={editor.desc} />
-        <div style={{textAlign: 'center', padding: 10}}>
-          <RaisedButton primary={true} label={'new'} onTouchTap={handleNew}
-            style={{marginRight: 10}}
-          />
-          <RaisedButton secondary={true} label={'save'} onTouchTap={handleSave} />
-        </div>
+        {Buttons(handleNew, handleSave)}
       </Paper>
     );
   }
@@ -65,7 +71,10 @@ const mergeProps = createSelector(
       lang: editor.lang || [],
       ticket: editor.ticket || '',
       desc: editor.desc || '',
-      date: new Date(editor._id).toLocaleDateString(config.locale)
+      date: new Date(editor._id).toLocaleDateString(config.locale, {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      })
     },
     handleNew,
     handleSave
