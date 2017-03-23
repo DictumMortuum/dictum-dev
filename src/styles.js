@@ -35,7 +35,7 @@ export const appStyle = {
 // DOC
 export const docInfoStyle = {
   ...font,
-  margin: 5
+  margin: 8
 };
 
 // VIEWER
