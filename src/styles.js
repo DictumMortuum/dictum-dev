@@ -38,16 +38,21 @@ export const docInfoStyle = {
   backgroundColor: palette.accent2Color
 };
 
+export const chipStyle = {
+  ...flexParent,
+  backgroundColor: palette.primary3Color
+};
+
+export const avatarStyle = {
+  color: palette.accent2Color,
+  backgroundColor: palette.primary1Color
+};
+
 // VIEWER
 export const viewerStyle = {
   padding: 10,
   marginTop: 64,
   backgroundColor: palette.accent2Color
-};
-
-export const chipStyle = {
-  ...flexParent,
-  backgroundColor: palette.primary3Color
 };
 
 // EDITOR

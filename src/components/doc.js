@@ -7,8 +7,7 @@ import store from '../redux/store';
 import { Doc, Filter } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import Chip from 'material-ui/Chip';
-import { chipStyle, docInfoStyle, font } from '../styles';
-import { teal500, grey50 } from 'material-ui/styles/colors';
+import { chipStyle, docInfoStyle, avatarStyle, font } from '../styles';
 import Jira from './jira';
 import Avatar from 'material-ui/Avatar';
 import WorkIcon from 'material-ui/svg-icons/action/work';
@@ -18,7 +17,13 @@ import ProductIcon from 'material-ui/svg-icons/action/settings';
 
 const HeaderChip = (d, img) => d && (
   <Chip key={d} style={docInfoStyle}>
-    <Avatar color={grey50} backgroundColor={teal500} size={24} icon={img} />{d}
+    <Avatar
+      color={avatarStyle.color}
+      backgroundColor={avatarStyle.backgroundColor}
+      size={24}
+      icon={img}
+    />
+    {d}
   </Chip>
 );
 
