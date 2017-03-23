@@ -27,16 +27,29 @@ let Viewer = React.createClass({
 const mapStateToProps = state => ({
   docs: state.docs,
   config: state.config,
-  length: state.length
+  length: state.length,
+  filter: state.filter
 });
 
 const mergeProps = createSelector(
   state => state.docs,
   state => state.config,
   state => state.length,
-  (docs, config, length) => ({
+  state => state.filter,
+  (docs, config, length, filters) => ({
     config,
-    docs: docs.slice(0, length)
+    docs: docs.filter(d => {
+      // lang may be undefined in some documents
+      let langs = d.lang || [];
+
+      // If there are no filters, there's nothing to filter.
+      if (filters.length === 0) {
+        return true;
+      } else {
+        // Test every filter against the langs of the doc
+        return filters.every(f => langs.indexOf(f) >= 0);
+      }
+    }).slice(0, length)
   })
 );
 
