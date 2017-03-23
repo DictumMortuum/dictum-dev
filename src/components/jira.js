@@ -24,7 +24,7 @@ const mergeProps = createSelector(
     label: props.ticket,
     href: config.jiraPrefix + 'browse/' + props.ticket,
     labelStyle: font,
-    primary: true
+    secondary: true
   })
 );
 
