@@ -1,7 +1,16 @@
 'use strict';
 
-import { grey50 } from 'material-ui/styles/colors';
+import { teal500, teal800, pinkA200, grey100, grey500, grey50 } from 'material-ui/styles/colors';
 let background = grey50;
+
+export const palette = {
+  primary1Color: teal500,
+  primary2Color: teal800,
+  primary3Color: pinkA200,
+  accent1Color: pinkA200,
+  accent2Color: grey100,
+  accent3Color: grey500
+};
 
 export const flexParent = {
   display: 'flex',

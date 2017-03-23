@@ -6,26 +6,18 @@ import React from 'react';
 import { init, Doc } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { teal500, teal800, pinkA200, grey100, grey500 } from 'material-ui/styles/colors';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
 import Info from './info';
-import { appStyle, flexParent, flexChild } from '../styles';
+import { palette, appStyle, flexParent, flexChild } from '../styles';
 import { connect } from 'react-redux';
 
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: teal500,
-    primary2Color: teal800,
-    primary3Color: pinkA200,
-    accent1Color: pinkA200,
-    accent2Color: grey100,
-    accent3Color: grey500
-  }
+  palette: palette
 });
 
 window.onscroll = function () {
