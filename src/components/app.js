@@ -12,7 +12,7 @@ import Editor from './editor';
 import Viewer from './viewer';
 import Config from './config';
 import Info from './info';
-import { mainStyle, flexParent, flexChild } from '../styles';
+import { appStyle, flexParent, flexChild } from '../styles';
 import { connect } from 'react-redux';
 
 injectTapEventPlugin();
@@ -57,7 +57,7 @@ let App = React.createClass({
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={mainStyle}>
+        <div style={appStyle}>
           <Bar />
           <Config />
             <div style={flexParent}>

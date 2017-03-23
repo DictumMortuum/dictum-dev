@@ -19,7 +19,7 @@ export const font = {
 };
 
 // APP
-export const mainStyle = {
+export const appStyle = {
   backgroundColor: background
 };
 
