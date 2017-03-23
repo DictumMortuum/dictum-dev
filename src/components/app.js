@@ -16,9 +16,7 @@ import { connect } from 'react-redux';
 
 injectTapEventPlugin();
 
-const muiTheme = getMuiTheme({
-  palette: palette
-});
+const muiTheme = getMuiTheme({ palette });
 
 window.onscroll = function () {
   if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
