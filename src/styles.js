@@ -1,7 +1,13 @@
 'use strict';
 
-import { blueGrey50, blueGrey300, blueGrey500, blue300, grey500,
-  grey50 } from 'material-ui/styles/colors';
+import {
+  blueGrey50,
+  blueGrey300,
+  blueGrey500,
+  blue300,
+  grey500,
+  grey50
+} from 'material-ui/styles/colors';
 
 export const palette = {
   primary1Color: blueGrey300,
