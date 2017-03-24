@@ -31,7 +31,7 @@
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
     "css-loader": "*",
-    "date-utils": "git+https://github.com/DictumMortuum/date-utils.git#develop",
+    "date-utils": "git+https://github.com/DictumMortuum/date-utils.git",
     "eslint": "*",
     "eslint-loader": "^*",
     "eslint-plugin-react": "*",
@@ -57,7 +57,7 @@
     "redux-promise": "*",
     "redux-thunk": "*",
     "reselect": "^2.5.4",
-    "reset-timeout": "git+https://github.com/DictumMortuum/reset-timeout.git#develop",
+    "reset-timeout": "git+https://github.com/DictumMortuum/reset-timeout.git",
     "style-loader": "*",
     "webpack": "*2.2.0",
     "webpack-dev-server": "*2.2.0"
