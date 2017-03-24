@@ -38,7 +38,6 @@
     "history": "*",
     "jest-cli": "*",
     "material-ui": "*",
-    "moment": "*",
     "pouchdb": "*",
     "react": "*",
     "react-addons-create-fragment": "*",
