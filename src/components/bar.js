@@ -5,9 +5,9 @@ import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import { Doc, Config } from '../redux/actions';
 import Datepicker from './datepicker';
-import moment from 'moment';
 import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
+import { startOfDay, endOfDay } from 'date-utils';
 
 let Bar = React.createClass({
   propTypes: {
@@ -59,12 +59,12 @@ const mergeProps = createSelector(
       month: 'long', weekday: 'long', day: 'numeric'
     }),
     handleFrom: (event, from) => bulk({
-      startkey: moment(from).startOf('day').toISOString(),
+      startkey: startOfDay(from).toISOString(),
       endkey: date.to
     }),
     handleTo: (event, to) => bulk({
       startkey: date.from,
-      endkey: moment(to).endOf('day').toISOString()
+      endkey: endOfDay(to).toISOString()
     }),
     toggleDrawer: toggle
   })

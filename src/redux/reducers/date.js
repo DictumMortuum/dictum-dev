@@ -1,14 +1,18 @@
 'use strict';
 
-import moment from 'moment';
 import { sort, cast } from '../db';
+import { startOfDay, daysAgo } from 'date-utils';
 
-const defaultState = {
-  from: moment(new Date()).startOf('day').subtract(30, 'days').toISOString(),
-  to: moment(new Date()).startOf('day').toISOString()
+const defaultState = () => {
+  let to = new Date();
+
+  return {
+    to: to.toISOString(),
+    from: daysAgo(startOfDay(to)).toISOString()
+  };
 };
 
-export default (state=defaultState, action) => {
+export default (state=defaultState(), action) => {
   switch (action.type) {
   case 'DOCS_FETCH':
     if (action.docs.length > 0) {

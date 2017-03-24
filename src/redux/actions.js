@@ -11,12 +11,9 @@ export const Filter = {
 };
 
 function _toggleFilter(f) {
-  return (dispatch, state) => {
-    console.log(state().filter.indexOf(f));
-    return dispatch(
-      state().filter.indexOf(f) === -1 ? Filter.add(f) : Filter.remove(f)
-    );
-  };
+  return (dispatch, state) => dispatch(
+    state().filter.indexOf(f) === -1 ? Filter.add(f) : Filter.remove(f)
+  );
 }
 
 export const Info = {
