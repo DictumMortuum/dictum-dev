@@ -6,28 +6,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import store from '../redux/store';
 import { Doc, Filter } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
-import Chip from 'material-ui/Chip';
-import { chipStyle, docInfoStyle, avatarStyle, font } from '../styles';
+import { chipStyle, font } from '../styles';
 import Jira from './jira';
-import Avatar from 'material-ui/Avatar';
-import WorkIcon from 'material-ui/svg-icons/action/work';
-import DateIcon from 'material-ui/svg-icons/action/date-range';
-import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
-import ProductIcon from 'material-ui/svg-icons/action/settings';
-
-const HeaderChip = (d, img) => d && (
-  <Chip key={d} style={docInfoStyle}>
-    <Avatar
-      color={avatarStyle.color}
-      backgroundColor={avatarStyle.backgroundColor}
-      size={24}
-      icon={img}
-    />
-    {d}
-  </Chip>
-);
-
-// const LangChip = d => (<Chip key={d} style={{backgroundColor: teal50}}>{d}</Chip>);
+import { CompanyChip, DateChip, ProductChip, TypeChip } from './chip';
 
 export default React.createClass({
   propTypes: {
@@ -42,13 +23,13 @@ export default React.createClass({
       <Card style={{marginBottom: 10}} zDepth={1}>
         <div style={chipStyle}
           onTouchTap={() => store.dispatch(Doc.edit(doc))}>
-          {HeaderChip(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
+          {DateChip(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
             year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
-          }), <DateIcon />)}
-          {HeaderChip(doc.type, <AssignmentIcon />)}
-          {HeaderChip(doc.company, <WorkIcon />)}
-          {HeaderChip(doc.product, <ProductIcon />)}
+          }))}
+          {TypeChip(doc.type)}
+          {CompanyChip(doc.company)}
+          {ProductChip(doc.product)}
         </div>
         <CardText>
           <ReactMarkdown source={doc.desc || ''} />
