@@ -9,8 +9,8 @@ import DateIcon from 'material-ui/svg-icons/action/date-range';
 import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import ProductIcon from 'material-ui/svg-icons/action/settings';
 
-const HeaderChip = (d, img) => d && (
-  <Chip key={d} style={docInfoStyle}>
+const HeaderChip = (d, type, img) => d && (
+  <Chip key={type} style={docInfoStyle}>
     <Avatar
       color={avatarStyle.color}
       backgroundColor={avatarStyle.backgroundColor}
@@ -21,7 +21,7 @@ const HeaderChip = (d, img) => d && (
   </Chip>
 );
 
-export const DateChip = d => HeaderChip(d, <DateIcon />);
-export const TypeChip = d => HeaderChip(d, <AssignmentIcon />);
-export const CompanyChip = d => HeaderChip(d, <WorkIcon />);
-export const ProductChip = d => HeaderChip(d, <ProductIcon />);
+export const DateChip = d => HeaderChip(d, 'date', <DateIcon />);
+export const TypeChip = d => HeaderChip(d, 'type', <AssignmentIcon />);
+export const CompanyChip = d => HeaderChip(d, 'company', <WorkIcon />);
+export const ProductChip = d => HeaderChip(d, 'product', <ProductIcon />);
