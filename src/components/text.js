@@ -13,8 +13,12 @@ let template = React.createClass({
   }
 });
 
+const mapStateToProps = (state, props) => props;
+const mapDispatchToProps = { change: Editor.change };
+
 export const ArrayText = connect(
-  (state, props) => props, { change: Editor.change },
+  mapStateToProps,
+  mapDispatchToProps,
   createSelector(
     props => props,
     (state, actions) => actions.change,
@@ -29,7 +33,8 @@ export const ArrayText = connect(
 )(template);
 
 export const Text = connect(
-  (state, props) => props, { change: Editor.change },
+  mapStateToProps,
+  mapDispatchToProps,
   createSelector(
     props => props,
     (state, actions) => actions.change,
