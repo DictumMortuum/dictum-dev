@@ -7,6 +7,7 @@ import { Doc, Config } from '../redux/actions';
 import Datepicker from './datepicker';
 import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
+import { startOfDay, endOfDay } from 'date-utils';
 
 let Bar = React.createClass({
   propTypes: {
@@ -58,25 +59,15 @@ const mergeProps = createSelector(
       month: 'long', weekday: 'long', day: 'numeric'
     }),
     handleFrom: (event, from) => bulk({
-      startkey: startOf(from).toISOString(),
+      startkey: startOfDay(from).toISOString(),
       endkey: date.to
     }),
     handleTo: (event, to) => bulk({
       startkey: date.from,
-      endkey: endOf(to).toISOString()
+      endkey: endOfDay(to).toISOString()
     }),
     toggleDrawer: toggle
   })
 );
-
-const startOf = d => {
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
-
-const endOf = d => {
-  d.setHours(23, 59, 59, 999);
-  return d;
-};
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Bar);

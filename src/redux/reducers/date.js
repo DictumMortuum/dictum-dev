@@ -1,18 +1,14 @@
 'use strict';
 
 import { sort, cast } from '../db';
+import { startOfDay, daysAgo } from 'date-utils';
 
 const defaultState = () => {
   let to = new Date();
-  let from = new Date(to);
-  // start of day
-  from.setHours(0, 0, 0, 0);
-  // 30 days ago
-  from.setDate(to.getDate() - 30);
 
   return {
     to: to.toISOString(),
-    from: from.toISOString()
+    from: daysAgo(startOfDay(to)).toISOString()
   };
 };
 
