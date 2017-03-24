@@ -20,7 +20,7 @@ export default React.createClass({
     let { config, doc } = this.props;
 
     return (
-      <Card style={{marginBottom: 10}} zDepth={1}>
+      <Card style={{marginBottom: 20}}>
         <div style={chipStyle}
           onTouchTap={() => store.dispatch(Doc.edit(doc))}>
           {DateChip(new Date(doc.updated || doc._id).toLocaleDateString(config.locale, {
