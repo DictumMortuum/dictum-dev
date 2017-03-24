@@ -72,8 +72,7 @@ let DocHeader = React.createClass({
 
 export default React.createClass({
   propTypes: {
-    doc: React.PropTypes.object,
-    config: React.PropTypes.object
+    doc: React.PropTypes.object
   },
 
   render() {
