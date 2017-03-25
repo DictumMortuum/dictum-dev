@@ -1,36 +1,46 @@
 'use strict';
 
 import React from 'react';
-import SimpleMDE from 'react-simplemde-editor';
 import Paper from 'material-ui/Paper';
-import store from '../redux/store';
 import { Editor } from '../redux/actions';
+import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField';
 
-export default React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    value: React.PropTypes.string
-  },
+const style = {
+  paddingLeft: 10,
+  paddingRight: 10
+};
 
-  handleChange(value) {
-    store.dispatch(Editor.change(this.props.id, value));
-  },
-
+let template = React.createClass({
   render() {
     return (
-      <Paper>
-        <SimpleMDE
-          value={this.props.value}
-          options={{
-            toolbar: ['bold', 'italic', 'heading', 'unordered-list', 'ordered-list',
-              'link', 'image', 'horizontal-rule', 'quote', 'preview'],
-            tabsize: 2,
-            status: false,
-            spellChecker: false
-          }}
-          onChange={this.handleChange}
-        />
+      <Paper style={style}>
+        <TextField {...this.props} underlineStyle={{display: 'none'}} />
       </Paper>
     );
   }
 });
+
+const mapStateToProps = (state, props) => props;
+const mapDispatchToProps = { change: Editor.change };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  createSelector(
+    props => props,
+    (state, actions) => actions.change,
+    (props, change) => ({
+      id: props.id,
+      key: props.id,
+      hintText: props.hint,
+      value: props.value,
+      multiLine: true,
+      fullWidth: true,
+      rowsMax: 28,
+      rows: 28,
+      onChange: (event, value) => change(props.id, value)
+    })
+  )
+)(template);
