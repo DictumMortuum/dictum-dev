@@ -9,7 +9,7 @@ import docs from './reducers/docs';
 import editor from './reducers/editor';
 import date from './reducers/date';
 import length from './reducers/length';
-import tags from './reducers/tags';
+// import tags from './reducers/tags';
 import info from './reducers/info';
 import filter from './reducers/filter';
 
@@ -23,7 +23,6 @@ export default createStoreWithMiddleware(combineReducers({
   editor,
   date,
   length,
-  tags,
   info,
   filter
 }));

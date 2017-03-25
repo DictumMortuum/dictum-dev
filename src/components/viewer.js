@@ -9,16 +9,15 @@ import { viewerStyle } from '../styles';
 
 let Viewer = React.createClass({
   propTypes: {
-    docs: React.PropTypes.array,
-    config: React.PropTypes.object
+    docs: React.PropTypes.array
   },
 
   render() {
-    let { docs, config } = this.props;
+    let { docs } = this.props;
 
     return (
       <Paper zDepth={0} style={viewerStyle} >
-        {docs.map(d => (<Doc key={d._id} doc={d} config={config} />))}
+        {docs.map(d => (<Doc key={d._id} doc={d} />))}
       </Paper>
     );
   }
@@ -26,18 +25,15 @@ let Viewer = React.createClass({
 
 const mapStateToProps = state => ({
   docs: state.docs,
-  config: state.config,
   length: state.length,
   filter: state.filter
 });
 
 const mergeProps = createSelector(
   state => state.docs,
-  state => state.config,
   state => state.length,
   state => state.filter,
-  (docs, config, length, filters) => ({
-    config,
+  (docs, length, filters) => ({
     docs: docs.filter(d => {
       // lang may be undefined in some documents
       let langs = d.lang || [];
