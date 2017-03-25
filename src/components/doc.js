@@ -2,31 +2,40 @@
 
 import React from 'react';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
 import { Doc, Filter } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
 import { chipStyle, font } from '../styles';
 import Jira from './jira';
 import { CompanyChip, DateChip, ProductChip, TypeChip } from './chip';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
-let DocLang = React.createClass({
-  propTypes: {
-    lang: React.PropTypes.string
-  },
-
-  render() {
-    let { lang } = this.props;
-
-    return (
-      <RaisedButton
-        label={lang}
-        style={font}
-        onTouchTap={() => store.dispatch(Filter.toggle(lang))}
-      />
-    );
-  }
+const mapStateToProps = (state, props) => ({
+  props,
+  filter: state.filter
 });
+const mapDispatchToProps = { toggle: Filter.toggle };
+
+export const DocLang = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  createSelector(
+    state => state.props,
+    state => state.filter,
+    (state, actions) => actions.toggle,
+    (props, filter, toggle) => ({
+      label: props.lang,
+      secondary: filter.indexOf(props.lang) === -1 ? false : true,
+      onTouchTap: () => toggle(props.lang)
+    })
+  )
+)(React.createClass({
+  render() {
+    return (<FlatButton style={font} {...this.props} />);
+  }
+}));
 
 let DocActions = React.createClass({
   propTypes: {
