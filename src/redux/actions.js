@@ -68,9 +68,7 @@ export const Editor = {
     return (dispatch, state) => {
       let d = { ...state().editor, [attr]: value };
       dispatch(Doc.edit(d));
-      document.onkeypress = timeout(
-        () => dispatch(Doc.insert(d))
-      );
+      document.onkeypress = timeout(() => dispatch(Doc.insert(d)), 300);
     };
   }
 };
