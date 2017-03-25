@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import RaisedButton from 'material-ui/RaisedButton';
-import { font } from '../styles';
+import { font } from '../../styles';
 
 let Jira = React.createClass({
   render() {

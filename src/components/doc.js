@@ -2,40 +2,13 @@
 
 import React from 'react';
 import { Card, CardText, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import store from '../redux/store';
-import { Doc, Filter } from '../redux/actions';
+import { Doc } from '../redux/actions';
 import ReactMarkdown from 'react-markdown';
-import { chipStyle, font } from '../styles';
-import Jira from './jira';
-import { CompanyChip, DateChip, ProductChip, TypeChip } from './chip';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-
-const mapStateToProps = (state, props) => ({
-  props,
-  filter: state.filter
-});
-const mapDispatchToProps = { toggle: Filter.toggle };
-
-export const DocLang = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  createSelector(
-    state => state.props,
-    state => state.filter,
-    (state, actions) => actions.toggle,
-    (props, filter, toggle) => ({
-      label: props.lang,
-      secondary: filter.indexOf(props.lang) === -1 ? false : true,
-      onTouchTap: () => toggle(props.lang)
-    })
-  )
-)(React.createClass({
-  render() {
-    return (<FlatButton style={font} {...this.props} />);
-  }
-}));
+import { chipStyle } from '../styles';
+import Jira from './doc/jira';
+import Filter from './doc/filter';
+import { CompanyChip, DateChip, ProductChip, TypeChip } from './doc/chip';
 
 let DocActions = React.createClass({
   propTypes: {
@@ -49,7 +22,7 @@ let DocActions = React.createClass({
     return (
       <CardActions>
         {ticket && <Jira ticket={ticket} />}
-        {lang && lang.map(l => (<DocLang key={l} lang={l} />))}
+        {lang && lang.map(l => (<Filter key={l} lang={l} />))}
       </CardActions>
     );
   }

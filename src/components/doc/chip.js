@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Chip from 'material-ui/Chip';
-import { docInfoStyle, avatarStyle } from '../styles';
+import { docInfoStyle, avatarStyle } from '../../styles';
 import Avatar from 'material-ui/Avatar';
 import WorkIcon from 'material-ui/svg-icons/action/work';
 import DateIcon from 'material-ui/svg-icons/action/date-range';
