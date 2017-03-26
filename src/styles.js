@@ -1,8 +1,6 @@
 'use strict';
 
-import {
-  grey500
-} from 'material-ui/styles/colors';
+import { grey500 } from 'material-ui/styles/colors';
 
 export const palette = {
   primary1Color: '#44424C',
