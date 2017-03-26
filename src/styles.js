@@ -1,20 +1,15 @@
 'use strict';
 
 import {
-  blueGrey50,
-  blueGrey300,
-  blueGrey500,
-  blue300,
-  grey500,
-  grey50
+  grey500
 } from 'material-ui/styles/colors';
 
 export const palette = {
-  primary1Color: blueGrey300,
-  primary2Color: blueGrey500,
-  primary3Color: blueGrey50,
-  accent1Color: blue300,
-  accent2Color: grey50,
+  primary1Color: '#44424C',
+  primary2Color: '#44424C',
+  primary3Color: '#D7DAD3',
+  accent1Color: '#7F7798',
+  accent2Color: '#F0F0F0',
   accent3Color: grey500
 };
 
