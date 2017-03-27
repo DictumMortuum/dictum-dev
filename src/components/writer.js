@@ -38,8 +38,8 @@ export default connect(
       value: props.value,
       multiLine: true,
       fullWidth: true,
-      rowsMax: 28,
-      rows: 28,
+      rowsMax: 24,
+      rows: 24,
       onChange: (event, value) => change(props.id, value)
     })
   )
