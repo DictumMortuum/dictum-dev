@@ -9,8 +9,8 @@ const defaultState = () => {
   return {
     to: to.toISOString(),
     from: from.toISOString(),
-    minDate: new Date(from),
-    maxDate: new Date(to)
+    minDate: from,
+    maxDate: to
   };
 };
 
