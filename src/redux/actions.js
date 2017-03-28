@@ -7,9 +7,9 @@ import Fuse from 'fuse.js';
 
 const options = {
   shouldSort: true,
-  threshold: 0.2,
+  threshold: 0.3,
   location: 0,
-  distance: 100,
+  distance: 2000,
   maxPatternLength: 32,
   minMatchCharLength: 2,
   keys: ['desc']
