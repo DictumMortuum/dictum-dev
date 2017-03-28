@@ -7,9 +7,9 @@ const defaultState = () => {
   let to = new Date();
 
   return {
-    to: to.toISOString(),
     from: from.toISOString(),
     minDate: from,
+    to: to.toISOString(),
     maxDate: to
   };
 };
