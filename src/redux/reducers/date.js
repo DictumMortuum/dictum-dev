@@ -1,16 +1,16 @@
 'use strict';
 
 import { sort, cast } from '../db';
-import { startOfDay, daysAgo } from 'date-utils';
 
 const defaultState = () => {
+  let from = new Date();
   let to = new Date();
 
   return {
     to: to.toISOString(),
-    from: daysAgo(startOfDay(to)).toISOString(),
-    minDate: to,
-    maxDate: daysAgo(startOfDay(to))
+    from: from.toISOString(),
+    minDate: new Date(from),
+    maxDate: new Date(to)
   };
 };
 
