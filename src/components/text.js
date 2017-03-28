@@ -9,7 +9,7 @@ import { createSelector } from 'reselect';
 
 let template = React.createClass({
   render() {
-    return (<TextField {...this.props} style={textStyle} />);
+    return (<TextField {...this.props} />);
   }
 });
 
@@ -26,6 +26,7 @@ export const ArrayText = connect(
       key: props.id,
       hintText: props.hint,
       value: props.value.toString(),
+      style: textStyle,
       onChange: (event, value) => change(props.id, value.split(','))
     })
   )
@@ -42,6 +43,7 @@ export const Text = connect(
       key: props.id,
       hintText: props.hint,
       value: props.value,
+      style: textStyle,
       onChange: (event, value) => change(props.id, value)
     })
   )
