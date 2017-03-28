@@ -76,15 +76,15 @@ function _removeDoc(doc) {
 
 function _searchDoc(term) {
   return (dispatch, state) => {
-    console.log(state().docs.length);
     fuse.set(state().docs);
-    console.log(fuse);
-    console.log(fuse.search(term));
     dispatch({
-      type: 'DOC_SEARCH',
-      term,
-      docs: fuse.search(term)
+      type: 'DOC_TERM',
+      term
     });
+    document.onkeypress = timeout(() => dispatch({
+      type: 'DOC_SEARCH',
+      docs: fuse.search(term)
+    }));
   };
 }
 
