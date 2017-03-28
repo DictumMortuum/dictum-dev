@@ -12,6 +12,7 @@ import length from './reducers/length';
 // import tags from './reducers/tags';
 import info from './reducers/info';
 import filter from './reducers/filter';
+import search from './reducers/search';
 
 const logger = reduxLogger();
 
@@ -24,5 +25,6 @@ export default createStoreWithMiddleware(combineReducers({
   date,
   length,
   info,
-  filter
+  filter,
+  search
 }));
