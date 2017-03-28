@@ -7,12 +7,12 @@ import Fuse from 'fuse.js';
 
 const options = {
   shouldSort: true,
-  threshold: 0.8,
+  threshold: 0.2,
   location: 0,
   distance: 100,
   maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: ['keys']
+  minMatchCharLength: 2,
+  keys: ['desc']
 };
 
 let fuse = new Fuse([], options);
@@ -76,7 +76,10 @@ function _removeDoc(doc) {
 
 function _searchDoc(term) {
   return (dispatch, state) => {
+    console.log(state().docs.length);
     fuse.set(state().docs);
+    console.log(fuse);
+    console.log(fuse.search(term));
     dispatch({
       type: 'DOC_SEARCH',
       term,
