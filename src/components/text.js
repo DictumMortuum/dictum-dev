@@ -51,19 +51,17 @@ export const Text = connect(
 
 export const SearchText = connect(
   (state, props) => ({
-    props,
-    search: state.search
+    props
   }),
   { action: Doc.search },
   createSelector(
     state => state.props,
-    state => state.search,
     (state, actions) => actions.action,
-    (props, search, action) => ({
+    (props, action) => ({
       id: props.id,
       key: props.id,
       hintText: props.hint,
-      value: search.term,
+      value: props.value,
       style: {
         paddingRight: 10,
         width: 120

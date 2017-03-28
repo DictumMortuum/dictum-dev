@@ -76,16 +76,17 @@ function _removeDoc(doc) {
 
 function _searchDoc(term) {
   return (dispatch, state) => {
-    dispatch({
-      type: 'DOC_TERM',
-      term
-    });
+    dispatch({ type: 'DOC_TERM', term });
     document.onkeypress = timeout(() => {
       fuse.set(state().docs);
-      dispatch({
-        type: 'DOC_SEARCH',
-        docs: fuse.search(term)
-      });
+      let r = fuse.search(term);
+      dispatch({ type: 'DOC_SEARCH', docs: r });
+
+      if (r.length === 0) {
+        dispatch(Info.send('No results found.'));
+      } else {
+        dispatch(Info.send('Found ' + r.length + ' results.'));
+      }
     });
   };
 }

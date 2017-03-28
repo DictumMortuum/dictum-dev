@@ -16,11 +16,12 @@ let Bar = React.createClass({
     handleFrom: React.PropTypes.func,
     handleTo: React.PropTypes.func,
     toggleDrawer: React.PropTypes.func,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+    term: React.PropTypes.string
   },
 
   render() {
-    let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
+    let { date, title, term, handleFrom, handleTo, toggleDrawer } = this.props;
 
     return (
       <AppBar
@@ -31,7 +32,7 @@ let Bar = React.createClass({
           <div style={flexParent}>
             <Datepicker id='from' date={date.from} callback={handleFrom} />
             <Datepicker id='to' date={date.to} callback={handleTo} />
-            <SearchText id='search' key='search' hintText='Search term...' value='' />
+            <SearchText id='search' key='search' hintText='Search term...' value={term} />
           </div>
         }
         onLeftIconButtonTouchTap={toggleDrawer}
@@ -42,7 +43,8 @@ let Bar = React.createClass({
 
 const mapStateToProps = state => ({
   date: state.date,
-  config: state.config
+  config: state.config,
+  search: state.search
 });
 
 const mapDispatchToProps = {
@@ -53,10 +55,12 @@ const mapDispatchToProps = {
 const mergeProps = createSelector(
   state => state.date,
   state => state.config,
+  state => state.search,
   (state, actions) => actions.bulk,
   (state, actions) => actions.toggle,
-  (date, config, bulk, toggle) => ({
+  (date, config, search, bulk, toggle) => ({
     date,
+    term: search.term,
     title: new Date().toLocaleDateString(config.locale, {
       month: 'long', weekday: 'long', day: 'numeric'
     }),
