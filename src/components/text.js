@@ -69,6 +69,9 @@ export const SearchText = connect(
       inputStyle: {
         color: 'white'
       },
+      hintStyle: {
+        color: 'white'
+      },
       onChange: (event, value) => action(value)
     })
   )

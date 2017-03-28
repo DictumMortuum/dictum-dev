@@ -32,7 +32,7 @@ let Bar = React.createClass({
           <div style={flexParent}>
             <Datepicker id='from' date={date.from} callback={handleFrom} />
             <Datepicker id='to' date={date.to} callback={handleTo} />
-            <SearchText id='search' key='search' hintText='Search term...' value={term} />
+            <SearchText id='search' key='search' hint='Search...' value={term} />
           </div>
         }
         onLeftIconButtonTouchTap={toggleDrawer}
