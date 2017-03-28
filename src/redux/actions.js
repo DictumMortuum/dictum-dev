@@ -3,6 +3,19 @@
 import db from './db';
 import { create } from './db';
 import timeout from 'reset-timeout';
+import Fuse from 'fuse.js';
+
+const options = {
+  shouldSort: true,
+  threshold: 0.8,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: ['keys']
+};
+
+let fuse = new Fuse([], options);
 
 export const Filter = {
   add: f => ({ type: 'FILTER_ADD', filter: f }),
@@ -28,7 +41,8 @@ export const Doc = {
   scroll: () => ({ type: 'DOC_LENGTH' }),
   new: _newDoc,
   commit: _commitDoc,
-  remove: _removeDoc
+  remove: _removeDoc,
+  search: _searchDoc
 };
 
 export const Date = {
@@ -58,6 +72,17 @@ function _commitDoc() {
 function _removeDoc(doc) {
   return db.remove(doc).then(() => Doc.delete(doc));
   // TODO add info message here, but first must return dispatch
+}
+
+function _searchDoc(term) {
+  return (dispatch, state) => {
+    fuse.set(state().docs);
+    dispatch({
+      type: 'DOC_SEARCH',
+      term,
+      docs: fuse.search(term)
+    });
+  };
 }
 
 export const Config = {

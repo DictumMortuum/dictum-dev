@@ -8,6 +8,7 @@ import Datepicker from './datepicker';
 import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
+import { SearchText } from './text';
 
 let Bar = React.createClass({
   propTypes: {
@@ -28,6 +29,7 @@ let Bar = React.createClass({
         zDepth={1}
         iconElementRight={
           <div style={flexParent}>
+            <SearchText id='search' key='search' hintText='Search term...' value='' />
             <Datepicker id='from' date={date.from} callback={handleFrom} />
             <Datepicker id='to' date={date.to} callback={handleTo} />
           </div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
-import { Editor } from '../redux/actions';
+import { Doc, Editor } from '../redux/actions';
 import { textStyle } from '../styles';
 import { createSelector } from 'reselect';
 
@@ -14,11 +14,10 @@ let template = React.createClass({
 });
 
 const mapStateToProps = (state, props) => props;
-const mapDispatchToProps = { change: Editor.change };
 
 export const ArrayText = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  { change: Editor.change },
   createSelector(
     props => props,
     (state, actions) => actions.change,
@@ -34,7 +33,7 @@ export const ArrayText = connect(
 
 export const Text = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  { change: Editor.change },
   createSelector(
     props => props,
     (state, actions) => actions.change,
@@ -44,6 +43,26 @@ export const Text = connect(
       hintText: props.hint,
       value: props.value,
       onChange: (event, value) => change(props.id, value)
+    })
+  )
+)(template);
+
+export const SearchText = connect(
+  (state, props) => ({
+    props,
+    search: state.search
+  }),
+  { action: Doc.search },
+  createSelector(
+    state => state.props,
+    state => state.search,
+    (state, actions) => actions.action,
+    (props, search, action) => ({
+      id: props.id,
+      key: props.id,
+      hintText: props.hint,
+      value: search.term,
+      onChange: (event, value) => action(value)
     })
   )
 )(template);
