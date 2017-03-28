@@ -64,6 +64,13 @@ export const SearchText = connect(
       key: props.id,
       hintText: props.hint,
       value: search.term,
+      style: {
+        paddingRight: 10,
+        width: 120
+      },
+      inputStyle: {
+        color: 'white'
+      },
       onChange: (event, value) => action(value)
     })
   )

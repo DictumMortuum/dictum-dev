@@ -29,9 +29,9 @@ let Bar = React.createClass({
         zDepth={1}
         iconElementRight={
           <div style={flexParent}>
-            <SearchText id='search' key='search' hintText='Search term...' value='' />
             <Datepicker id='from' date={date.from} callback={handleFrom} />
             <Datepicker id='to' date={date.to} callback={handleTo} />
+            <SearchText id='search' key='search' hintText='Search term...' value='' />
           </div>
         }
         onLeftIconButtonTouchTap={toggleDrawer}
