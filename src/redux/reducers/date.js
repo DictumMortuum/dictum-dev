@@ -1,37 +1,58 @@
 'use strict';
 
 import { sort, cast } from '../db';
-import { startOfDay, daysAgo } from 'date-utils';
 
 const defaultState = () => {
+  let from = new Date();
   let to = new Date();
 
   return {
+    from: from.toISOString(),
+    minDate: from,
     to: to.toISOString(),
-    from: daysAgo(startOfDay(to)).toISOString()
+    maxDate: to
   };
 };
 
 export default (state=defaultState(), action) => {
   switch (action.type) {
+  case 'DATE_INIT':
+    if (action.docs.length > 0) {
+      let l = action.docs.length - 1;
+
+      return {
+        ...state,
+        maxDate: new Date(action.docs[0]._id),
+        minDate: new Date(action.docs[l]._id)
+      };
+    } else {
+      return state;
+    }
   case 'DOCS_FETCH':
     if (action.docs.length > 0) {
+      let l = action.docs.length - 1;
+
       return {
+        ...state,
         to: action.docs[0]._id,
-        from: action.docs[action.docs.length - 1]._id
+        from: action.docs[l]._id
       };
     } else {
       return state;
     }
   case 'DOC_INSERT':
     if (sort(action.doc, cast(state.to))) {
-      return {...state, to: action.doc._id};
-    }
-    if (sort(cast(state.from), action.doc)) {
-      return {...state, from: action.doc._id};
+      return {...state, maxDate: new Date(action.doc._id)};
     }
     return state;
-  // TODO maybe add DOC_DELETE case.
+  /*
+    TODO fix this.
+  case 'DOC_DELETE':
+    if (sort(cast(state.from), action.doc)) {
+      return {...state, minDate: new Date(action.doc._id)};
+    }
+    return state;
+  */
   default:
     return state;
   }

@@ -24,18 +24,22 @@ let Datepicker = React.createClass({
 export default connect(
   (state, props) => ({
     props,
-    config: state.config
+    config: state.config,
+    date: state.date
   }),
   {},
   createSelector(
     state => state.props,
     state => state.config,
-    (props, config) => ({
+    state => state.date,
+    (props, config, date) => ({
       key: props.id,
       name: props.id,
       locale: config.locale,
       value: new Date(props.date),
-      onChange: props.callback
+      onChange: props.callback,
+      minDate: date.minDate,
+      maxDate: date.maxDate
     })
   )
 )(Datepicker);

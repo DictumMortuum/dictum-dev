@@ -1,6 +1,6 @@
 {
   "name": "dictum-dev",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "The development repository of dictum, my daily task visualization tool.",
   "main": "index.js",
   "scripts": {

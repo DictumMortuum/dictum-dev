@@ -31,6 +31,10 @@ export const Doc = {
   remove: _removeDoc
 };
 
+export const Date = {
+  init: docs => ({ type: 'DATE_INIT', docs })
+};
+
 function _newDoc() {
   return dispatch => dispatch(
     Promise.resolve(Doc.insert(create()))
@@ -78,6 +82,8 @@ export function init() {
     Config.get('dictum_config')
   ).then(
     () => dispatch(Doc.bulk())
+  ).then(
+    f => dispatch(Date.init(f.docs))
   ).then(
     f => dispatch(Doc.edit(f.docs[0]))
   );
