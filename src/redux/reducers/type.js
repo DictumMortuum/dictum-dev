@@ -15,7 +15,7 @@ export default (state=defaultState, action) => {
   case 'DOC_INSERT':
     return {
       ...state,
-      types: [...new Set([...state, action.doc.type])]
+      types: [...new Set([...state.types, action.doc.type])]
     };
   case 'TYPE_ADD':
     return {
