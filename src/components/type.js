@@ -5,15 +5,16 @@ import { connect } from 'react-redux';
 
 let template = React.createClass({
   propTypes: {
-    type: React.PropTypes.array
+    type: React.PropTypes.object
   },
 
   render() {
     let { type } = this.props;
+    let { types } = type;
 
     return (
       <SelectField style={{marginRight: 10}} labelStyle={{color: 'white'}}>
-        {type.map((t, i) => (<MenuItem key={i} value={t} primaryText={t} />))}
+        {types.map((t, i) => (<MenuItem key={i} value={t} primaryText={t} />))}
       </SelectField>
     );
   }
