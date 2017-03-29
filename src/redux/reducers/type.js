@@ -27,6 +27,11 @@ export default (state=defaultState, action) => {
       ...state,
       selected: [...state.selected].filter(d => d !== action.t)
     };
+  case 'TYPE_SET':
+    return {
+      ...state,
+      selected: action.types
+    };
   default:
     return state;
   }
