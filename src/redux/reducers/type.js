@@ -20,12 +20,12 @@ export default (state=defaultState, action) => {
   case 'TYPE_ADD':
     return {
       ...state,
-      selected: [...state.selected, action.type]
+      selected: [...state.selected, action.t]
     };
   case 'TYPE_REMOVE':
     return {
       ...state,
-      selected: [...state.selected].filter(d => d !== action.type)
+      selected: [...state.selected].filter(d => d !== action.t)
     };
   default:
     return state;

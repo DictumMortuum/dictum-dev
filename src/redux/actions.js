@@ -29,6 +29,18 @@ function _toggleFilter(f) {
   );
 }
 
+export const Type = {
+  add: t => ({ type: 'TYPE_ADD', t }),
+  remove: t => ({ type: 'TYPE_REMOVE', t}),
+  toggle: _toggleType
+};
+
+function _toggleType(t) {
+  return (dispatch, state) => dispatch(
+    state().type.indexOf(t) === -1 ? Type.add(t) : Type.remove(t)
+  );
+}
+
 export const Info = {
   send: message => ({ type: 'INFO', message })
 };
