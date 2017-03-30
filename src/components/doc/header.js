@@ -17,14 +17,12 @@ const template = React.createClass({
   },
 
   render() {
-    let { onTouchTap, date, type, company, product } = this.props;
+    let { onTouchTap, date, type } = this.props;
 
     return (
       <div style={chipStyle} onTouchTap={onTouchTap}>
         {date}
         {type}
-        {company}
-        {product}
       </div>
     );
   }

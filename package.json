@@ -1,6 +1,6 @@
 {
   "name": "dictum-dev",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "The development repository of dictum, my daily task visualization tool.",
   "main": "index.js",
   "scripts": {
@@ -36,8 +36,9 @@
     "eslint-loader": "^1.6.1",
     "eslint-plugin-react": "^6.9.0",
     "fbjs": "0.8.8",
+    "fuse.js": "^2.6.2",
     "jest-cli": "^18.1.0",
-    "material-ui": "^0.16.7",
+    "material-ui": "^0.17.1",
     "pouchdb": "^6.1.1",
     "react": "^15.4.2",
     "react-addons-create-fragment": "^15.4.2",

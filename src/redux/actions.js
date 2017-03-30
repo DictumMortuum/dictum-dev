@@ -3,6 +3,19 @@
 import db from './db';
 import { create } from './db';
 import timeout from 'reset-timeout';
+import Fuse from 'fuse.js';
+
+const options = {
+  shouldSort: true,
+  threshold: 0.3,
+  location: 0,
+  distance: 2000,
+  maxPatternLength: 32,
+  minMatchCharLength: 2,
+  keys: ['desc']
+};
+
+let fuse = new Fuse([], options);
 
 export const Filter = {
   add: f => ({ type: 'FILTER_ADD', filter: f }),
@@ -16,6 +29,12 @@ function _toggleFilter(f) {
   );
 }
 
+export const Type = {
+  add: t => ({ type: 'TYPE_ADD', t }),
+  remove: t => ({ type: 'TYPE_REMOVE', t }),
+  set: t => ({ type: 'TYPE_SET', types: t })
+};
+
 export const Info = {
   send: message => ({ type: 'INFO', message })
 };
@@ -28,7 +47,8 @@ export const Doc = {
   scroll: () => ({ type: 'DOC_LENGTH' }),
   new: _newDoc,
   commit: _commitDoc,
-  remove: _removeDoc
+  remove: _removeDoc,
+  search: _searchDoc
 };
 
 export const Date = {
@@ -58,6 +78,23 @@ function _commitDoc() {
 function _removeDoc(doc) {
   return db.remove(doc).then(() => Doc.delete(doc));
   // TODO add info message here, but first must return dispatch
+}
+
+function _searchDoc(term) {
+  return (dispatch, state) => {
+    dispatch({ type: 'DOC_TERM', term });
+    document.onkeypress = timeout(() => {
+      fuse.set(state().docs);
+      let r = fuse.search(term);
+      dispatch({ type: 'DOC_SEARCH', docs: r });
+
+      if (r.length === 0) {
+        dispatch(Info.send('No results found.'));
+      } else {
+        dispatch(Info.send('Found ' + r.length + ' results.'));
+      }
+    });
+  };
 }
 
 export const Config = {
