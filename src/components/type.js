@@ -13,7 +13,7 @@ let template = React.createClass({
 
   render() {
     return (
-      <SelectField {...this.props.select} style={{marginRight: 10}} labelStyle={{color: 'white'}}>
+      <SelectField {...this.props.select}>
         {this.props.types.map((t, i) => (
           <MenuItem key={i} value={t} primaryText={t} />
         ))}
@@ -42,6 +42,12 @@ export default connect(
     (type, set) => ({
       types: type.types,
       select: {
+        style: {
+          marginRight: 10
+        },
+        labelStyle: {
+          color: 'white'
+        },
         multiple: true,
         value: type.selected,
         onChange: (event, index, values) => set(values),
