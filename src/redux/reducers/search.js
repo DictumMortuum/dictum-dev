@@ -20,10 +20,14 @@ export default (state=defaultState, action) => {
       term: action.term
     };
   case 'DOC_INSERT':
-    return {
-      ...state,
-      docs: [...state.docs.filter(d => d._id !== action.doc._id), action.doc].sort(sort)
-    };
+    if (state.docs.length === 0) {
+      return state;
+    } else {
+      return {
+        ...state,
+        docs: [...state.docs.filter(d => d._id !== action.doc._id), action.doc].sort(sort)
+      };
+    }
   default:
     return state;
   }
