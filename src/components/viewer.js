@@ -54,8 +54,10 @@ const mergeProps = createSelector(
       })
       .filter(d => {
         if (type.selected.length === 0) {
+          // If there are no types, there's nothing to filter.
           return true;
         } else {
+          // Check that the current doc's type is in the selected ones.
           return type.selected.includes(d.type);
         }
       })
