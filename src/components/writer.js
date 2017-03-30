@@ -6,21 +6,36 @@ import { Editor } from '../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
+import { Card, CardActions, CardText } from 'material-ui/Card';
+// import ReactMarkdown from 'react-markdown';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const style = {
-  paddingLeft: 10,
-  paddingRight: 10
-};
+const style = {};
 
 let template = React.createClass({
   render() {
     return (
       <Paper style={style}>
-        <TextField {...this.props} underlineStyle={{display: 'none'}} />
+        <Card zDepth={0}>
+          <CardActions actAsExpander={true} showExpandableButton={true}>
+            {Buttons()}
+          </CardActions>
+          <CardText>
+            <TextField {...this.props} underlineStyle={{display: 'none'}} />
+          </CardText>
+        </Card>
       </Paper>
     );
   }
 });
+
+// TODO this is not working, just a placeholder.
+const Buttons = (handleNew, handleSave) => (
+  <div>
+    <RaisedButton primary={true} label={'new'} onTouchTap={handleNew} style={{marginRight: 8}} />
+    <RaisedButton secondary={true} label={'save'} onTouchTap={handleSave} />
+  </div>
+);
 
 const mapStateToProps = (state, props) => props;
 const mapDispatchToProps = { change: Editor.change };
