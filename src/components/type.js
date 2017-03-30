@@ -43,7 +43,8 @@ export default connect(
       types: type.types,
       select: {
         style: {
-          marginRight: 10
+          marginRight: 10,
+          width: 200
         },
         labelStyle: {
           color: 'white'
