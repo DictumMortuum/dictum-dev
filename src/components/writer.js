@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardText } from 'material-ui/Card';
 // import ReactMarkdown from 'react-markdown';
-import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ActionCreate from 'material-ui/svg-icons/content/create';
+import ActionSave from 'material-ui/svg-icons/content/save';
 
 const style = {};
 
@@ -18,7 +20,12 @@ let template = React.createClass({
       <Paper style={style}>
         <Card zDepth={0}>
           <CardActions actAsExpander={true} showExpandableButton={true}>
-            {Buttons()}
+            <IconButton>
+              <ActionCreate />
+            </IconButton>
+            <IconButton>
+              <ActionSave />
+            </IconButton>
           </CardActions>
           <CardText>
             <TextField {...this.props} underlineStyle={{display: 'none'}} />
@@ -28,14 +35,6 @@ let template = React.createClass({
     );
   }
 });
-
-// TODO this is not working, just a placeholder.
-const Buttons = (handleNew, handleSave) => (
-  <div>
-    <RaisedButton primary={true} label={'new'} onTouchTap={handleNew} style={{marginRight: 8}} />
-    <RaisedButton secondary={true} label={'save'} onTouchTap={handleSave} />
-  </div>
-);
 
 const mapStateToProps = (state, props) => props;
 const mapDispatchToProps = { change: Editor.change };
