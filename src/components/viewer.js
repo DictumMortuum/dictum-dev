@@ -27,7 +27,8 @@ const mapStateToProps = state => ({
   docs: state.docs,
   length: state.length,
   filter: state.filter,
-  search: state.search
+  search: state.search,
+  type: state.type
 });
 
 const mergeProps = createSelector(
@@ -35,7 +36,8 @@ const mergeProps = createSelector(
   state => state.length,
   state => state.filter,
   state => state.search,
-  (docs, length, filters, search) => {
+  state => state.type,
+  (docs, length, filters, search, type) => {
     let res = search.docs.length === 0 ? docs : search.docs;
     return {
       docs: res.filter(d => {
@@ -49,7 +51,15 @@ const mergeProps = createSelector(
           // Test every filter against the langs of the doc
           return filters.every(f => langs.indexOf(f) >= 0);
         }
-      }).slice(0, length)
+      })
+      .filter(d => {
+        if (type.selected.length === 0) {
+          return true;
+        } else {
+          return type.selected.includes(d.type);
+        }
+      })
+      .slice(0, length)
     };
   }
 );
