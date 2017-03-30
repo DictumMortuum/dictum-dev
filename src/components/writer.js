@@ -7,14 +7,25 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardText } from 'material-ui/Card';
-// import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 import IconButton from 'material-ui/IconButton';
 import ActionCreate from 'material-ui/svg-icons/content/create';
 import ActionSave from 'material-ui/svg-icons/content/save';
+import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 
 const style = {};
 
 let template = React.createClass({
+  propTypes: {
+    value: React.PropTypes.string
+  },
+
+  getInitialState() {
+    return {
+      editor: false
+    };
+  },
+
   render() {
     return (
       <Paper style={style}>
@@ -26,9 +37,15 @@ let template = React.createClass({
             <IconButton>
               <ActionSave />
             </IconButton>
+            <IconButton onTouchTap={() => this.setState({editor: !this.state.editor})}>
+              <ActionVisibility />
+            </IconButton>
           </CardActions>
           <CardText>
-            <TextField {...this.props} underlineStyle={{display: 'none'}} />
+            {this.state.editor
+              && <TextField {...this.props} underlineStyle={{display: 'none'}} />
+              || <ReactMarkdown source={this.props.value} />
+            }
           </CardText>
         </Card>
       </Paper>
