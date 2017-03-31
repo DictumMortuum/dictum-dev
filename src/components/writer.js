@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import { Doc, Editor } from '../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -12,8 +11,6 @@ import IconButton from 'material-ui/IconButton';
 import ActionCreate from 'material-ui/svg-icons/content/create';
 import ActionSave from 'material-ui/svg-icons/content/save';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
-
-const style = {};
 
 let template = React.createClass({
   propTypes: {
@@ -30,27 +27,25 @@ let template = React.createClass({
 
   render() {
     return (
-      <Paper style={style}>
-        <Card zDepth={0}>
-          <CardActions actAsExpander={true} showExpandableButton={true}>
-            <IconButton onTouchTap={this.props.create}>
-              <ActionCreate />
-            </IconButton>
-            <IconButton onTouchTap={this.props.save}>
-              <ActionSave />
-            </IconButton>
-            <IconButton onTouchTap={() => this.setState({editor: !this.state.editor})}>
-              <ActionVisibility />
-            </IconButton>
-          </CardActions>
-          <CardText>
-            {this.state.editor
-              && <TextField {...this.props.writer} underlineStyle={{display: 'none'}} />
-              || <ReactMarkdown source={this.props.writer.value} />
-            }
-          </CardText>
-        </Card>
-      </Paper>
+      <Card>
+        <CardActions actAsExpander={true} showExpandableButton={true}>
+          <IconButton onTouchTap={this.props.create}>
+            <ActionCreate />
+          </IconButton>
+          <IconButton onTouchTap={this.props.save}>
+            <ActionSave />
+          </IconButton>
+          <IconButton onTouchTap={() => this.setState({editor: !this.state.editor})}>
+            <ActionVisibility />
+          </IconButton>
+        </CardActions>
+        <CardText>
+          {this.state.editor
+            && <TextField {...this.props.writer} underlineStyle={{display: 'none'}} />
+            || <ReactMarkdown source={this.props.writer.value} />
+          }
+        </CardText>
+      </Card>
     );
   }
 });
