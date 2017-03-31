@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import { Editor } from '../redux/actions';
+import { Doc, Editor } from '../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
@@ -17,7 +17,9 @@ const style = {};
 
 let template = React.createClass({
   propTypes: {
-    value: React.PropTypes.string
+    writer: React.PropTypes.object,
+    create: React.PropTypes.func,
+    save: React.PropTypes.func
   },
 
   getInitialState() {
@@ -31,10 +33,10 @@ let template = React.createClass({
       <Paper style={style}>
         <Card zDepth={0}>
           <CardActions actAsExpander={true} showExpandableButton={true}>
-            <IconButton>
+            <IconButton onTouchTap={this.props.create}>
               <ActionCreate />
             </IconButton>
-            <IconButton>
+            <IconButton onTouchTap={this.props.save}>
               <ActionSave />
             </IconButton>
             <IconButton onTouchTap={() => this.setState({editor: !this.state.editor})}>
@@ -43,8 +45,8 @@ let template = React.createClass({
           </CardActions>
           <CardText>
             {this.state.editor
-              && <TextField {...this.props} underlineStyle={{display: 'none'}} />
-              || <ReactMarkdown source={this.props.value} />
+              && <TextField {...this.props.writer} underlineStyle={{display: 'none'}} />
+              || <ReactMarkdown source={this.props.writer.value} />
             }
           </CardText>
         </Card>
@@ -54,7 +56,11 @@ let template = React.createClass({
 });
 
 const mapStateToProps = (state, props) => props;
-const mapDispatchToProps = { change: Editor.change };
+const mapDispatchToProps = {
+  change: Editor.change,
+  new: () => Doc.new(),
+  save: () => Doc.commit()
+};
 
 export default connect(
   mapStateToProps,
@@ -62,16 +68,22 @@ export default connect(
   createSelector(
     props => props,
     (state, actions) => actions.change,
-    (props, change) => ({
-      id: props.id,
-      key: props.id,
-      hintText: props.hint,
-      value: props.value,
-      multiLine: true,
-      fullWidth: true,
-      rowsMax: 24,
-      rows: 24,
-      onChange: (event, value) => change(props.id, value)
+    (state, actions) => actions.new,
+    (state, actions) => actions.save,
+    (props, change, create, save) => ({
+      writer: {
+        id: props.id,
+        key: props.id,
+        hintText: props.hint,
+        value: props.value,
+        multiLine: true,
+        fullWidth: true,
+        rowsMax: 22,
+        rows: 22,
+        onChange: (event, value) => change(props.id, value)
+      },
+      create,
+      save
     })
   )
 )(template);
