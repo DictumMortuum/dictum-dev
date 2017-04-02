@@ -28,7 +28,7 @@ let template = React.createClass({
   render() {
     return (
       <Card>
-        <CardActions actAsExpander={true} showExpandableButton={true}>
+        <CardActions>
           <IconButton onTouchTap={this.props.create}>
             <ActionCreate />
           </IconButton>
