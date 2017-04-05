@@ -7,6 +7,7 @@ import Type from './type';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { viewerStyle } from '../styles';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
 let Viewer = React.createClass({
   propTypes: {
@@ -18,7 +19,11 @@ let Viewer = React.createClass({
 
     return (
       <Paper zDepth={0} style={{...viewerStyle, flex: 1}}>
-        <Type />
+        <Toolbar>
+          <ToolbarGroup firstChild={true}>
+            <Type />
+          </ToolbarGroup>
+        </Toolbar>
         {docs.map(d => (<Doc key={d._id} doc={d} />))}
       </Paper>
     );

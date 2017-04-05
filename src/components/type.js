@@ -45,7 +45,10 @@ export default connect(
         multiple: true,
         value: type.selected,
         onChange: (event, index, values) => set(values),
-        selectionRenderer
+        selectionRenderer,
+        style: {
+          paddingLeft: 10
+        }
       }
     })
   )
