@@ -1,13 +1,14 @@
 'use strict';
 
 import React from 'react';
-import { Card, CardText, CardActions } from 'material-ui/Card';
-import ReactMarkdown from 'react-markdown';
-import Jira from './doc/jira';
-import Filter from './doc/filter';
-import Header from './doc/header';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { Card, CardText } from 'material-ui/Card';
+
+const style = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
 
 const template = React.createClass({
   propTypes: {
@@ -18,15 +19,8 @@ const template = React.createClass({
     let { doc } = this.props;
 
     return (
-      <Card style={{marginBottom: 20}}>
-        <Header doc={doc} />
-        <CardText>
-          <ReactMarkdown source={doc.desc} />
-        </CardText>
-        <CardActions>
-          {doc.ticket && <Jira ticket={doc.ticket} />}
-          {doc.lang.map(l => (<Filter key={l} lang={l} />))}
-        </CardActions>
+      <Card>
+        <CardText style={style}>{doc.desc}</CardText>
       </Card>
     );
   }

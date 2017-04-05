@@ -42,13 +42,6 @@ export default connect(
     (type, set) => ({
       types: type.types,
       select: {
-        style: {
-          marginRight: 10,
-          width: 200
-        },
-        labelStyle: {
-          color: 'white'
-        },
         multiple: true,
         value: type.selected,
         onChange: (event, index, values) => set(values),

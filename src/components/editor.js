@@ -3,21 +3,15 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
-import { editorStyle, inputStyle } from '../styles';
-import { Text, ArrayText } from './text';
+import { palette } from '../styles';
 import Writer from './writer';
 import { createSelector } from 'reselect';
 
-const Input = editor => (
-  <Paper style={inputStyle}>
-    <Text id="company" hint="Company" value={editor.company} />
-    <Text id="product" hint="Product" value={editor.product} />
-    <Text id="type" hint="Type" value={editor.type} />
-    <ArrayText id="lang" hint="Langs" value={editor.lang} />
-    <Text id="ticket" hint="JIRA" value={editor.ticket} />
-    <Text id="date" hint="Created on" value={editor.date} />
-  </Paper>
-);
+// EDITOR
+const style = {
+  backgroundColor: palette.accent2Color,
+  flex: 2
+};
 
 let Editor = React.createClass({
   propTypes: {
@@ -28,8 +22,7 @@ let Editor = React.createClass({
     let { editor } = this.props;
 
     return (
-      <Paper style={editorStyle} zDepth={0}>
-        {Input(editor)}
+      <Paper style={style} zDepth={0}>
         <Writer id="desc" value={editor.desc} />
       </Paper>
     );

@@ -9,14 +9,19 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
-import Config from './config';
+// import Config from './config';
 import Info from './info';
-import { palette, appStyle, flexParent, flexChild } from '../styles';
+import { palette } from '../styles';
 import { connect } from 'react-redux';
 
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({ palette });
+
+const style = {
+  display: 'flex',
+  backgroundColor: palette.accent2Color
+};
 
 window.onscroll = function () {
   if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
@@ -38,27 +43,15 @@ let App = React.createClass({
   },
 
   render() {
-    let { config } = this.props;
-    let viewerStyle = {...flexChild, width: '50%'};
-
-    if (config.editor === false) {
-      viewerStyle = {...flexChild, width: '100%'};
-    }
-
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={appStyle}>
+        <div>
           <Bar />
-          <Config />
-            <div style={flexParent}>
-              <div style={viewerStyle}>
-                <Viewer />
-              </div>
-              {config.editor && <div style={flexChild}>
-                <Editor />
-              </div>}
-            </div>
           <Info />
+          <div style={style}>
+            <Viewer />
+            <Editor />
+          </div>
         </div>
       </MuiThemeProvider>
     );
