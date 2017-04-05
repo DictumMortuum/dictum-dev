@@ -44,14 +44,6 @@ export const avatarStyle = {
   backgroundColor: palette.primary2Color
 };
 
-// VIEWER
-export const viewerStyle = {
-  padding: 10,
-  backgroundColor: palette.accent2Color,
-  overflow: 'hidden',
-  whiteSpace: 'nowrap'
-};
-
 export const inputStyle = {
   ...flexParent,
   padding: '0 10px 0 10px',

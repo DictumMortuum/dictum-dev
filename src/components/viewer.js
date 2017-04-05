@@ -6,8 +6,16 @@ import Paper from 'material-ui/Paper';
 import Type from './type';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { viewerStyle } from '../styles';
+import { palette } from '../styles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+
+const style = {
+  padding: 10,
+  backgroundColor: palette.accent2Color,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  flex: 1
+};
 
 let Viewer = React.createClass({
   propTypes: {
@@ -18,7 +26,7 @@ let Viewer = React.createClass({
     let { docs } = this.props;
 
     return (
-      <Paper zDepth={0} style={{...viewerStyle, flex: 1}}>
+      <Paper zDepth={0} style={style}>
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <Type />
