@@ -63,14 +63,7 @@ export const SearchText = connect(
       hintText: props.hint,
       value: props.value,
       style: {
-        paddingRight: 10,
-        width: 120
-      },
-      inputStyle: {
-        color: 'white'
-      },
-      hintStyle: {
-        color: 'white'
+        paddingRight: 10
       },
       onChange: (event, value) => action(value)
     })

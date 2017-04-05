@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { palette } from '../styles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { SearchText } from './text';
 
 const style = {
   padding: 5,
@@ -19,17 +20,19 @@ const style = {
 
 let Viewer = React.createClass({
   propTypes: {
-    docs: React.PropTypes.array
+    docs: React.PropTypes.array,
+    term: React.PropTypes.string
   },
 
   render() {
-    let { docs } = this.props;
+    let { docs, term } = this.props;
 
     return (
       <Paper zDepth={0} style={style}>
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <Type />
+            <SearchText hint='Search...' value={term} />
           </ToolbarGroup>
         </Toolbar>
         {docs.map(d => (<Doc key={d._id} doc={d} />))}
@@ -55,6 +58,7 @@ const mergeProps = createSelector(
   (docs, length, filters, search, type) => {
     let res = search.docs.length === 0 ? docs : search.docs;
     return {
+      term: search.term,
       docs: res.filter(d => {
         // lang may be undefined in some documents
         let langs = d.lang || [];
