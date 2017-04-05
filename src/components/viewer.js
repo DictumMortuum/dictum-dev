@@ -10,7 +10,7 @@ import { palette } from '../styles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
 const style = {
-  padding: 10,
+  padding: 5,
   backgroundColor: palette.accent2Color,
   overflow: 'hidden',
   whiteSpace: 'nowrap',

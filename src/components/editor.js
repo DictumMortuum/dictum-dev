@@ -10,6 +10,7 @@ import { createSelector } from 'reselect';
 // EDITOR
 const style = {
   backgroundColor: palette.accent2Color,
+  padding: 5,
   flex: 2
 };
 
