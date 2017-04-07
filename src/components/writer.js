@@ -7,9 +7,8 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardText } from 'material-ui/Card';
 import ReactMarkdown from 'react-markdown';
-import IconButton from 'material-ui/IconButton';
-import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SaveDoc from './buttons/saveDoc';
+import Toggle from './buttons/toggle';
 
 let template = React.createClass({
   propTypes: {
@@ -29,9 +28,7 @@ let template = React.createClass({
       <Card>
         <CardActions>
           <SaveDoc />
-          <IconButton onTouchTap={() => this.setState({editor: !this.state.editor})}>
-            <ActionVisibility />
-          </IconButton>
+          <Toggle onTouchTap={() => this.setState({editor: !this.state.editor})} />
         </CardActions>
         <CardText>
           {this.state.editor
