@@ -9,6 +9,7 @@ import { createSelector } from 'reselect';
 import { palette } from '../styles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SearchText } from './text';
+import NewDoc from './buttons/newDoc';
 
 const style = {
   backgroundColor: palette.accent2Color,
@@ -31,6 +32,7 @@ let Viewer = React.createClass({
       <Paper zDepth={0} style={style}>
         <Toolbar>
           <ToolbarGroup firstChild={true}>
+            <NewDoc />
             <Type />
             <SearchText hint='Search...' value={term} />
           </ToolbarGroup>
