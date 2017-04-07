@@ -10,8 +10,8 @@ import { createSelector } from 'reselect';
 // EDITOR
 const style = {
   backgroundColor: palette.accent2Color,
-  padding: 5,
-  flex: 2
+  flex: 2,
+  margin: 5
 };
 
 let Editor = React.createClass({

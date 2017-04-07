@@ -20,7 +20,9 @@ const muiTheme = getMuiTheme({ palette });
 
 const style = {
   display: 'flex',
-  backgroundColor: palette.accent2Color
+  backgroundColor: palette.accent2Color,
+  justifyContent: 'space-between',
+  padding: 5
 };
 
 window.onscroll = function () {

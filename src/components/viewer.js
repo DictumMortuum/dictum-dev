@@ -11,11 +11,11 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SearchText } from './text';
 
 const style = {
-  padding: 5,
   backgroundColor: palette.accent2Color,
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  flex: 1
+  flex: 1,
+  margin: 5
 };
 
 let Viewer = React.createClass({
