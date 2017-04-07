@@ -20,11 +20,9 @@ let Editor = React.createClass({
   },
 
   render() {
-    let { editor } = this.props;
-
     return (
       <Paper style={style} zDepth={0}>
-        <Writer id="desc" value={editor.desc} />
+        <Writer />
       </Paper>
     );
   }

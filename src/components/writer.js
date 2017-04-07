@@ -12,9 +12,7 @@ import Toggle from './buttons/toggle';
 
 let template = React.createClass({
   propTypes: {
-    writer: React.PropTypes.object,
-    create: React.PropTypes.func,
-    save: React.PropTypes.func
+    writer: React.PropTypes.object
   },
 
   getInitialState() {
@@ -41,7 +39,10 @@ let template = React.createClass({
   }
 });
 
-const mapStateToProps = (state, props) => props;
+const mapStateToProps = state => ({
+  editor: state.editor
+});
+
 const mapDispatchToProps = {
   change: Editor.change
 };
@@ -50,22 +51,19 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   createSelector(
-    props => props,
+    state => state.editor,
     (state, actions) => actions.change,
-    (props, change, create, save) => ({
+    (editor, change) => ({
       writer: {
-        id: props.id,
-        key: props.id,
-        hintText: props.hint,
-        value: props.value,
+        id: 'desc',
+        key: 'desc',
+        value: editor.desc || '',
         multiLine: true,
         fullWidth: true,
         rowsMax: 22,
         rows: 22,
-        onChange: (event, value) => change(props.id, value)
-      },
-      create,
-      save
+        onChange: (event, value) => change('desc', value)
+      }
     })
   )
 )(template);
