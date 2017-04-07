@@ -53,8 +53,8 @@ let App = React.createClass({
             <Bar />
             <Viewer />
             <Editor />
-            <Info />
           </div>
+          <Info />
         </div>
       </MuiThemeProvider>
     );

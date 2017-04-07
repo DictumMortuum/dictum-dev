@@ -36,10 +36,8 @@ let Viewer = React.createClass({
             <SearchText hint='Search...' value={term} />
           </ToolbarGroup>
         </Toolbar>
-        <Paper style={{overflowY: 'scroll', height: '100%'}}>
-          <div style={{height: '100%'}}>
-            {docs.map(d => (<Doc key={d._id} doc={d} />))}
-          </div>
+        <Paper style={{overflowY: 'scroll', height: '90%'}}>
+          {docs.map(d => (<Doc key={d._id} doc={d} />))}
         </Paper>
       </div>
     );

@@ -29,7 +29,7 @@ let Editor = React.createClass({
             <ToggleEditor />
           </ToolbarGroup>
         </Toolbar>
-        <Paper zDepth={0} style={{overflowY: 'scroll', height: '100%'}}>
+        <Paper style={{overflowY: 'scroll', height: '90%'}}>
           <Writer />
         </Paper>
       </div>
