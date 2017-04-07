@@ -4,9 +4,8 @@ import React from 'react';
 import { Editor } from '../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import { Card, CardText } from 'material-ui/Card';
 import ReactMarkdown from 'react-markdown';
+import TextArea from 'react-textarea-autosize';
 
 let template = React.createClass({
   propTypes: {
@@ -15,16 +14,13 @@ let template = React.createClass({
   },
 
   render() {
-    return (
-      <Card>
-        <CardText>
-          {this.props.editor
-            && <TextField {...this.props.writer} underlineStyle={{display: 'none'}} />
-            || <ReactMarkdown source={this.props.writer.value} />
-          }
-        </CardText>
-      </Card>
-    );
+    let { editor } = this.props;
+
+    if (editor) {
+      return (<TextArea {...this.props.writer} />);
+    } else {
+      return (<ReactMarkdown source={this.props.writer.value} />);
+    }
   }
 });
 
@@ -47,14 +43,15 @@ export default connect(
     (editor, config, change) => ({
       editor: config.editor,
       writer: {
-        id: 'desc',
-        key: 'desc',
         value: editor.desc || '',
-        multiLine: true,
-        fullWidth: true,
-        rowsMax: 22,
-        rows: 22,
-        onChange: (event, value) => change('desc', value)
+        style: {
+          width: '100%',
+          padding: 16,
+          border: 0,
+          boxSizing: 'border-box',
+          overflow: 'hidden'
+        },
+        onChange: event => change('desc', event.target.value)
       }
     })
   )

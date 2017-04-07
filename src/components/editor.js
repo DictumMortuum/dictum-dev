@@ -1,19 +1,18 @@
 'use strict';
 
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
-import { palette } from '../styles';
 import Writer from './writer';
 import { createSelector } from 'reselect';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import SaveDoc from './buttons/saveDoc';
 import ToggleEditor from './buttons/toggleEditor';
+import Paper from 'material-ui/Paper';
 
 const style = {
-  backgroundColor: palette.accent2Color,
   flex: 2,
-  margin: 5
+  margin: 5,
+  height: '100%'
 };
 
 let Editor = React.createClass({
@@ -23,15 +22,17 @@ let Editor = React.createClass({
 
   render() {
     return (
-      <Paper style={style} zDepth={0}>
+      <div style={style}>
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <SaveDoc />
             <ToggleEditor />
           </ToolbarGroup>
         </Toolbar>
-        <Writer />
-      </Paper>
+        <Paper zDepth={0} style={{overflowY: 'scroll', height: '100%'}}>
+          <Writer />
+        </Paper>
+      </div>
     );
   }
 });

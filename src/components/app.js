@@ -9,7 +9,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
-// import Config from './config';
 import Info from './info';
 import { palette } from '../styles';
 import { connect } from 'react-redux';
@@ -22,7 +21,9 @@ const style = {
   display: 'flex',
   backgroundColor: palette.accent2Color,
   justifyContent: 'space-between',
-  padding: 5
+  padding: 5,
+  height: '85%',
+  flexWrap: 'wrap'
 };
 
 window.onscroll = function () {
@@ -47,12 +48,12 @@ let App = React.createClass({
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-          <Bar />
-          <Info />
+        <div style={{height: '100vh'}}>
           <div style={style}>
+            <Bar />
             <Viewer />
             <Editor />
+            <Info />
           </div>
         </div>
       </MuiThemeProvider>

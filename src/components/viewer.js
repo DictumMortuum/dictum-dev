@@ -6,17 +6,16 @@ import Paper from 'material-ui/Paper';
 import Type from './type';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { palette } from '../styles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SearchText } from './text';
 import NewDoc from './buttons/newDoc';
 
 const style = {
-  backgroundColor: palette.accent2Color,
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   flex: 1,
-  margin: 5
+  margin: 5,
+  height: '100%'
 };
 
 let Viewer = React.createClass({
@@ -29,7 +28,7 @@ let Viewer = React.createClass({
     let { docs, term } = this.props;
 
     return (
-      <Paper zDepth={0} style={style}>
+      <div style={style}>
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <NewDoc />
@@ -37,8 +36,12 @@ let Viewer = React.createClass({
             <SearchText hint='Search...' value={term} />
           </ToolbarGroup>
         </Toolbar>
-        {docs.map(d => (<Doc key={d._id} doc={d} />))}
-      </Paper>
+        <Paper style={{overflowY: 'scroll', height: '100%'}}>
+          <div style={{height: '100%'}}>
+            {docs.map(d => (<Doc key={d._id} doc={d} />))}
+          </div>
+        </Paper>
+      </div>
     );
   }
 });
