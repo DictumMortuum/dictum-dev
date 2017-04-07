@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import { palette } from '../styles';
 import Writer from './writer';
 import { createSelector } from 'reselect';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import SaveDoc from './buttons/saveDoc';
+import ToggleEditor from './buttons/toggleEditor';
 
-// EDITOR
 const style = {
   backgroundColor: palette.accent2Color,
   flex: 2,
@@ -22,6 +24,12 @@ let Editor = React.createClass({
   render() {
     return (
       <Paper style={style} zDepth={0}>
+        <Toolbar>
+          <ToolbarGroup firstChild={true}>
+            <SaveDoc />
+            <ToggleEditor />
+          </ToolbarGroup>
+        </Toolbar>
         <Writer />
       </Paper>
     );
