@@ -3,7 +3,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from '../redux/store';
 import React from 'react';
-import { init, Doc } from '../redux/actions';
+import { init } from '../redux/actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Bar from './bar';
@@ -24,12 +24,6 @@ const style = {
   padding: 5,
   height: '85%',
   flexWrap: 'wrap'
-};
-
-window.onscroll = function () {
-  if (document.body.scrollHeight - document.body.scrollTop === document.body.clientHeight) {
-    store.dispatch(Doc.scroll());
-  }
 };
 
 let App = React.createClass({

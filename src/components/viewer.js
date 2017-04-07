@@ -9,6 +9,8 @@ import { createSelector } from 'reselect';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SearchText } from './text';
 import NewDoc from './buttons/newDoc';
+import { Doc as Actions } from '../redux/actions';
+import store from '../redux/store';
 
 const style = {
   overflow: 'hidden',
@@ -24,6 +26,12 @@ let Viewer = React.createClass({
     term: React.PropTypes.string
   },
 
+  handleScroll(event) {
+    if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+      store.dispatch(Actions.scroll());
+    }
+  },
+
   render() {
     let { docs, term } = this.props;
 
@@ -36,7 +44,7 @@ let Viewer = React.createClass({
             <SearchText hint='Search...' value={term} />
           </ToolbarGroup>
         </Toolbar>
-        <Paper style={{overflowY: 'scroll', height: '90%'}}>
+        <Paper onScroll={this.handleScroll} style={{overflowY: 'scroll', height: '90%'}}>
           {docs.map(d => (<Doc key={d._id} doc={d} />))}
         </Paper>
       </div>
