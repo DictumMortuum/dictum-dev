@@ -19,7 +19,10 @@ let template = React.createClass({
     if (editor) {
       return (<TextArea {...this.props.writer} />);
     } else {
-      return (<ReactMarkdown source={this.props.writer.value} />);
+      return (
+        <div style={{margin: 16}}>
+          <ReactMarkdown source={this.props.writer.value} />
+        </div>);
     }
   }
 });
