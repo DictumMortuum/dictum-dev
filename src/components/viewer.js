@@ -16,7 +16,7 @@ const style = {
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   flex: 1,
-  margin: 5,
+  margin: 3,
   height: '100%'
 };
 

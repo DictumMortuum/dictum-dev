@@ -21,8 +21,8 @@ const style = {
   display: 'flex',
   backgroundColor: palette.accent2Color,
   justifyContent: 'space-between',
-  padding: 5,
   height: '85%',
+  padding: 3,
   flexWrap: 'wrap'
 };
 

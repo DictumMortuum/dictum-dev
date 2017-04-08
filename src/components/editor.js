@@ -11,7 +11,7 @@ import Paper from 'material-ui/Paper';
 
 const style = {
   flex: 2,
-  margin: 5,
+  margin: 3,
   height: '100%'
 };
 

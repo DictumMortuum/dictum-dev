@@ -25,6 +25,7 @@ let Bar = React.createClass({
       <AppBar
         title={title}
         zDepth={1}
+        style={{margin: 3}}
         iconElementRight={
           <div style={flexParent}>
             <Datepicker id='from' date={date.from} callback={handleFrom} />
