@@ -13,12 +13,7 @@ const style = {
   flex: 10
 };
 
-let template = React.createClass({
-  propTypes: {
-    writer: React.PropTypes.object,
-    editor: React.PropTypes.bool
-  },
-
+class template extends React.Component {
   render() {
     let { editor } = this.props;
 
@@ -32,7 +27,12 @@ let template = React.createClass({
       );
     }
   }
-});
+}
+
+template.propTypes = {
+  writer: React.PropTypes.object,
+  editor: React.PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   editor: state.editor,
