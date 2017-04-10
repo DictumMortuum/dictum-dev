@@ -48,7 +48,7 @@ let Editor = React.createClass({
             <ToggleProperties />
           </ToolbarGroup>
           <ToolbarGroup>
-            {editor.lang.map(l => (<Filter lang={l}/>))}
+            {editor.lang.map(l => (<Filter lang={l} key={l} />))}
             {editor.ticket && <ToolbarSeparator />}
             {editor.ticket && <Jira />}
           </ToolbarGroup>
