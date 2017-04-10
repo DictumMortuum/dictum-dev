@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Filter } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -9,7 +9,7 @@ import { font } from '../../styles';
 
 const template = React.createClass({
   render() {
-    return (<FlatButton style={font} {...this.props} />);
+    return (<RaisedButton style={font} {...this.props} />);
   }
 });
 

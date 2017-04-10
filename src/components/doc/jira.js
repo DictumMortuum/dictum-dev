@@ -8,23 +8,23 @@ import { font } from '../../styles';
 
 let Jira = React.createClass({
   render() {
-    return (<RaisedButton style={{marginRight: 8}} key='ticket' {...this.props} />);
+    return (<RaisedButton key='ticket' {...this.props} />);
   }
 });
 
-const mapStateToProps = (state, props) => ({
-  props,
+const mapStateToProps = state => ({
+  editor: state.editor,
   config: state.config
 });
 
 const mergeProps = createSelector(
-  state => state.props,
+  state => state.editor,
   state => state.config,
-  (props, config) => ({
-    label: props.ticket,
-    href: config.jiraPrefix + 'browse/' + props.ticket,
+  (editor, config) => ({
+    label: editor.ticket,
+    href: config.jiraPrefix + 'browse/' + editor.ticket,
     labelStyle: font,
-    secondary: true
+    primary: true
   })
 );
 

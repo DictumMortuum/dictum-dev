@@ -4,12 +4,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Writer from './writer';
 import { createSelector } from 'reselect';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
 import SaveDoc from './buttons/saveDoc';
 import ToggleEditor from './buttons/toggleEditor';
 import ToggleProperties from './buttons/toggleDocProperties';
 import Paper from 'material-ui/Paper';
 import { Text, ArrayText } from './text';
+import Jira from './doc/jira';
+import Filter from './doc/filter';
 
 const Input = editor => (
   <div style={{flex: 1, padding: 16}}>
@@ -44,6 +46,11 @@ let Editor = React.createClass({
             <SaveDoc />
             <ToggleEditor />
             <ToggleProperties />
+          </ToolbarGroup>
+          <ToolbarGroup>
+            {editor.lang.map(l => (<Filter lang={l}/>))}
+            {editor.ticket && <ToolbarSeparator />}
+            {editor.ticket && <Jira />}
           </ToolbarGroup>
         </Toolbar>
         <Paper style={{overflowY: 'scroll', height: '90%', display: 'flex'}}>
