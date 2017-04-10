@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Card, CardTitle } from 'material-ui/Card';
 import { Doc } from '../redux/actions';
+import { timeSince } from 'date-utils';
 
 const style = {
   overflow: 'hidden',
@@ -25,7 +26,7 @@ const template = React.createClass({
         <CardTitle
           titleStyle={style}
           title={doc.desc}
-          subtitle={<div>{doc._id} {doc.lang.toString()}</div>}
+          subtitle={<div>{timeSince(new Date(doc._id))} ago<br />{doc.type}</div>}
         />
       </Card>
     );
@@ -41,6 +42,7 @@ export default connect(
     (props, edit) => ({
       doc: {
         ...props.doc,
+        type: props.doc.type || '',
         desc: props.doc.desc || '',
         lang: props.doc.lang || [],
         onTouchTap: () => edit(props.doc)
