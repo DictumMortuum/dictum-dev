@@ -6,6 +6,7 @@ const defaultState = {
   drawer: false,
   jiraPrefix: 'https://jira.dev.global-intra.net:8443/',
   editor: true,
+  properties: false,
   product: [{
     company: 'openbet',
     name: 'siteserver',
@@ -39,6 +40,8 @@ export default (state=defaultState, action) => {
     return {...state, drawer: !state.drawer };
   case 'TOGGLE_EDITOR':
     return {...state, editor: !state.editor };
+  case 'TOGGLE_PROPERTIES':
+    return {...state, properties: !state.properties };
   default:
     return state;
   }

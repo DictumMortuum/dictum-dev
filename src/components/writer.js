@@ -7,6 +7,12 @@ import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import TextArea from 'react-textarea-autosize';
 
+const style = {
+  padding: 16,
+  border: 0,
+  flex: 4
+};
+
 let template = React.createClass({
   propTypes: {
     writer: React.PropTypes.object,
@@ -17,12 +23,13 @@ let template = React.createClass({
     let { editor } = this.props;
 
     if (editor) {
-      return (<TextArea {...this.props.writer} />);
+      return (<TextArea {...this.props.writer} style={{overflow: 'hidden', ...style}} />);
     } else {
       return (
-        <div style={{margin: 16}}>
+        <div style={style}>
           <ReactMarkdown source={this.props.writer.value} />
-        </div>);
+        </div>
+      );
     }
   }
 });
@@ -47,13 +54,6 @@ export default connect(
       editor: config.editor,
       writer: {
         value: editor.desc || '',
-        style: {
-          width: '100%',
-          padding: 16,
-          border: 0,
-          boxSizing: 'border-box',
-          overflow: 'hidden'
-        },
         onChange: event => change('desc', event.target.value)
       }
     })
