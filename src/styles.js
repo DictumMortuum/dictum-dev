@@ -18,7 +18,7 @@ export const flexParent = {
 };
 
 export const flexChild = {
-  flex: '1 0 50%'
+  flex: '1 0 20%'
 };
 
 export const font = {
@@ -26,10 +26,6 @@ export const font = {
   fontSize: 14
 };
 
-// APP
-export const appStyle = {
-  backgroundColor: palette.accent2Color
-};
 
 // DOC
 export const docInfoStyle = {
@@ -46,23 +42,6 @@ export const chipStyle = {
 export const avatarStyle = {
   color: palette.accent2Color,
   backgroundColor: palette.primary2Color
-};
-
-// VIEWER
-export const viewerStyle = {
-  padding: 10,
-  marginTop: 64,
-  backgroundColor: palette.accent2Color
-};
-
-// EDITOR
-export const editorStyle = {
-  position: 'fixed',
-  paddingRight: 10,
-  top: 74,
-  left: '50%',
-  width: '50%',
-  backgroundColor: palette.accent2Color
 };
 
 export const inputStyle = {

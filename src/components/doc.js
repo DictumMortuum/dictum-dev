@@ -1,13 +1,17 @@
 'use strict';
 
 import React from 'react';
-import { Card, CardText, CardActions } from 'material-ui/Card';
-import ReactMarkdown from 'react-markdown';
-import Jira from './doc/jira';
-import Filter from './doc/filter';
-import Header from './doc/header';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { Card, CardTitle } from 'material-ui/Card';
+import { Doc } from '../redux/actions';
+import { timeSince } from 'date-utils';
+
+const style = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: 14
+};
 
 const template = React.createClass({
   propTypes: {
@@ -18,15 +22,12 @@ const template = React.createClass({
     let { doc } = this.props;
 
     return (
-      <Card style={{marginBottom: 20}}>
-        <Header doc={doc} />
-        <CardText>
-          <ReactMarkdown source={doc.desc} />
-        </CardText>
-        <CardActions>
-          {doc.ticket && <Jira ticket={doc.ticket} />}
-          {doc.lang.map(l => (<Filter key={l} lang={l} />))}
-        </CardActions>
+      <Card onTouchTap={doc.onTouchTap}>
+        <CardTitle
+          titleStyle={style}
+          title={doc.desc}
+          subtitle={<div>{timeSince(new Date(doc._id))}<br />{doc.type}</div>}
+        />
       </Card>
     );
   }
@@ -34,14 +35,17 @@ const template = React.createClass({
 
 export default connect(
   (state, props) => ({ props }),
-  {},
+  { edit: Doc.edit },
   createSelector(
     state => state.props,
-    props => ({
+    (state, actions) => actions.edit,
+    (props, edit) => ({
       doc: {
         ...props.doc,
+        type: props.doc.type || '',
         desc: props.doc.desc || '',
-        lang: props.doc.lang || []
+        lang: props.doc.lang || [],
+        onTouchTap: () => edit(props.doc)
       }
     })
   )

@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -42,16 +44,13 @@ export default connect(
     (type, set) => ({
       types: type.types,
       select: {
-        style: {
-          marginRight: 10
-        },
-        labelStyle: {
-          color: 'white'
-        },
         multiple: true,
         value: type.selected,
         onChange: (event, index, values) => set(values),
-        selectionRenderer
+        selectionRenderer,
+        style: {
+          paddingLeft: 10
+        }
       }
     })
   )

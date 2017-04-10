@@ -8,8 +8,6 @@ import Datepicker from './datepicker';
 import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
-import { SearchText } from './text';
-import Type from './type';
 
 let Bar = React.createClass({
   propTypes: {
@@ -17,24 +15,21 @@ let Bar = React.createClass({
     handleFrom: React.PropTypes.func,
     handleTo: React.PropTypes.func,
     toggleDrawer: React.PropTypes.func,
-    title: React.PropTypes.string,
-    term: React.PropTypes.string
+    title: React.PropTypes.string
   },
 
   render() {
-    let { date, title, term, handleFrom, handleTo, toggleDrawer } = this.props;
+    let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
 
     return (
       <AppBar
-        style={{position: 'fixed'}}
         title={title}
         zDepth={1}
+        style={{margin: 3}}
         iconElementRight={
           <div style={flexParent}>
-            <Type />
             <Datepicker id='from' date={date.from} callback={handleFrom} />
             <Datepicker id='to' date={date.to} callback={handleTo} />
-            <SearchText id='search' key='search' hint='Search...' value={term} />
           </div>
         }
         onLeftIconButtonTouchTap={toggleDrawer}
