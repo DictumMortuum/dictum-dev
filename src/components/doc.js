@@ -26,7 +26,7 @@ const template = React.createClass({
         <CardTitle
           titleStyle={style}
           title={doc.desc}
-          subtitle={<div>{timeSince(new Date(doc._id))} ago<br />{doc.type}</div>}
+          subtitle={<div>{timeSince(new Date(doc._id))}<br />{doc.type}</div>}
         />
       </Card>
     );
