@@ -27,7 +27,7 @@ let template = React.createClass({
 const selectionRenderer = (values) => {
   switch (values.length) {
   case 0:
-    return 'Select a type ...';
+    return 'Select type(s)...';
   case 1:
     return values[0];
   default:

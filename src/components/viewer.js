@@ -40,8 +40,10 @@ let Viewer = React.createClass({
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <NewDoc />
-            <Type />
+          </ToolbarGroup>
+          <ToolbarGroup>
             <SearchText hint='Search...' value={term} />
+            <Type />
           </ToolbarGroup>
         </Toolbar>
         <Paper onScroll={this.handleScroll} style={{overflowY: 'scroll', height: '90%'}}>
