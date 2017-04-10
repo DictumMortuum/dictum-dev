@@ -15,7 +15,7 @@ import store from '../redux/store';
 const style = {
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  flex: 1,
+  flex: 4,
   margin: 3,
   height: '100%'
 };

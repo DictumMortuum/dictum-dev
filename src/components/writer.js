@@ -10,7 +10,7 @@ import TextArea from 'react-textarea-autosize';
 const style = {
   padding: 16,
   border: 0,
-  flex: 4
+  flex: 10
 };
 
 let template = React.createClass({

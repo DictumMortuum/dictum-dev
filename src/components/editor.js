@@ -14,7 +14,7 @@ import Jira from './doc/jira';
 import Filter from './doc/filter';
 
 const Input = editor => (
-  <div style={{flex: 1, padding: 16}}>
+  <div style={{flex: 2, padding: 16}}>
     <Text id="company" hint="Company" value={editor.company} />
     <Text id="product" hint="Product" value={editor.product} />
     <Text id="type" hint="Type" value={editor.type} />
@@ -25,7 +25,7 @@ const Input = editor => (
 );
 
 const style = {
-  flex: 2,
+  flex: 8,
   margin: 3,
   height: '100%'
 };
