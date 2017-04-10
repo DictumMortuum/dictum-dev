@@ -6,7 +6,7 @@ const defaultState = {
   drawer: false,
   jiraPrefix: 'https://jira.dev.global-intra.net:8443/',
   editor: true,
-  properties: false,
+  properties: true,
   product: [{
     company: 'openbet',
     name: 'siteserver',
