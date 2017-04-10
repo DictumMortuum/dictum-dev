@@ -65,6 +65,9 @@ export const SearchText = connect(
       style: {
         paddingRight: 10
       },
+      hintStyle: {
+        color: 'black'
+      },
       onChange: (event, value) => action(value)
     })
   )
