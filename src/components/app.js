@@ -12,6 +12,7 @@ import Viewer from './viewer';
 import Info from './info';
 import { palette } from '../styles';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 injectTapEventPlugin();
 
@@ -48,11 +49,11 @@ class tpl extends React.Component {
 }
 
 tpl.childContextTypes = {
-  muiTheme: React.PropTypes.object
+  muiTheme: PropTypes.object
 };
 
 tpl.propTypes = {
-  config: React.PropTypes.object
+  config: PropTypes.object
 };
 
 const mapStateToProps = state => ({

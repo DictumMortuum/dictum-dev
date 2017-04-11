@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import TextArea from 'react-textarea-autosize';
+import PropTypes from 'prop-types';
 
 const style = {
   padding: 16,
@@ -30,8 +31,8 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  writer: React.PropTypes.object,
-  editor: React.PropTypes.bool
+  writer: PropTypes.object,
+  editor: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

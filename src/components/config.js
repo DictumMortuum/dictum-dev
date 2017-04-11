@@ -3,6 +3,7 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class tpl extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  config: React.PropTypes.object
+  config: PropTypes.object
 };
 
 export default connect(state => ({ config: state.config }))(tpl);

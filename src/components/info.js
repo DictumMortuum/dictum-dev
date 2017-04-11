@@ -3,6 +3,7 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class tpl extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  info: React.PropTypes.object
+  info: PropTypes.object
 };
 
 export default connect(state => ({ info: state.info }))(tpl);

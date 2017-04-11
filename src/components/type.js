@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { Type } from '../redux/actions';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import PropTypes from 'prop-types';
 
 class tpl extends React.Component {
   render() {
@@ -20,8 +21,8 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  select: React.PropTypes.object,
-  types: React.PropTypes.array
+  select: PropTypes.object,
+  types: PropTypes.array
 };
 
 const selectionRenderer = (values) => {

@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 import { Card, CardTitle } from 'material-ui/Card';
 import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
+import PropTypes from 'prop-types';
 
 const style = {
   overflow: 'hidden',
@@ -30,7 +31,7 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  doc: React.PropTypes.object
+  doc: PropTypes.object
 };
 
 export default connect(

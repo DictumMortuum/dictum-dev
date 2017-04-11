@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 import { Text, ArrayText } from './text';
 import Jira from './doc/jira';
 import Filter from './doc/filter';
+import PropTypes from 'prop-types';
 
 const Input = editor => (
   <div style={{flex: 2, padding: 16}}>
@@ -58,8 +59,8 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  editor: React.PropTypes.object,
-  properties: React.PropTypes.bool
+  editor: PropTypes.object,
+  properties: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

@@ -11,6 +11,7 @@ import { SearchText } from './text';
 import NewDoc from './buttons/newDoc';
 import { Doc as Actions } from '../redux/actions';
 import store from '../redux/store';
+import PropTypes from 'prop-types';
 
 const style = {
   overflow: 'hidden',
@@ -50,8 +51,8 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  docs: React.PropTypes.array,
-  term: React.PropTypes.string
+  docs: PropTypes.array,
+  term: PropTypes.string
 };
 
 const mapStateToProps = state => ({

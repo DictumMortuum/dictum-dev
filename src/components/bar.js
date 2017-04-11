@@ -8,6 +8,7 @@ import Datepicker from './datepicker';
 import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
+import PropTypes from 'prop-types';
 
 class tpl extends React.Component {
   render() {
@@ -31,11 +32,11 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  date: React.PropTypes.object,
-  handleFrom: React.PropTypes.func,
-  handleTo: React.PropTypes.func,
-  toggleDrawer: React.PropTypes.func,
-  title: React.PropTypes.string
+  date: PropTypes.object,
+  handleFrom: PropTypes.func,
+  handleTo: PropTypes.func,
+  toggleDrawer: PropTypes.func,
+  title: PropTypes.string
 };
 
 const mapStateToProps = state => ({
