@@ -6,6 +6,8 @@ import { createSelector } from 'reselect';
 import { Card, CardTitle } from 'material-ui/Card';
 import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
+import PropTypes from 'prop-types';
+import { toArray } from './common';
 
 const style = {
   overflow: 'hidden',
@@ -13,11 +15,7 @@ const style = {
   fontSize: 14
 };
 
-const template = React.createClass({
-  propTypes: {
-    doc: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   render() {
     let { doc } = this.props;
 
@@ -31,7 +29,11 @@ const template = React.createClass({
       </Card>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  doc: PropTypes.object
+};
 
 export default connect(
   (state, props) => ({ props }),
@@ -42,11 +44,10 @@ export default connect(
     (props, edit) => ({
       doc: {
         ...props.doc,
-        type: props.doc.type || '',
-        desc: props.doc.desc || '',
-        lang: props.doc.lang || [],
+        type: toArray(props.doc.type),
+        desc: props.doc.title || props.doc.desc || '',
         onTouchTap: () => edit(props.doc)
       }
     })
   )
-)(template);
+)(tpl);

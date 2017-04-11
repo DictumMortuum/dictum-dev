@@ -11,26 +11,22 @@ import { SearchText } from './text';
 import NewDoc from './buttons/newDoc';
 import { Doc as Actions } from '../redux/actions';
 import store from '../redux/store';
+import PropTypes from 'prop-types';
 
 const style = {
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  flex: 1,
+  flex: 4,
   margin: 3,
   height: '100%'
 };
 
-let Viewer = React.createClass({
-  propTypes: {
-    docs: React.PropTypes.array,
-    term: React.PropTypes.string
-  },
-
+class tpl extends React.Component {
   handleScroll(event) {
     if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
       store.dispatch(Actions.scroll());
     }
-  },
+  }
 
   render() {
     let { docs, term } = this.props;
@@ -40,8 +36,10 @@ let Viewer = React.createClass({
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <NewDoc />
-            <Type />
+          </ToolbarGroup>
+          <ToolbarGroup>
             <SearchText hint='Search...' value={term} />
+            <Type />
           </ToolbarGroup>
         </Toolbar>
         <Paper onScroll={this.handleScroll} style={{overflowY: 'scroll', height: '90%'}}>
@@ -50,7 +48,12 @@ let Viewer = React.createClass({
       </div>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  docs: PropTypes.array,
+  term: PropTypes.string
+};
 
 const mapStateToProps = state => ({
   docs: state.docs,
@@ -96,4 +99,4 @@ const mergeProps = createSelector(
   }
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(Viewer);
+export default connect(mapStateToProps, {}, mergeProps)(tpl);

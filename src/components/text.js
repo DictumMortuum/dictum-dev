@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 import { Doc, Editor } from '../redux/actions';
 import { textStyle } from '../styles';
 import { createSelector } from 'reselect';
+import { toArray } from './common';
 
-let template = React.createClass({
+class tpl extends React.Component {
   render() {
     return (<TextField {...this.props} />);
   }
-});
+}
 
 const mapStateToProps = (state, props) => props;
 
@@ -25,12 +26,19 @@ export const ArrayText = connect(
       id: props.id,
       key: props.id,
       hintText: props.hint,
-      value: props.value.toString(),
+      value: toArray(props.value),
       style: textStyle,
-      onChange: (event, value) => change(props.id, value.split(','))
+      onChange: (event, value) => {
+        let temp = value.split(',');
+        if (temp.length === 1) {
+          change(props.id, value);
+        } else {
+          change(props.id, value.split(','));
+        }
+      }
     })
   )
-)(template);
+)(tpl);
 
 export const Text = connect(
   mapStateToProps,
@@ -47,7 +55,7 @@ export const Text = connect(
       onChange: (event, value) => change(props.id, value)
     })
   )
-)(template);
+)(tpl);
 
 export const SearchText = connect(
   (state, props) => ({
@@ -63,7 +71,7 @@ export const SearchText = connect(
       hintText: props.hint,
       value: props.value,
       style: {
-        paddingRight: 10
+        width: '50%'
       },
       hintStyle: {
         color: 'black'
@@ -71,4 +79,4 @@ export const SearchText = connect(
       onChange: (event, value) => action(value)
     })
   )
-)(template);
+)(tpl);

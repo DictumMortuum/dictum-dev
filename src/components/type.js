@@ -6,13 +6,9 @@ import MenuItem from 'material-ui/MenuItem';
 import { Type } from '../redux/actions';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import PropTypes from 'prop-types';
 
-let template = React.createClass({
-  propTypes: {
-    select: React.PropTypes.object,
-    types: React.PropTypes.array
-  },
-
+class tpl extends React.Component {
   render() {
     return (
       <SelectField {...this.props.select}>
@@ -22,12 +18,17 @@ let template = React.createClass({
       </SelectField>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  select: PropTypes.object,
+  types: PropTypes.array
+};
 
 const selectionRenderer = (values) => {
   switch (values.length) {
   case 0:
-    return 'Select a type ...';
+    return 'Select type(s)...';
   case 1:
     return values[0];
   default:
@@ -54,4 +55,4 @@ export default connect(
       }
     })
   )
-)(template);
+)(tpl);

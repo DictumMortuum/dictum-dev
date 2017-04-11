@@ -6,19 +6,15 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import TextArea from 'react-textarea-autosize';
+import PropTypes from 'prop-types';
 
 const style = {
   padding: 16,
   border: 0,
-  flex: 4
+  flex: 10
 };
 
-let template = React.createClass({
-  propTypes: {
-    writer: React.PropTypes.object,
-    editor: React.PropTypes.bool
-  },
-
+class tpl extends React.Component {
   render() {
     let { editor } = this.props;
 
@@ -32,7 +28,12 @@ let template = React.createClass({
       );
     }
   }
-});
+}
+
+tpl.propTypes = {
+  writer: PropTypes.object,
+  editor: PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   editor: state.editor,
@@ -58,4 +59,4 @@ export default connect(
       }
     })
   )
-)(template);
+)(tpl);

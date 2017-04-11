@@ -2,7 +2,7 @@
 
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import promise from 'redux-promise';
-import reduxLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import config from './reducers/config';
 import docs from './reducers/docs';
@@ -15,9 +15,7 @@ import filter from './reducers/filter';
 import search from './reducers/search';
 import type from './reducers/type';
 
-const logger = reduxLogger();
-
-let createStoreWithMiddleware = applyMiddleware(thunk, promise, logger)(createStore);
+let createStoreWithMiddleware = applyMiddleware(thunk, promise, createLogger())(createStore);
 
 export default createStoreWithMiddleware(combineReducers({
   config,

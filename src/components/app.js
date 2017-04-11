@@ -12,6 +12,7 @@ import Viewer from './viewer';
 import Info from './info';
 import { palette } from '../styles';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 injectTapEventPlugin();
 
@@ -26,18 +27,10 @@ const style = {
   flexWrap: 'wrap'
 };
 
-let App = React.createClass({
-  propTypes: {
-    config: React.PropTypes.object
-  },
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   componentDidMount() {
     store.dispatch(init());
-  },
+  }
 
   render() {
     return (
@@ -53,10 +46,18 @@ let App = React.createClass({
       </MuiThemeProvider>
     );
   }
-});
+}
+
+tpl.childContextTypes = {
+  muiTheme: PropTypes.object
+};
+
+tpl.propTypes = {
+  config: PropTypes.object
+};
 
 const mapStateToProps = state => ({
   config: state.config
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(tpl);

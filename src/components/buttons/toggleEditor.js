@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { Config } from '../../redux/actions';
 
-let template = React.createClass({
+class tpl extends React.Component {
   render() {
     return (
       <IconButton {...this.props}>
@@ -15,7 +15,7 @@ let template = React.createClass({
       </IconButton>
     );
   }
-});
+}
 
 const mapStateToProps = state => ({
   config: state.config
@@ -34,4 +34,4 @@ export default connect(
       onTouchTap: toggle
     })
   )
-)(template);
+)(tpl);

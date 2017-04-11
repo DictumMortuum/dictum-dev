@@ -3,15 +3,16 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-let Config = React.createClass({
-  propTypes: {
-    config: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   render() {
     return (<Drawer open={this.props.config.drawer} openSecondary={true} />);
   }
-});
+}
 
-export default connect(state => ({ config: state.config }))(Config);
+tpl.propTypes = {
+  config: PropTypes.object
+};
+
+export default connect(state => ({ config: state.config }))(tpl);

@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { font } from '../../styles';
 
-const template = React.createClass({
+class tpl extends React.Component {
   render() {
     return (<RaisedButton style={font} {...this.props} />);
   }
-});
+}
 
 export default connect(
   (state, props) => ({
@@ -29,4 +29,4 @@ export default connect(
       onTouchTap: () => toggle(props.lang)
     })
   )
-)(template);
+)(tpl);
