@@ -45,7 +45,7 @@ export default connect(
       doc: {
         ...props.doc,
         type: toArray(props.doc.type),
-        desc: props.doc.desc || '',
+        desc: props.doc.title || props.doc.desc || '',
         onTouchTap: () => edit(props.doc)
       }
     })

@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Writer from './writer';
 import { createSelector } from 'reselect';
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import SaveDoc from './buttons/saveDoc';
 import ToggleEditor from './buttons/toggleEditor';
 import ToggleProperties from './buttons/toggleDocProperties';
@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 
 const Input = editor => (
   <div style={{flex: 2, padding: 16}}>
+    <ArrayText id="title" hint="Title" value={editor.title} />
     <ArrayText id="company" hint="Company" value={editor.company} />
     <ArrayText id="product" hint="Product" value={editor.product} />
     <ArrayText id="type" hint="Type" value={editor.type} />
@@ -58,6 +59,7 @@ const style = {
 class tpl extends React.Component {
   render() {
     let { properties, editor } = this.props;
+    let title = editor.title || editor.desc || '';
 
     return (
       <div style={style}>
@@ -68,6 +70,7 @@ class tpl extends React.Component {
             <ToggleProperties />
           </ToolbarGroup>
           <ToolbarGroup>
+            <ToolbarTitle text={title} style={{overflow: 'hidden', width: 400}}/>
             {renderFilters(editor)}
             {editor.ticket && <ToolbarSeparator />}
             {renderTickets(editor)}
