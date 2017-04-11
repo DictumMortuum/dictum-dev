@@ -13,7 +13,7 @@ const style = {
   flex: 10
 };
 
-class template extends React.Component {
+class tpl extends React.Component {
   render() {
     let { editor } = this.props;
 
@@ -29,7 +29,7 @@ class template extends React.Component {
   }
 }
 
-template.propTypes = {
+tpl.propTypes = {
   writer: React.PropTypes.object,
   editor: React.PropTypes.bool
 };
@@ -58,4 +58,4 @@ export default connect(
       }
     })
   )
-)(template);
+)(tpl);

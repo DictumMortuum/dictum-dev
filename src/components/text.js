@@ -7,11 +7,11 @@ import { Doc, Editor } from '../redux/actions';
 import { textStyle } from '../styles';
 import { createSelector } from 'reselect';
 
-let template = React.createClass({
+class tpl extends React.Component {
   render() {
     return (<TextField {...this.props} />);
   }
-});
+}
 
 const mapStateToProps = (state, props) => props;
 
@@ -30,7 +30,7 @@ export const ArrayText = connect(
       onChange: (event, value) => change(props.id, value.split(','))
     })
   )
-)(template);
+)(tpl);
 
 export const Text = connect(
   mapStateToProps,
@@ -47,7 +47,7 @@ export const Text = connect(
       onChange: (event, value) => change(props.id, value)
     })
   )
-)(template);
+)(tpl);
 
 export const SearchText = connect(
   (state, props) => ({
@@ -71,4 +71,4 @@ export const SearchText = connect(
       onChange: (event, value) => action(value)
     })
   )
-)(template);
+)(tpl);

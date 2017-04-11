@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import ActionCreate from 'material-ui/svg-icons/content/create';
 
-let template = React.createClass({
+class tpl extends React.Component {
   render() {
     return (
       <IconButton {...this.props}>
@@ -15,7 +15,7 @@ let template = React.createClass({
       </IconButton>
     );
   }
-});
+}
 
 const mapStateToProps = (state, props) => props;
 const mapDispatchToProps = {
@@ -31,4 +31,4 @@ export default connect(
       onTouchTap: create
     })
   )
-)(template);
+)(tpl);

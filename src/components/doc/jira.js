@@ -6,11 +6,11 @@ import { createSelector } from 'reselect';
 import RaisedButton from 'material-ui/RaisedButton';
 import { font } from '../../styles';
 
-let Jira = React.createClass({
+class tpl extends React.Component {
   render() {
     return (<RaisedButton key='ticket' {...this.props} />);
   }
-});
+}
 
 const mapStateToProps = state => ({
   editor: state.editor,
@@ -28,4 +28,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(Jira);
+export default connect(mapStateToProps, {}, mergeProps)(tpl);

@@ -30,12 +30,7 @@ const style = {
   height: '100%'
 };
 
-let Editor = React.createClass({
-  propTypes: {
-    editor: React.PropTypes.object,
-    properties: React.PropTypes.bool
-  },
-
+class tpl extends React.Component {
   render() {
     let { properties, editor } = this.props;
 
@@ -60,7 +55,12 @@ let Editor = React.createClass({
       </div>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  editor: React.PropTypes.object,
+  properties: React.PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   config: state.config,
@@ -87,4 +87,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(Editor);
+export default connect(mapStateToProps, {}, mergeProps)(tpl);

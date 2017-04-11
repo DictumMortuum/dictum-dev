@@ -26,18 +26,10 @@ const style = {
   flexWrap: 'wrap'
 };
 
-let App = React.createClass({
-  propTypes: {
-    config: React.PropTypes.object
-  },
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   componentDidMount() {
     store.dispatch(init());
-  },
+  }
 
   render() {
     return (
@@ -53,10 +45,18 @@ let App = React.createClass({
       </MuiThemeProvider>
     );
   }
-});
+}
+
+tpl.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
+
+tpl.propTypes = {
+  config: React.PropTypes.object
+};
 
 const mapStateToProps = state => ({
   config: state.config
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(tpl);

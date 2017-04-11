@@ -9,15 +9,7 @@ import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
 
-let Bar = React.createClass({
-  propTypes: {
-    date: React.PropTypes.object,
-    handleFrom: React.PropTypes.func,
-    handleTo: React.PropTypes.func,
-    toggleDrawer: React.PropTypes.func,
-    title: React.PropTypes.string
-  },
-
+class tpl extends React.Component {
   render() {
     let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
 
@@ -36,7 +28,15 @@ let Bar = React.createClass({
       />
     );
   }
-});
+}
+
+tpl.propTypes = {
+  date: React.PropTypes.object,
+  handleFrom: React.PropTypes.func,
+  handleTo: React.PropTypes.func,
+  toggleDrawer: React.PropTypes.func,
+  title: React.PropTypes.string
+};
 
 const mapStateToProps = state => ({
   date: state.date,
@@ -73,4 +73,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Bar);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);

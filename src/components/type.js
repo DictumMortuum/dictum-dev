@@ -7,12 +7,7 @@ import { Type } from '../redux/actions';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-let template = React.createClass({
-  propTypes: {
-    select: React.PropTypes.object,
-    types: React.PropTypes.array
-  },
-
+class tpl extends React.Component {
   render() {
     return (
       <SelectField {...this.props.select}>
@@ -22,7 +17,12 @@ let template = React.createClass({
       </SelectField>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  select: React.PropTypes.object,
+  types: React.PropTypes.array
+};
 
 const selectionRenderer = (values) => {
   switch (values.length) {
@@ -54,4 +54,4 @@ export default connect(
       }
     })
   )
-)(template);
+)(tpl);

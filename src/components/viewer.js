@@ -20,17 +20,12 @@ const style = {
   height: '100%'
 };
 
-let Viewer = React.createClass({
-  propTypes: {
-    docs: React.PropTypes.array,
-    term: React.PropTypes.string
-  },
-
+class tpl extends React.Component {
   handleScroll(event) {
     if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
       store.dispatch(Actions.scroll());
     }
-  },
+  }
 
   render() {
     let { docs, term } = this.props;
@@ -52,7 +47,12 @@ let Viewer = React.createClass({
       </div>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  docs: React.PropTypes.array,
+  term: React.PropTypes.string
+};
 
 const mapStateToProps = state => ({
   docs: state.docs,
@@ -98,4 +98,4 @@ const mergeProps = createSelector(
   }
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(Viewer);
+export default connect(mapStateToProps, {}, mergeProps)(tpl);

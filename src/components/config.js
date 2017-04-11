@@ -4,14 +4,14 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import { connect } from 'react-redux';
 
-let Config = React.createClass({
-  propTypes: {
-    config: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   render() {
     return (<Drawer open={this.props.config.drawer} openSecondary={true} />);
   }
-});
+}
 
-export default connect(state => ({ config: state.config }))(Config);
+tpl.propTypes = {
+  config: React.PropTypes.object
+};
+
+export default connect(state => ({ config: state.config }))(tpl);

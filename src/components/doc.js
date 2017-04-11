@@ -13,11 +13,7 @@ const style = {
   fontSize: 14
 };
 
-const template = React.createClass({
-  propTypes: {
-    doc: React.PropTypes.object
-  },
-
+class tpl extends React.Component {
   render() {
     let { doc } = this.props;
 
@@ -31,7 +27,11 @@ const template = React.createClass({
       </Card>
     );
   }
-});
+}
+
+tpl.propTypes = {
+  doc: React.PropTypes.object
+};
 
 export default connect(
   (state, props) => ({ props }),
@@ -49,4 +49,4 @@ export default connect(
       }
     })
   )
-)(template);
+)(tpl);
