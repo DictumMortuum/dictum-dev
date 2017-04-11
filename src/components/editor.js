@@ -16,14 +16,38 @@ import PropTypes from 'prop-types';
 
 const Input = editor => (
   <div style={{flex: 2, padding: 16}}>
-    <Text id="company" hint="Company" value={editor.company} />
-    <Text id="product" hint="Product" value={editor.product} />
-    <Text id="type" hint="Type" value={editor.type} />
+    <ArrayText id="company" hint="Company" value={editor.company} />
+    <ArrayText id="product" hint="Product" value={editor.product} />
+    <ArrayText id="type" hint="Type" value={editor.type} />
     <ArrayText id="lang" hint="Langs" value={editor.lang} />
-    <Text id="ticket" hint="JIRA" value={editor.ticket} />
+    <ArrayText id="ticket" hint="JIRA" value={editor.ticket} />
     <Text id="date" hint="Created on" value={editor.date} />
   </div>
 );
+
+const renderFilters = editor => {
+  let lang = [];
+
+  if (typeof editor.lang === 'string') {
+    lang = [editor.lang];
+  } else if (editor.lang !== undefined) {
+    lang = editor.lang;
+  }
+
+  return lang.map(l => (<Filter lang={l} key={l} />));
+};
+
+const renderTickets = editor => {
+  let ticket = [];
+
+  if (typeof editor.ticket === 'string') {
+    ticket = [editor.ticket];
+  } else if (editor.ticket !== undefined) {
+    ticket = editor.ticket;
+  }
+
+  return ticket.map(t => (<Jira ticket={t} key={t} />));
+};
 
 const style = {
   flex: 8,
@@ -44,9 +68,9 @@ class tpl extends React.Component {
             <ToggleProperties />
           </ToolbarGroup>
           <ToolbarGroup>
-            {editor.lang.map(l => (<Filter lang={l} key={l} />))}
+            {renderFilters(editor)}
             {editor.ticket && <ToolbarSeparator />}
-            {editor.ticket && <Jira />}
+            {renderTickets(editor)}
           </ToolbarGroup>
         </Toolbar>
         <Paper style={{overflowY: 'scroll', height: '90%', display: 'flex'}}>
@@ -74,11 +98,7 @@ const mergeProps = createSelector(
   (editor, config) => ({
     properties: config.properties,
     editor: {
-      company: editor.company || '',
-      product: editor.product || '',
-      type: editor.type || '',
-      lang: editor.lang || [],
-      ticket: editor.ticket || '',
+      ...editor,
       desc: editor.desc || '',
       date: new Date(editor._id || (new Date()).toISOString()).toLocaleDateString(config.locale, {
         year: 'numeric', month: 'numeric', day: 'numeric',

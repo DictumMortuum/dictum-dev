@@ -7,6 +7,7 @@ import { Card, CardTitle } from 'material-ui/Card';
 import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
 import PropTypes from 'prop-types';
+import { toArray } from './common';
 
 const style = {
   overflow: 'hidden',
@@ -43,9 +44,8 @@ export default connect(
     (props, edit) => ({
       doc: {
         ...props.doc,
-        type: props.doc.type || '',
+        type: toArray(props.doc.type),
         desc: props.doc.desc || '',
-        lang: props.doc.lang || [],
         onTouchTap: () => edit(props.doc)
       }
     })

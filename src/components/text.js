@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Doc, Editor } from '../redux/actions';
 import { textStyle } from '../styles';
 import { createSelector } from 'reselect';
+import { toArray } from './common';
 
 class tpl extends React.Component {
   render() {
@@ -25,9 +26,16 @@ export const ArrayText = connect(
       id: props.id,
       key: props.id,
       hintText: props.hint,
-      value: props.value.toString(),
+      value: toArray(props.value),
       style: textStyle,
-      onChange: (event, value) => change(props.id, value.split(','))
+      onChange: (event, value) => {
+        let temp = value.split(',');
+        if (temp.length === 1) {
+          change(props.id, value);
+        } else {
+          change(props.id, value.split(','));
+        }
+      }
     })
   )
 )(tpl);
