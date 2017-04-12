@@ -58,7 +58,7 @@ export default (state=defaultState, action) => {
       documentProperties: [
         ...state.documentProperties.filter(d => d.name !== action.property.name),
         action.property
-      ]
+      ].sort((a, b) => a.order - b.order)
     };
   default:
     return state;

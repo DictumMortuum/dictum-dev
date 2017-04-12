@@ -14,17 +14,16 @@ import Jira from './doc/jira';
 import Filter from './doc/filter';
 import PropTypes from 'prop-types';
 
-const Input = editor => (
+const Input = (editor, properties) => (
   <div style={{flex: 2, padding: 16}}>
     <h2>Created on: {editor.date}</h2>
-    <Text id="title" hint="Title" value={editor.title} />
-    <Text id="company" hint="Company" value={editor.company} />
-    <Text id="product" hint="Product" value={editor.product} />
-    <Text id="type" hint="Type" value={editor.type} />
-    <Text id="lang" hint="Langs" value={editor.lang} />
-    <Text id="ticket" hint="JIRA" value={editor.ticket} />
+    {properties.filter(p => p.status === true).map(p => (
+      <Text id={p.name} hint={p.hint} value={editor[p.name]} />
+    ))}
   </div>
 );
+
+const propertyStatus = (props, name) => props.filter(p => p.name === name).map(p => p.status)[0];
 
 const renderFilters = editor => {
   let lang = [];
@@ -62,7 +61,7 @@ const style = {
 
 class tpl extends React.Component {
   render() {
-    let { properties, editor } = this.props;
+    let { config, editor } = this.props;
     let title = editor.title || editor.desc || '';
 
     return (
@@ -74,14 +73,16 @@ class tpl extends React.Component {
             <ToggleProperties />
           </ToolbarGroup>
           <ToolbarGroup>
-            <ToolbarTitle text={title} style={{overflow: 'hidden', width: 400}}/>
-            {renderFilters(editor)}
-            {editor.ticket && <ToolbarSeparator />}
-            {renderTickets(editor)}
+            {propertyStatus(config.documentProperties, 'title') &&
+            <ToolbarTitle text={title} style={{overflow: 'hidden', width: 400}}/>}
+            {propertyStatus(config.documentProperties, 'lang') && renderFilters(editor)}
+            {propertyStatus(config.documentProperties, 'ticket') &&
+              editor.ticket && <ToolbarSeparator />}
+            {propertyStatus(config.documentProperties, 'ticket') && renderTickets(editor)}
           </ToolbarGroup>
         </Toolbar>
         <Paper style={{overflowY: 'scroll', height: '90%', display: 'flex'}}>
-          {properties && Input(editor)}
+          {config.properties && Input(editor, config.documentProperties)}
           <Writer />
         </Paper>
       </div>
@@ -91,7 +92,7 @@ class tpl extends React.Component {
 
 tpl.propTypes = {
   editor: PropTypes.object,
-  properties: PropTypes.bool
+  config: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -103,7 +104,7 @@ const mergeProps = createSelector(
   state => state.editor,
   state => state.config,
   (editor, config) => ({
-    properties: config.properties,
+    config,
     editor: {
       ...editor,
       desc: editor.desc || '',

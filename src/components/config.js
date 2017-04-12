@@ -15,10 +15,9 @@ class tpl extends React.Component {
       <Drawer open={config.drawer} openSecondary={true}>
         <div style={{padding: 8}}>
           <h2>Editor</h2>
-          {config.documentProperties.sort((a, b) => a.order - b.order).map(p => (
+          {config.documentProperties.map(p => (
             <Toggle defaultToggled={p.status} key={p.name}
             label={p.name} onToggle={(event, isInputChecked) => {
-              console.log(p);
               onToggle({...p, status: isInputChecked});
             }} />
           ))}
