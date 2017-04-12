@@ -30,7 +30,9 @@ const renderFilters = editor => {
   let lang = [];
 
   if (typeof editor.lang === 'string') {
-    lang = [editor.lang];
+    if (editor.lang !== '') {
+      lang = [editor.lang];
+    }
   } else if (editor.lang !== undefined) {
     lang = editor.lang;
   }
@@ -42,7 +44,9 @@ const renderTickets = editor => {
   let ticket = [];
 
   if (typeof editor.ticket === 'string') {
-    ticket = [editor.ticket];
+    if (editor.ticket !== '') {
+      ticket = [editor.ticket];
+    }
   } else if (editor.ticket !== undefined) {
     ticket = editor.ticket;
   }

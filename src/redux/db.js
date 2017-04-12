@@ -10,6 +10,14 @@ export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0
 export const sort = (a, b) => new Date(b.updated || b._id) - new Date(a.updated || a._id);
 export const create = () => ({ _id: new Date().toISOString() });
 export const cast = doc => ({ _id: new Date(doc).toISOString() });
+export const strip = doc => {
+  for (let attr in doc) {
+    if (typeof doc[attr] === 'string' && doc[attr] === '') {
+      delete doc[attr];
+    }
+  }
+  return doc;
+};
 
 db.changes({
   live: true,
