@@ -24,7 +24,7 @@ class tpl extends React.Component {
         <CardTitle
           titleStyle={style}
           title={doc.desc}
-          subtitle={<div>{timeSince(new Date(doc._id))}<br />{doc.type}</div>}
+          subtitle={<div>{timeSince(new Date(doc.updated || doc._id))}<br />{doc.type}</div>}
         />
       </Card>
     );
