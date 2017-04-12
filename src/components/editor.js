@@ -13,6 +13,7 @@ import { Text } from './text';
 import Jira from './doc/jira';
 import Filter from './doc/filter';
 import PropTypes from 'prop-types';
+import { propertyStatus } from './common';
 
 const Input = (editor, properties) => (
   <div style={{flex: 2, padding: 16}}>
@@ -22,8 +23,6 @@ const Input = (editor, properties) => (
     ))}
   </div>
 );
-
-const propertyStatus = (props, name) => props.filter(p => p.name === name).map(p => p.status)[0];
 
 const renderFilters = editor => {
   let lang = [];

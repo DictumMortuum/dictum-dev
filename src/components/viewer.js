@@ -12,6 +12,7 @@ import NewDoc from './buttons/newDoc';
 import { Doc as Actions } from '../redux/actions';
 import store from '../redux/store';
 import PropTypes from 'prop-types';
+import { propertyStatus } from './common';
 
 const style = {
   overflow: 'hidden',
@@ -29,7 +30,7 @@ class tpl extends React.Component {
   }
 
   render() {
-    let { docs, term } = this.props;
+    let { docs, term, type } = this.props;
 
     return (
       <div style={style}>
@@ -39,7 +40,7 @@ class tpl extends React.Component {
           </ToolbarGroup>
           <ToolbarGroup>
             <SearchText hint='Search...' value={term} />
-            <Type />
+            {type && <Type />}
           </ToolbarGroup>
         </Toolbar>
         <Paper onScroll={this.handleScroll} style={{overflowY: 'scroll', height: '90%'}}>
@@ -52,7 +53,8 @@ class tpl extends React.Component {
 
 tpl.propTypes = {
   docs: PropTypes.array,
-  term: PropTypes.string
+  term: PropTypes.string,
+  type: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -60,7 +62,8 @@ const mapStateToProps = state => ({
   length: state.length,
   filter: state.filter,
   search: state.search,
-  type: state.type
+  type: state.type,
+  config: state.config
 });
 
 const mergeProps = createSelector(
@@ -69,9 +72,11 @@ const mergeProps = createSelector(
   state => state.filter,
   state => state.search,
   state => state.type,
-  (docs, length, filters, search, type) => {
+  state => state.config,
+  (docs, length, filters, search, type, config) => {
     let res = search.docs.length === 0 ? docs : search.docs;
     return {
+      type: propertyStatus(config.documentProperties, 'type'),
       term: search.term,
       docs: res.filter(d => {
         // lang may be undefined in some documents
