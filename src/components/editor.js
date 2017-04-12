@@ -9,20 +9,20 @@ import SaveDoc from './buttons/saveDoc';
 import ToggleEditor from './buttons/toggleEditor';
 import ToggleProperties from './buttons/toggleDocProperties';
 import Paper from 'material-ui/Paper';
-import { Text, ArrayText } from './text';
+import { Text } from './text';
 import Jira from './doc/jira';
 import Filter from './doc/filter';
 import PropTypes from 'prop-types';
 
 const Input = editor => (
   <div style={{flex: 2, padding: 16}}>
-    <ArrayText id="title" hint="Title" value={editor.title} />
-    <ArrayText id="company" hint="Company" value={editor.company} />
-    <ArrayText id="product" hint="Product" value={editor.product} />
-    <ArrayText id="type" hint="Type" value={editor.type} />
-    <ArrayText id="lang" hint="Langs" value={editor.lang} />
-    <ArrayText id="ticket" hint="JIRA" value={editor.ticket} />
-    <Text id="date" hint="Created on" value={editor.date} />
+    <h2>Created on: {editor.date}</h2>
+    <Text id="title" hint="Title" value={editor.title} />
+    <Text id="company" hint="Company" value={editor.company} />
+    <Text id="product" hint="Product" value={editor.product} />
+    <Text id="type" hint="Type" value={editor.type} />
+    <Text id="lang" hint="Langs" value={editor.lang} />
+    <Text id="ticket" hint="JIRA" value={editor.ticket} />
   </div>
 );
 
