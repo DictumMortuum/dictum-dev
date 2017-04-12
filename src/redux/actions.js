@@ -102,7 +102,8 @@ export const Config = {
   .catch(() => ({ type: 'CONFIG_DEFAULT' })),
   drawer: () => ({ type: 'TOGGLE_DRAWER' }),
   editor: () => ({ type: 'TOGGLE_EDITOR' }),
-  properties: () => ({ type: 'TOGGLE_PROPERTIES' })
+  properties: () => ({ type: 'TOGGLE_PROPERTIES' }),
+  editProperty: p => ({ type: 'EDIT_PROPERTY', property: p })
 };
 
 export const Editor = {

@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   bulk: Doc.bulk,
-  toggle: Config.editor
+  toggle: Config.drawer
 };
 
 const mergeProps = createSelector(

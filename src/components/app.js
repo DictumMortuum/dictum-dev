@@ -10,6 +10,7 @@ import Bar from './bar';
 import Editor from './editor';
 import Viewer from './viewer';
 import Info from './info';
+import Config from './config';
 import { palette } from '../styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -37,6 +38,7 @@ class tpl extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={{height: '100vh'}}>
           <div style={style}>
+            <Config />
             <Bar />
             <Viewer />
             <Editor />
