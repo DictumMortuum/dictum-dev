@@ -100,7 +100,16 @@ const mergeProps = createSelector(
           return true;
         } else {
           // Check that the current doc's type is in the selected ones.
-          return type.selected.includes(d.type);
+          let temp;
+
+          if (typeof d.type === 'string') {
+            temp = [d.type];
+          } else {
+            // array
+            temp = d.type;
+          }
+
+          return temp.some(t => type.selected.includes(t));
         }
       })
       .slice(0, length)
