@@ -10,7 +10,6 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SearchText } from './text';
 import NewDoc from './buttons/newDoc';
 import { Doc as Actions } from '../redux/actions';
-import store from '../redux/store';
 import PropTypes from 'prop-types';
 import { propertyStatus } from './common';
 
@@ -23,14 +22,8 @@ const style = {
 };
 
 class tpl extends React.Component {
-  handleScroll(event) {
-    if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-      store.dispatch(Actions.scroll());
-    }
-  }
-
   render() {
-    let { docs, term, type } = this.props;
+    let { docs, term, type, onScroll } = this.props;
 
     return (
       <div style={style}>
@@ -43,7 +36,7 @@ class tpl extends React.Component {
             {type && <Type />}
           </ToolbarGroup>
         </Toolbar>
-        <Paper onScroll={this.handleScroll} style={{overflowY: 'scroll', height: '90%'}}>
+        <Paper onScroll={onScroll} style={{overflowY: 'scroll', height: '90%'}}>
           {docs.map(d => (<Doc key={d._id} doc={d} />))}
         </Paper>
       </div>
@@ -54,7 +47,8 @@ class tpl extends React.Component {
 tpl.propTypes = {
   docs: PropTypes.array,
   term: PropTypes.string,
-  type: PropTypes.bool
+  type: PropTypes.bool,
+  onScroll: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -66,6 +60,10 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
+const mapDispatchToProps = {
+  scroll: Actions.scroll
+};
+
 const mergeProps = createSelector(
   state => state.docs,
   state => state.length,
@@ -73,11 +71,17 @@ const mergeProps = createSelector(
   state => state.search,
   state => state.type,
   state => state.config,
-  (docs, length, filters, search, type, config) => {
+  (state, actions) => actions.scroll,
+  (docs, length, filters, search, type, config, scroll) => {
     let res = search.docs.length === 0 ? docs : search.docs;
     return {
       type: propertyStatus(config.documentProperties, 'type'),
       term: search.term,
+      onScroll: (event) => {
+        if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+          scroll();
+        }
+      },
       docs: res.filter(d => {
         // lang may be undefined in some documents
         let langs = d.lang || [];
@@ -104,4 +108,4 @@ const mergeProps = createSelector(
   }
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(tpl);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);
