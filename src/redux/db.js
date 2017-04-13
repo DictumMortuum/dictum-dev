@@ -7,7 +7,9 @@ import { Doc } from './actions';
 let db = new PouchDB('https://localhost:6984/work');
 
 export const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{3})?Z/;
-export const sort = (a, b) => new Date(b.updated || b._id) - new Date(a.updated || a._id);
+export const lastUpdate = doc => Array.isArray(doc.updated) ? doc.updated[doc.updated.length - 1] :
+ doc.updated === undefined ? doc._id : doc.updated;
+export const sort = (a, b) => new Date(lastUpdate(b)) - new Date(lastUpdate(a));
 export const create = () => ({ _id: new Date().toISOString() });
 export const cast = doc => ({ _id: new Date(doc).toISOString() });
 export const strip = doc => {
@@ -45,7 +47,14 @@ const _test = d => regex.test(d._id);
 export default {
   get: id => db.get(id).catch(_err),
   put: doc => {
-    let d = { ...doc, updated: new Date().toISOString() };
+    let d = { ...doc };
+    if (doc.updated === undefined) {
+      d.updated = new Date().toISOString();
+    } else if (Array.isArray(doc.updated)) {
+      d.updated.push(new Date().toISOString());
+    } else {
+      d.updated = [doc.updated, new Date().toISOString()];
+    }
     return db.put(d).catch(_err).then(r => ({ ...d, _rev: r.rev }));
   },
   remove: doc => db.remove(doc._id, doc._rev).catch(_err),

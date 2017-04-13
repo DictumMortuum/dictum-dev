@@ -8,6 +8,7 @@ import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
 import PropTypes from 'prop-types';
 import { toArray, propertyStatus } from './common';
+import { lastUpdate } from '../redux/db';
 
 const style = {
   overflow: 'hidden',
@@ -17,9 +18,9 @@ const style = {
 
 const renderSubtitle = (doc, flag) => {
   if (flag) {
-    return <div>{timeSince(new Date(doc.updated || doc._id))}<br />{doc.type}</div>;
+    return <div>{timeSince(new Date(lastUpdate(doc)))}<br />{doc.type}</div>;
   } else {
-    return <div>{timeSince(new Date(doc.updated || doc._id))}</div>;
+    return <div>{timeSince(new Date(lastUpdate(doc)))}</div>;
   }
 };
 
