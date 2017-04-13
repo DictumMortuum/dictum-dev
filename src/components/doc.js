@@ -31,7 +31,7 @@ class tpl extends React.Component {
       <Card onTouchTap={doc.onTouchTap}>
         <CardTitle
           titleStyle={style}
-          title={doc.desc}
+          title={doc.title}
           subtitle={renderSubtitle(doc, type)}
         />
       </Card>
@@ -59,7 +59,8 @@ export default connect(
       doc: {
         ...props.doc,
         type: toArray(props.doc.type),
-        desc: props.doc.title || props.doc.desc || '',
+        title: propertyStatus(config.documentProperties, 'title') && props.doc.title
+        || props.doc.desc || '',
         onTouchTap: () => edit(props.doc)
       }
     })
