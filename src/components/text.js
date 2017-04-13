@@ -16,7 +16,7 @@ class tpl extends React.Component {
 
 const mapStateToProps = (state, props) => props;
 
-export const ArrayText = connect(
+export const Text = connect(
   mapStateToProps,
   { change: Editor.change },
   createSelector(
@@ -36,23 +36,6 @@ export const ArrayText = connect(
           change(props.id, value.split(','));
         }
       }
-    })
-  )
-)(tpl);
-
-export const Text = connect(
-  mapStateToProps,
-  { change: Editor.change },
-  createSelector(
-    props => props,
-    (state, actions) => actions.change,
-    (props, change) => ({
-      id: props.id,
-      key: props.id,
-      hintText: props.hint,
-      value: props.value,
-      style: textStyle,
-      onChange: (event, value) => change(props.id, value)
     })
   )
 )(tpl);

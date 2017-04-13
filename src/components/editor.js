@@ -9,20 +9,18 @@ import SaveDoc from './buttons/saveDoc';
 import ToggleEditor from './buttons/toggleEditor';
 import ToggleProperties from './buttons/toggleDocProperties';
 import Paper from 'material-ui/Paper';
-import { Text, ArrayText } from './text';
+import { Text } from './text';
 import Jira from './doc/jira';
 import Filter from './doc/filter';
 import PropTypes from 'prop-types';
+import { propertyStatus } from './common';
 
-const Input = editor => (
+const Input = (editor, properties) => (
   <div style={{flex: 2, padding: 16}}>
-    <ArrayText id="title" hint="Title" value={editor.title} />
-    <ArrayText id="company" hint="Company" value={editor.company} />
-    <ArrayText id="product" hint="Product" value={editor.product} />
-    <ArrayText id="type" hint="Type" value={editor.type} />
-    <ArrayText id="lang" hint="Langs" value={editor.lang} />
-    <ArrayText id="ticket" hint="JIRA" value={editor.ticket} />
-    <Text id="date" hint="Created on" value={editor.date} />
+    <h2>Created on: {editor.date}</h2>
+    {properties.filter(p => p.status === true).map(p => (
+      <Text id={p.name} hint={p.hint} value={editor[p.name]} />
+    ))}
   </div>
 );
 
@@ -30,7 +28,9 @@ const renderFilters = editor => {
   let lang = [];
 
   if (typeof editor.lang === 'string') {
-    lang = [editor.lang];
+    if (editor.lang !== '') {
+      lang = [editor.lang];
+    }
   } else if (editor.lang !== undefined) {
     lang = editor.lang;
   }
@@ -42,7 +42,9 @@ const renderTickets = editor => {
   let ticket = [];
 
   if (typeof editor.ticket === 'string') {
-    ticket = [editor.ticket];
+    if (editor.ticket !== '') {
+      ticket = [editor.ticket];
+    }
   } else if (editor.ticket !== undefined) {
     ticket = editor.ticket;
   }
@@ -58,7 +60,7 @@ const style = {
 
 class tpl extends React.Component {
   render() {
-    let { properties, editor } = this.props;
+    let { config, editor } = this.props;
     let title = editor.title || editor.desc || '';
 
     return (
@@ -70,14 +72,16 @@ class tpl extends React.Component {
             <ToggleProperties />
           </ToolbarGroup>
           <ToolbarGroup>
-            <ToolbarTitle text={title} style={{overflow: 'hidden', width: 400}}/>
-            {renderFilters(editor)}
-            {editor.ticket && <ToolbarSeparator />}
-            {renderTickets(editor)}
+            {propertyStatus(config.documentProperties, 'title') &&
+            <ToolbarTitle text={title} style={{overflow: 'hidden', width: 400}}/>}
+            {propertyStatus(config.documentProperties, 'lang') && renderFilters(editor)}
+            {propertyStatus(config.documentProperties, 'ticket') &&
+              editor.ticket && <ToolbarSeparator />}
+            {propertyStatus(config.documentProperties, 'ticket') && renderTickets(editor)}
           </ToolbarGroup>
         </Toolbar>
         <Paper style={{overflowY: 'scroll', height: '90%', display: 'flex'}}>
-          {properties && Input(editor)}
+          {config.properties && Input(editor, config.documentProperties)}
           <Writer />
         </Paper>
       </div>
@@ -87,7 +91,7 @@ class tpl extends React.Component {
 
 tpl.propTypes = {
   editor: PropTypes.object,
-  properties: PropTypes.bool
+  config: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -99,7 +103,7 @@ const mergeProps = createSelector(
   state => state.editor,
   state => state.config,
   (editor, config) => ({
-    properties: config.properties,
+    config,
     editor: {
       ...editor,
       desc: editor.desc || '',

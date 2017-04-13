@@ -9,3 +9,6 @@ export const toArray = value => {
     return [];
   }
 };
+
+export const propertyStatus = (props, name) =>
+  props.filter(p => p.name === name).map(p => p.status)[0];

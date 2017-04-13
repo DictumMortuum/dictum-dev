@@ -10,12 +10,12 @@ export default (state=defaultState, action) => {
   case 'DOCS_FETCH':
     return {
       ...state,
-      types: [...new Set(action.docs.map(d => d.type))].sort()
+      types: [...new Set([].concat(...action.docs.map(d => d.type)))].sort()
     };
   case 'DOC_INSERT':
     return {
       ...state,
-      types: [...new Set([...state.types, action.doc.type])].sort()
+      types: [...new Set([].concat(...state.types, action.doc.type))].sort()
     };
   case 'TYPE_ADD':
     return {
