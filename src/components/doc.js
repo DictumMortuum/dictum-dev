@@ -7,7 +7,7 @@ import { Card, CardTitle } from 'material-ui/Card';
 import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
 import PropTypes from 'prop-types';
-import { toArray } from './common';
+import { toArray, propertyStatus } from './common';
 
 const style = {
   overflow: 'hidden',
@@ -15,16 +15,24 @@ const style = {
   fontSize: 14
 };
 
+const renderSubtitle = (doc, flag) => {
+  if (flag) {
+    return <div>{timeSince(new Date(doc.updated || doc._id))}<br />{doc.type}</div>;
+  } else {
+    return <div>{timeSince(new Date(doc.updated || doc._id))}</div>;
+  }
+};
+
 class tpl extends React.Component {
   render() {
-    let { doc } = this.props;
+    let { doc, type } = this.props;
 
     return (
       <Card onTouchTap={doc.onTouchTap}>
         <CardTitle
           titleStyle={style}
           title={doc.desc}
-          subtitle={<div>{timeSince(new Date(doc.updated || doc._id))}<br />{doc.type}</div>}
+          subtitle={renderSubtitle(doc, type)}
         />
       </Card>
     );
@@ -32,16 +40,22 @@ class tpl extends React.Component {
 }
 
 tpl.propTypes = {
-  doc: PropTypes.object
+  doc: PropTypes.object,
+  type: PropTypes.bool
 };
 
 export default connect(
-  (state, props) => ({ props }),
+  (state, props) => ({
+    props,
+    config: state.config
+  }),
   { edit: Doc.edit },
   createSelector(
     state => state.props,
+    state => state.config,
     (state, actions) => actions.edit,
-    (props, edit) => ({
+    (props, config, edit) => ({
+      type: propertyStatus(config.documentProperties, 'type'),
       doc: {
         ...props.doc,
         type: toArray(props.doc.type),
