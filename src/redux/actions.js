@@ -1,6 +1,5 @@
 'use strict';
 
-import db from './db';
 import { create } from './db';
 import timeout from 'reset-timeout';
 import Fuse from 'fuse.js';
@@ -43,12 +42,17 @@ export const Doc = {
   edit: doc => ({ type: 'DOC_EDIT', doc }),
   delete: doc => ({ type: 'DOC_DELETE', doc }),
   insert: doc => ({ type: 'DOC_INSERT', doc }),
-  bulk: (args={}) => db.allDocs(args).then(docs => ({ type: 'DOCS_FETCH', docs })),
   scroll: () => ({ type: 'DOC_LENGTH' }),
   new: _newDoc,
   commit: _commitDoc,
   remove: _removeDoc,
   search: _searchDoc
+};
+
+Doc.bulk = (args={}) => {
+  return (dispatch, state) => dispatch(
+    state().db.allDocs(args).then(docs => ({ type: 'DOCS_FETCH', docs }))
+  );
 };
 
 export const Date = {
@@ -67,7 +71,7 @@ function _newDoc() {
 
 function _commitDoc() {
   return (dispatch, state) => dispatch(
-    db.put(state().editor).then(d => Doc.insert(d))
+    state().db.put(state().editor).then(d => Doc.insert(d))
   ).then(
     action => dispatch(Doc.edit(action.doc))
   ).then(
@@ -76,7 +80,7 @@ function _commitDoc() {
 }
 
 function _removeDoc(doc) {
-  return db.remove(doc).then(() => Doc.delete(doc));
+  return (dispatch, state) => state().db.remove(doc).then(() => Doc.delete(doc));
   // TODO add info message here, but first must return dispatch
 }
 
@@ -98,12 +102,17 @@ function _searchDoc(term) {
 }
 
 export const Config = {
-  get: c => db.get(c).then(doc => ({ type: 'CONFIG', doc }))
-  .catch(() => ({ type: 'CONFIG_DEFAULT' })),
   drawer: () => ({ type: 'TOGGLE_DRAWER' }),
   editor: () => ({ type: 'TOGGLE_EDITOR' }),
   properties: () => ({ type: 'TOGGLE_PROPERTIES' }),
   editProperty: p => ({ type: 'EDIT_PROPERTY', property: p })
+};
+
+Config.get = c => {
+  return (dispatch, state) => dispatch(
+    state().db.get(c).then(doc => ({ type: 'CONFIG', doc }))
+    .catch(() => ({ type: 'CONFIG_DEFAULT' }))
+  );
 };
 
 export const Editor = {
@@ -118,7 +127,12 @@ export const Editor = {
 
 export function init() {
   return dispatch => dispatch(
-    Config.get('dictum_config')
+    Promise.resolve({
+      type: 'DB_INIT',
+      url: 'https://localhost:6984/work'
+    })
+  ).then(
+    () => dispatch(Config.get('dictum_config'))
   ).then(
     () => dispatch(Doc.bulk())
   ).then(
