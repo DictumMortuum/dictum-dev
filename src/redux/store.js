@@ -14,6 +14,7 @@ import info from './reducers/info';
 import filter from './reducers/filter';
 import search from './reducers/search';
 import type from './reducers/type';
+import toggle from './reducers/toggle';
 import db from './db';
 
 let createStoreWithMiddleware = applyMiddleware(thunk, promise, createLogger())(createStore);
@@ -28,5 +29,6 @@ export default createStoreWithMiddleware(combineReducers({
   filter,
   search,
   type,
-  db
+  db,
+  toggle
 }));

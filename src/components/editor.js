@@ -58,9 +58,9 @@ const style = {
   height: '100%'
 };
 
-class tpl extends React.Component {
+class Editor extends React.Component {
   render() {
-    let { config, editor } = this.props;
+    let { config, editor, toggle } = this.props;
     let title = editor.title || editor.desc || '';
 
     return (
@@ -81,7 +81,7 @@ class tpl extends React.Component {
           </ToolbarGroup>
         </Toolbar>
         <Paper style={{overflowY: 'scroll', height: '90%', display: 'flex'}}>
-          {config.properties && Input(editor, config.documentProperties)}
+          {toggle.properties && Input(editor, config.documentProperties)}
           <Writer />
         </Paper>
       </div>
@@ -89,21 +89,25 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Editor.propTypes = {
   editor: PropTypes.object,
-  config: PropTypes.object
+  config: PropTypes.object,
+  toggle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   config: state.config,
-  editor: state.editor
+  editor: state.editor,
+  toggle: state.toggle
 });
 
 const mergeProps = createSelector(
   state => state.editor,
   state => state.config,
-  (editor, config) => ({
+  state => state.toggle,
+  (editor, config, toggle) => ({
     config,
+    toggle,
     editor: {
       ...editor,
       desc: editor.desc || '',
@@ -115,4 +119,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, {}, mergeProps)(tpl);
+export default connect(mapStateToProps, {}, mergeProps)(Editor);

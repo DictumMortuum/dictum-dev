@@ -2,10 +2,7 @@
 
 const defaultState = {
   locale: 'el-gr',
-  drawer: false,
   jiraPrefix: 'https://jira.dev.global-intra.net:8443/',
-  editor: true,
-  properties: true,
   documentProperties: [{
     order: 1,
     name: 'title',
@@ -45,12 +42,6 @@ export default (state=defaultState, action) => {
     return action.doc;
   case 'CONFIG_DEFAULT':
     return defaultState;
-  case 'TOGGLE_DRAWER':
-    return {...state, drawer: !state.drawer };
-  case 'TOGGLE_EDITOR':
-    return {...state, editor: !state.editor };
-  case 'TOGGLE_PROPERTIES':
-    return {...state, properties: !state.properties };
   case 'EDIT_PROPERTY':
     console.log(action.property);
     return {

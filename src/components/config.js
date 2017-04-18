@@ -8,11 +8,11 @@ import Toggle from 'material-ui/Toggle';
 import { Config } from '../redux/actions';
 import { createSelector } from 'reselect';
 
-class tpl extends React.Component {
+class Conf extends React.Component {
   render() {
-    let { onToggle, config } = this.props;
+    let { onToggle, config, toggle } = this.props;
     return (
-      <Drawer open={config.drawer} openSecondary={true}>
+      <Drawer open={toggle.drawer} openSecondary={true}>
         <div style={{padding: 8}}>
           <h2>Editor</h2>
           {config.documentProperties.map(p => (
@@ -27,13 +27,15 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Conf.propTypes = {
   config: PropTypes.object,
+  toggle: PropTypes.object,
   onToggle: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  config: state.config
+  config: state.config,
+  toggle: state.toggle
 });
 
 const mapDispatchToProps = {
@@ -42,11 +44,13 @@ const mapDispatchToProps = {
 
 const mergeProps = createSelector(
   state => state.config,
+  state => state.toggle,
   (state, actions) => actions.edit,
-  (config, edit) => ({
+  (config, toggle, edit) => ({
     config,
+    toggle,
     onToggle: edit
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Conf);

@@ -14,7 +14,7 @@ const style = {
   flex: 10
 };
 
-class tpl extends React.Component {
+class Writer extends React.Component {
   render() {
     let { editor } = this.props;
 
@@ -30,14 +30,14 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Writer.propTypes = {
   writer: PropTypes.object,
   editor: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   editor: state.editor,
-  config: state.config
+  toggle: state.toggle
 });
 
 const mapDispatchToProps = {
@@ -49,14 +49,14 @@ export default connect(
   mapDispatchToProps,
   createSelector(
     state => state.editor,
-    state => state.config,
+    state => state.toggle,
     (state, actions) => actions.change,
-    (editor, config, change) => ({
-      editor: config.editor,
+    (editor, toggle, change) => ({
+      editor: toggle.editor,
       writer: {
         value: editor.desc || '',
         onChange: event => change('desc', event.target.value)
       }
     })
   )
-)(tpl);
+)(Writer);
