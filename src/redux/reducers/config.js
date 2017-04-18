@@ -43,13 +43,17 @@ export default (state=defaultState, action) => {
   case 'CONFIG_DEFAULT':
     return defaultState;
   case 'EDIT_PROPERTY':
-    console.log(action.property);
     return {
       ...state,
       documentProperties: [
         ...state.documentProperties.filter(d => d.name !== action.property.name),
         action.property
       ].sort((a, b) => a.order - b.order)
+    };
+  case 'EDIT_JIRA':
+    return {
+      ...state,
+      jiraPrefix: action.jira
     };
   default:
     return state;

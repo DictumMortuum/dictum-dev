@@ -105,7 +105,8 @@ export const Config = {
   drawer: () => ({ type: 'TOGGLE_DRAWER' }),
   editor: () => ({ type: 'TOGGLE_EDITOR' }),
   properties: () => ({ type: 'TOGGLE_PROPERTIES' }),
-  editProperty: p => ({ type: 'EDIT_PROPERTY', property: p })
+  editProperty: p => ({ type: 'EDIT_PROPERTY', property: p }),
+  editJira: j => ({ type: 'EDIT_JIRA', jira: j })
 };
 
 Config.get = c => {

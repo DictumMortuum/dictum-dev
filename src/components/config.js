@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import { Config } from '../redux/actions';
 import { createSelector } from 'reselect';
+import TextField from 'material-ui/TextField';
 import SaveConfig from './buttons/saveConfig';
 
 class Conf extends React.Component {
@@ -22,6 +23,7 @@ class Conf extends React.Component {
               onToggle({...p, status: isInputChecked});
             }} />
           ))}
+          <TextField {...this.props.jira} />
           <SaveConfig />
         </div>
       </Drawer>
@@ -32,7 +34,8 @@ class Conf extends React.Component {
 Conf.propTypes = {
   config: PropTypes.object,
   toggle: PropTypes.object,
-  onToggle: PropTypes.func
+  onToggle: PropTypes.func,
+  jira: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -41,17 +44,27 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  edit: Config.editProperty
+  edit: Config.editProperty,
+  editJira: Config.editJira
 };
 
 const mergeProps = createSelector(
   state => state.config,
   state => state.toggle,
   (state, actions) => actions.edit,
-  (config, toggle, edit) => ({
+  (state, actions) => actions.editJira,
+  (config, toggle, edit, editJira) => ({
     config,
     toggle,
-    onToggle: edit
+    onToggle: edit,
+    jira: {
+      hintText: 'Enter Jira prefix',
+      value: config.jiraPrefix,
+      onChange: (event, value) => {
+        console.log(value);
+        editJira(value);
+      }
+    }
   })
 );
 
