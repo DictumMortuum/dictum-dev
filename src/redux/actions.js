@@ -115,6 +115,13 @@ Config.get = c => {
   );
 };
 
+Config.save = () => {
+  return (dispatch, state) => {
+    state().db.put({...state().config, _id: 'dictum_config'});
+    dispatch(Info.send('The configuration has been saved.'));
+  };
+};
+
 export const Editor = {
   change: (attr, value) => {
     return (dispatch, state) => {

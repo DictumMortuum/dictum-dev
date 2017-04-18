@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import { Config } from '../redux/actions';
 import { createSelector } from 'reselect';
+import SaveConfig from './buttons/saveConfig';
 
 class Conf extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Conf extends React.Component {
               onToggle({...p, status: isInputChecked});
             }} />
           ))}
+          <SaveConfig />
         </div>
       </Drawer>
     );
