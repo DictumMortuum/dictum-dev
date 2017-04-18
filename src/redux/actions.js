@@ -150,7 +150,7 @@ export function init() {
   return dispatch => dispatch(
     Promise.resolve({
       type: 'DB_INIT',
-      url: 'https://localhost:6984/work'
+      url: 'https://dictummortuum.cloudant.com/hackernews'
     })
   ).then(
     () => dispatch(Config.get('dictum_config'))
