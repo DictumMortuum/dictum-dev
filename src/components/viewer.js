@@ -21,7 +21,7 @@ const style = {
   height: '100%'
 };
 
-class tpl extends React.Component {
+class Viewer extends React.Component {
   render() {
     let { docs, term, type, onScroll } = this.props;
 
@@ -44,7 +44,7 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Viewer.propTypes = {
   docs: PropTypes.array,
   term: PropTypes.string,
   type: PropTypes.bool,
@@ -117,4 +117,4 @@ const mergeProps = createSelector(
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Viewer);

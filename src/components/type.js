@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
-class tpl extends React.Component {
+class Types extends React.Component {
   render() {
     return (
       <SelectField {...this.props.select}>
@@ -20,7 +20,7 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Types.propTypes = {
   select: PropTypes.object,
   types: PropTypes.array
 };
@@ -55,4 +55,4 @@ export default connect(
       }
     })
   )
-)(tpl);
+)(Types);

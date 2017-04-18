@@ -5,7 +5,7 @@ import DatePicker from 'material-ui/DatePicker';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-class tpl extends React.Component {
+class Datepicker extends React.Component {
   render() {
     return (
       <DatePicker
@@ -42,4 +42,4 @@ export default connect(
       maxDate: date.maxDate
     })
   )
-)(tpl);
+)(Datepicker);

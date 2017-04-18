@@ -28,7 +28,7 @@ const style = {
   flexWrap: 'wrap'
 };
 
-class tpl extends React.Component {
+class App extends React.Component {
   componentDidMount() {
     store.dispatch(init());
   }
@@ -50,11 +50,11 @@ class tpl extends React.Component {
   }
 }
 
-tpl.childContextTypes = {
+App.childContextTypes = {
   muiTheme: PropTypes.object
 };
 
-tpl.propTypes = {
+App.propTypes = {
   config: PropTypes.object
 };
 
@@ -62,4 +62,4 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-export default connect(mapStateToProps)(tpl);
+export default connect(mapStateToProps)(App);

@@ -24,7 +24,7 @@ const renderSubtitle = (doc, flag) => {
   }
 };
 
-class tpl extends React.Component {
+class Document extends React.Component {
   render() {
     let { doc, type } = this.props;
 
@@ -40,7 +40,7 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Document.propTypes = {
   doc: PropTypes.object,
   type: PropTypes.bool
 };
@@ -66,4 +66,4 @@ export default connect(
       }
     })
   )
-)(tpl);
+)(Document);
