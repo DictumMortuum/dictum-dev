@@ -24,6 +24,7 @@ class Conf extends React.Component {
             }} />
           ))}
           <TextField {...this.props.jira} />
+          <TextField {...this.props.property} />
           <SaveConfig />
         </div>
       </Drawer>
@@ -35,7 +36,8 @@ Conf.propTypes = {
   config: PropTypes.object,
   toggle: PropTypes.object,
   onToggle: PropTypes.func,
-  jira: PropTypes.object
+  jira: PropTypes.object,
+  property: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -45,7 +47,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   edit: Config.editProperty,
-  editJira: Config.editJira
+  editJira: Config.editJira,
+  insert: Config.insert
 };
 
 const mergeProps = createSelector(
@@ -53,7 +56,8 @@ const mergeProps = createSelector(
   state => state.toggle,
   (state, actions) => actions.edit,
   (state, actions) => actions.editJira,
-  (config, toggle, edit, editJira) => ({
+  (state, actions) => actions.insert,
+  (config, toggle, edit, editJira, insert) => ({
     config,
     toggle,
     onToggle: edit,
@@ -61,8 +65,14 @@ const mergeProps = createSelector(
       hintText: 'Enter Jira prefix',
       value: config.jiraPrefix,
       onChange: (event, value) => {
-        console.log(value);
         editJira(value);
+      }
+    },
+    property: {
+      hintText: 'Add a document property',
+      value: toggle.temp,
+      onChange: (event, value) => {
+        insert(value);
       }
     }
   })

@@ -106,7 +106,8 @@ export const Config = {
   editor: () => ({ type: 'TOGGLE_EDITOR' }),
   properties: () => ({ type: 'TOGGLE_PROPERTIES' }),
   editProperty: p => ({ type: 'EDIT_PROPERTY', property: p }),
-  editJira: j => ({ type: 'EDIT_JIRA', jira: j })
+  editJira: j => ({ type: 'EDIT_JIRA', jira: j }),
+  temp: t => ({ type: 'CONFIG_TEMP', temp: t })
 };
 
 Config.get = c => {
@@ -120,6 +121,18 @@ Config.save = () => {
   return (dispatch, state) => {
     state().db.put({...state().config, _id: 'dictum_config'});
     dispatch(Info.send('The configuration has been saved.'));
+  };
+};
+
+Config.insert = value => {
+  return dispatch => {
+    dispatch(Config.temp(value));
+    document.onkeypress = timeout(() => dispatch(Config.editProperty({
+      order: 100,
+      name: value,
+      hint: value + '(s)',
+      status: true
+    })));
   };
 };
 

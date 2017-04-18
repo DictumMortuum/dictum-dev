@@ -3,7 +3,8 @@
 const defaultState = {
   drawer: false,
   editor: true,
-  properties: true
+  properties: true,
+  temp: ''
 };
 
 export default (state=defaultState, action) => {
@@ -14,6 +15,8 @@ export default (state=defaultState, action) => {
     return {...state, editor: !state.editor };
   case 'TOGGLE_PROPERTIES':
     return {...state, properties: !state.properties };
+  case 'CONFIG_TEMP':
+    return {...state, temp: action.temp};
   default:
     return state;
   }
