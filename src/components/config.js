@@ -7,12 +7,14 @@ import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import { Config } from '../redux/actions';
 import { createSelector } from 'reselect';
+import TextField from 'material-ui/TextField';
+import SaveConfig from './buttons/saveConfig';
 
-class tpl extends React.Component {
+class Conf extends React.Component {
   render() {
-    let { onToggle, config } = this.props;
+    let { onToggle, config, toggle } = this.props;
     return (
-      <Drawer open={config.drawer} openSecondary={true}>
+      <Drawer open={toggle.drawer} openSecondary={true}>
         <div style={{padding: 8}}>
           <h2>Editor</h2>
           {config.documentProperties.map(p => (
@@ -21,32 +23,59 @@ class tpl extends React.Component {
               onToggle({...p, status: isInputChecked});
             }} />
           ))}
+          <TextField {...this.props.jira} />
+          <TextField {...this.props.property} />
+          <SaveConfig />
         </div>
       </Drawer>
     );
   }
 }
 
-tpl.propTypes = {
+Conf.propTypes = {
   config: PropTypes.object,
-  onToggle: PropTypes.func
+  toggle: PropTypes.object,
+  onToggle: PropTypes.func,
+  jira: PropTypes.object,
+  property: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  config: state.config
+  config: state.config,
+  toggle: state.toggle
 });
 
 const mapDispatchToProps = {
-  edit: Config.editProperty
+  edit: Config.editProperty,
+  editJira: Config.editJira,
+  insert: Config.insert
 };
 
 const mergeProps = createSelector(
   state => state.config,
+  state => state.toggle,
   (state, actions) => actions.edit,
-  (config, edit) => ({
+  (state, actions) => actions.editJira,
+  (state, actions) => actions.insert,
+  (config, toggle, edit, editJira, insert) => ({
     config,
-    onToggle: edit
+    toggle,
+    onToggle: edit,
+    jira: {
+      hintText: 'Enter Jira prefix',
+      value: config.jiraPrefix,
+      onChange: (event, value) => {
+        editJira(value);
+      }
+    },
+    property: {
+      hintText: 'Add a document property',
+      value: toggle.temp,
+      onChange: (event, value) => {
+        insert(value);
+      }
+    }
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Conf);

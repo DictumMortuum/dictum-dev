@@ -10,7 +10,7 @@ import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
 import PropTypes from 'prop-types';
 
-class tpl extends React.Component {
+class Bar extends React.Component {
   render() {
     let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
 
@@ -31,7 +31,7 @@ class tpl extends React.Component {
   }
 }
 
-tpl.propTypes = {
+Bar.propTypes = {
   date: PropTypes.object,
   handleFrom: PropTypes.func,
   handleTo: PropTypes.func,
@@ -74,4 +74,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(tpl);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Bar);
