@@ -19,7 +19,7 @@ const Input = (editor, properties) => (
   <div style={{flex: 2, padding: 16}}>
     <h2>Created on: {editor.date}</h2>
     {properties.filter(p => p.status === true).map(p => (
-      <Text id={p.name} hint={p.hint} value={editor[p.name]} />
+      <Text id={p.name} key={p.name} hint={p.hint} value={editor[p.name]} />
     ))}
   </div>
 );
