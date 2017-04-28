@@ -1,7 +1,7 @@
 'use strict';
 
 const defaultState = {
-  locale: 'en',
+  locale: 'el-gr',
   jiraPrefix: 'https://jira.dev.global-intra.net:8443/',
   documentProperties: [{
     order: 1,
