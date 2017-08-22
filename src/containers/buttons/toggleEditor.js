@@ -1,19 +1,14 @@
 'use strict';
 
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import Settings from 'material-ui/svg-icons/action/settings';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { Config } from '../../redux/actions';
+import { ToggleEditor } from '../../components/buttons';
 
 class tpl extends React.Component {
   render() {
-    return (
-      <IconButton {...this.props}>
-        <Settings />
-      </IconButton>
-    );
+    return <ToggleEditor {...this.props} />;
   }
 }
 
@@ -22,14 +17,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  properties: () => Config.properties()
+  toggle: () => Config.editor()
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
   createSelector(
-    (state, actions) => actions.properties,
+    (state, actions) => actions.toggle,
     toggle => ({
       onTouchTap: toggle
     })

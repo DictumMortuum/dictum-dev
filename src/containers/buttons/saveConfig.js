@@ -4,17 +4,11 @@ import React from 'react';
 import { Config } from '../../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const style = {
-  marginTop: 10
-};
+import { SaveConfig } from '../../components/buttons';
 
 class tpl extends React.Component {
   render() {
-    return (
-      <RaisedButton style={style} {...this.props} />
-    );
+    return <SaveConfig {...this.props} />;
   }
 }
 
