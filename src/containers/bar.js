@@ -1,43 +1,17 @@
 'use strict';
 
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import { Doc, Config } from '../redux/actions';
-import Datepicker from './datepicker';
-import { flexParent } from '../styles';
 import { createSelector } from 'reselect';
 import { startOfDay, endOfDay } from 'date-utils';
-import PropTypes from 'prop-types';
+import { Bar } from '../components/bar';
 
-class Bar extends React.Component {
+class BarContainer extends React.Component {
   render() {
-    let { date, title, handleFrom, handleTo, toggleDrawer } = this.props;
-
-    return (
-      <AppBar
-        title={title}
-        zDepth={1}
-        style={{margin: 3}}
-        iconElementRight={
-          <div style={flexParent}>
-            <Datepicker id='from' date={date.from} callback={handleFrom} />
-            <Datepicker id='to' date={date.to} callback={handleTo} />
-          </div>
-        }
-        onLeftIconButtonTouchTap={toggleDrawer}
-      />
-    );
+    return <Bar {...this.props} />;
   }
 }
-
-Bar.propTypes = {
-  date: PropTypes.object,
-  handleFrom: PropTypes.func,
-  handleTo: PropTypes.func,
-  toggleDrawer: PropTypes.func,
-  title: PropTypes.string
-};
 
 const mapStateToProps = state => ({
   date: state.date,
@@ -74,4 +48,4 @@ const mergeProps = createSelector(
   })
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Bar);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(BarContainer);
