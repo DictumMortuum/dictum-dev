@@ -30,6 +30,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "coreui.io-react": "^1.0.0-alpha.6",
     "css-loader": "^0.28.0",
     "date-utils": "git+https://github.com/DictumMortuum/date-utils.git",
     "eslint": "^3.19.0",

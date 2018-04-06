@@ -1,13 +1,9 @@
 'use strict';
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { Card, CardTitle } from 'material-ui/Card';
-import { Doc } from '../redux/actions';
 import { timeSince } from 'date-utils';
 import PropTypes from 'prop-types';
-import { toArray, propertyStatus } from './common';
 import { lastUpdate } from '../redux/db';
 
 const style = {
@@ -24,7 +20,7 @@ const renderSubtitle = (doc, flag) => {
   }
 };
 
-class Document extends React.Component {
+export class Document extends React.Component {
   render() {
     let { doc, type } = this.props;
 
@@ -44,26 +40,3 @@ Document.propTypes = {
   doc: PropTypes.object,
   type: PropTypes.bool
 };
-
-export default connect(
-  (state, props) => ({
-    props,
-    config: state.config
-  }),
-  { edit: Doc.edit },
-  createSelector(
-    state => state.props,
-    state => state.config,
-    (state, actions) => actions.edit,
-    (props, config, edit) => ({
-      type: propertyStatus(config.documentProperties, 'type'),
-      doc: {
-        ...props.doc,
-        type: toArray(props.doc.type),
-        title: propertyStatus(config.documentProperties, 'title') && props.doc.title
-        || props.doc.desc || '',
-        onTouchTap: () => edit(props.doc)
-      }
-    })
-  )
-)(Document);

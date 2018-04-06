@@ -14,6 +14,7 @@ import Config from './config';
 import { palette } from '../styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import 'coreui.io-react/React_Full_Project/scss/style.scss';
 
 injectTapEventPlugin();
 

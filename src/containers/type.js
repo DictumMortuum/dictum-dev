@@ -1,29 +1,16 @@
 'use strict';
 
 import React from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import { Type } from '../redux/actions';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import PropTypes from 'prop-types';
+import { Types } from '../components/type';
 
-class Types extends React.Component {
+class TypesContainer extends React.Component {
   render() {
-    return (
-      <SelectField {...this.props.select}>
-        {this.props.types.map((t, i) => (
-          <MenuItem key={i} value={t} primaryText={t} />
-        ))}
-      </SelectField>
-    );
+    return <Types {...this.props} />;
   }
 }
-
-Types.propTypes = {
-  select: PropTypes.object,
-  types: PropTypes.array
-};
 
 const selectionRenderer = (values) => {
   switch (values.length) {
@@ -55,4 +42,4 @@ export default connect(
       }
     })
   )
-)(Types);
+)(TypesContainer);

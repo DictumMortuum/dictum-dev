@@ -4,36 +4,13 @@ import React from 'react';
 import { Editor } from '../redux/actions';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
-import TextArea from 'react-textarea-autosize';
-import PropTypes from 'prop-types';
+import { Writer } from '../components/writer';
 
-const style = {
-  padding: 16,
-  border: 0,
-  flex: 10
-};
-
-class Writer extends React.Component {
+class WriterContainer extends React.Component {
   render() {
-    let { editor } = this.props;
-
-    if (editor) {
-      return (<TextArea {...this.props.writer} style={{overflow: 'hidden', ...style}} />);
-    } else {
-      return (
-        <div style={style}>
-          <ReactMarkdown source={this.props.writer.value} />
-        </div>
-      );
-    }
+    return <Writer {...this.props} />;
   }
 }
-
-Writer.propTypes = {
-  writer: PropTypes.object,
-  editor: PropTypes.bool
-};
 
 const mapStateToProps = state => ({
   editor: state.editor,
@@ -59,4 +36,4 @@ export default connect(
       }
     })
   )
-)(Writer);
+)(WriterContainer);

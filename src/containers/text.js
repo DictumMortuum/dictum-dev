@@ -1,16 +1,16 @@
 'use strict';
 
 import React from 'react';
-import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import { Doc, Editor } from '../redux/actions';
 import { textStyle } from '../styles';
 import { createSelector } from 'reselect';
 import { toArray } from './common';
+import { Textfield } from '../components/text';
 
-class tpl extends React.Component {
+class TextContainer extends React.Component {
   render() {
-    return (<TextField {...this.props} />);
+    return <Textfield {...this.props} />;
   }
 }
 
@@ -38,7 +38,7 @@ export const Text = connect(
       }
     })
   )
-)(tpl);
+)(TextContainer);
 
 export const SearchText = connect(
   (state, props) => ({
@@ -62,4 +62,4 @@ export const SearchText = connect(
       onChange: (event, value) => action(value)
     })
   )
-)(tpl);
+)(TextContainer);

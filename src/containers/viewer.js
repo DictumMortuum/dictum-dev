@@ -1,55 +1,17 @@
 'use strict';
 
 import React from 'react';
-import Doc from './doc';
-import Paper from 'material-ui/Paper';
-import Type from './type';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import { SearchText } from './text';
-import NewDoc from './buttons/newDoc';
 import { Doc as Actions } from '../redux/actions';
-import PropTypes from 'prop-types';
 import { propertyStatus } from './common';
+import { Viewer } from '../components/viewer';
 
-const style = {
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  flex: 4,
-  margin: 3,
-  height: '100%'
-};
-
-class Viewer extends React.Component {
+class ViewerContainer extends React.Component {
   render() {
-    let { docs, term, type, onScroll } = this.props;
-
-    return (
-      <div style={style}>
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <NewDoc />
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <SearchText hint='Search...' value={term} />
-            {type && <Type />}
-          </ToolbarGroup>
-        </Toolbar>
-        <Paper onScroll={onScroll} style={{overflowY: 'scroll', height: '90%'}}>
-          {docs.map(d => (<Doc key={d._id} doc={d} />))}
-        </Paper>
-      </div>
-    );
+    return <Viewer {...this.props} />;
   }
 }
-
-Viewer.propTypes = {
-  docs: PropTypes.array,
-  term: PropTypes.string,
-  type: PropTypes.bool,
-  onScroll: PropTypes.func
-};
 
 const mapStateToProps = state => ({
   docs: state.docs,
@@ -117,4 +79,4 @@ const mergeProps = createSelector(
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Viewer);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ViewerContainer);
